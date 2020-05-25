@@ -13,24 +13,23 @@ public class UserService {
     @Autowired
     private UserMapper userDao;
 
-    public Response register(String nickname, String phone, String code) {
+    public Response register(String nickname, String phone, String code, String password) {
         /*
         // 暂用手机号当uid
         User existUser = userDao.findUserByUid(generateUid(phone));
         if (existUser != null) {
             // 如果用户已存在
-            return new UserResponse.register(-1, -1, "");
+            return new UserResponse.register(-1, -1, "User already existed!");
 
         } else {
             User user = new User();
             user.setUid(generateUid(phone));
+            user.setPhone(Integer.valueOf(phone));
             user.setNickname(nickname);
-            user.setPassword("");
+            user.setPassword(password);
             user.setVIP(false);
             user.setRegtime(System.currentTimeMillis());
             userDao.register(user);
-            // TODO: 是不是该多加点request信息，在这儿直接注册所有用户信息 --- userDao.register(user)
-            // 或者进入SetPassword页面;
             return new UserResponse.register(0, user.getUid(), generateNewToken(user.getUid()));
         }
         */
@@ -46,5 +45,22 @@ public class UserService {
     public int generateUid(String phone) {
         // TODO: 优化
         return Integer.valueOf(phone);
+    }
+
+    public Response login(String urn, String password) {
+        /*
+        User existUser = userDao.findUserByPhone(Integer.valueOf(urn));
+        if (existUser != null) {
+            // 如果用户不存在
+            return new UserResponse.register(-1, -1, "No such user!");
+        } else {
+            if (password.equals(existUser.getPassword()))
+                return new UserResponse.register(0, existUser.getUid(),
+                        generateNewToken(existUser.getUid()));
+            else return new UserResponse.register(-1, -1, "Wrong password!");
+        }
+        */
+
+        return new UserResponse.register(-1, -1, "No such user!");
     }
 }

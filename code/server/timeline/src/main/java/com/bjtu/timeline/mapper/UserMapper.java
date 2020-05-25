@@ -12,6 +12,9 @@ public interface UserMapper {
     @Select("select * from user where uid=#{uid}")
     User findUserByUid(int uid);
 
-    @Insert("insert into user values(#{uid},#{nickname},#{password},#{isVIP},#{regtime})")
+    @Select("select * from user where phone=#{phone}")
+    User findUserByPhone(int phone);
+
+    @Insert("insert into user values(#{uid},#{phone},#{nickname},#{password},#{isVIP},#{regtime})")
     void register(User user);
 }

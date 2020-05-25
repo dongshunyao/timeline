@@ -19,4 +19,5 @@ public class UserResponse {
             this.token = token;
         }
     }
+
 }
