@@ -50,6 +50,9 @@ request:
 nickname|昵称|2-18半角长度
 phone|手机号|.
 code|短信验证码|.
+password|密码哈希|.
+
+注：哈希就不哈希了。
 
 response:
 键值|名称|描述
