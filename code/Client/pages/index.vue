@@ -16,9 +16,8 @@
                         <el-input v-model="login_module.user_pwd"></el-input>
                     </el-form-item>
                 </el-form>
-                <div style="">
+                <div style="text-align: center">
                     <el-button type="primary">登录</el-button>
-                    <el-button type="danger">忘记密码</el-button>
                 </div>
             </el-tab-pane>
             <el-tab-pane label="用户注册">
@@ -39,6 +38,9 @@
                         <el-input v-model="register_module.user_confirm_pwd"></el-input>
                     </el-form-item>
                 </el-form>
+                <div style="text-align: center">
+                    <el-button type="primary">登录</el-button>
+                </div>
             </el-tab-pane>
         </el-tabs>
     </div>
@@ -75,7 +77,11 @@
 
         },
 
-        methods: {},
+        methods: {
+            userLogin() {
+                
+            }
+        },
 
     }
 </script>
