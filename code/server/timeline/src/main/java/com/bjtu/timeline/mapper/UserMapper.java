@@ -1,6 +1,6 @@
 package com.bjtu.timeline.mapper;
 
-import com.bjtu.timeline.bean.User;
+import com.bjtu.timeline.bean.middle.User;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;

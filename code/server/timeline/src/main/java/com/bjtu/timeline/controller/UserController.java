@@ -1,10 +1,11 @@
 package com.bjtu.timeline.controller;
 
-import com.bjtu.common.Response;
-import com.bjtu.timeline.response.UserResponse;
+import com.bjtu.timeline.bean.require.UserRequires;
+import com.bjtu.timeline.bean.response.UserResponses;
 import com.bjtu.timeline.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/user")
@@ -13,23 +14,18 @@ public class UserController {
     private UserService userService;
 
     @RequestMapping("/reg")
-    public Response register(
-            @RequestParam(value = "nickname", defaultValue = "") String nickname,
-            @RequestParam(value = "phone", defaultValue = "") String phone,
-            @RequestParam(value = "code", defaultValue = "") String code,
-            @RequestParam(value = "password", defaultValue = "") String password
-    ) {
-        return userService.register(nickname, phone, code, password);
+    public UserResponses.RegResponse reg(UserRequires.RegRequire req) {
+        return userService.register(req.getNickname(), req.getPhone(), req.getCode(), req.getPassword());
     }
 
     @RequestMapping("/login")
-    public Response register(
-            @RequestParam(value = "type", defaultValue = "") String type,
-            @RequestParam(value = "urn", defaultValue = "") String urn,
-            @RequestParam(value = "pwd", defaultValue = "") String pwd
-    ) {
-        if (type.equals("phone") || true)
-            return userService.login(urn, pwd);
-        else return new UserResponse.register(-1, -1, "");
+    public UserResponses.LoginResponse login(UserRequires.LoginRequire req) {
+        if (req.getType().equals("phone") || true)
+            return userService.login(req.getUrn(), req.getPw());
+        else
+            return new UserResponses.LoginResponse(-1, -1, "");
     }
+
+
+
 }

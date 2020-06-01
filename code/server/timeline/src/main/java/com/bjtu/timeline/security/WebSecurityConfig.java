@@ -12,6 +12,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        /*
         http
                 .authorizeRequests()
                 .antMatchers("/", "/nologin", "/user/*").permitAll()
@@ -25,6 +26,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll()
                 .and()
                 .csrf().disable();
+
+         */
+        http
+                .authorizeRequests()
+                .anyRequest().permitAll()
+                .and()
+                .csrf().disable();
+        // 关了关了关了关了关了爱谁用谁用
     }
 
     @Autowired

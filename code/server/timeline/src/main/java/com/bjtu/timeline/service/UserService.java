@@ -1,10 +1,8 @@
 package com.bjtu.timeline.service;
 
-import com.bjtu.common.Response;
 import com.bjtu.common.StringUtil;
-import com.bjtu.timeline.bean.User;
+import com.bjtu.timeline.bean.response.UserResponses;
 import com.bjtu.timeline.mapper.UserMapper;
-import com.bjtu.timeline.response.UserResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,7 +11,7 @@ public class UserService {
     @Autowired
     private UserMapper userDao;
 
-    public Response register(String nickname, String phone, String code, String password) {
+    public UserResponses.RegResponse register(String nickname, String phone, String code, String password) {
         /*
         // 暂用手机号当uid
         User existUser = userDao.findUserByUid(generateUid(phone));
@@ -33,7 +31,7 @@ public class UserService {
             return new UserResponse.register(0, user.getUid(), generateNewToken(user.getUid()));
         }
         */
-        return new UserResponse.register(-1, -1, "");
+        return new UserResponses.RegResponse(-1, -1, "");
     }
 
     public String generateNewToken(int uid) {
@@ -47,7 +45,7 @@ public class UserService {
         return Integer.valueOf(phone);
     }
 
-    public Response login(String urn, String password) {
+    public UserResponses.LoginResponse login(String urn, String password) {
         /*
         User existUser = userDao.findUserByPhone(Integer.valueOf(urn));
         if (existUser != null) {
@@ -61,6 +59,6 @@ public class UserService {
         }
         */
 
-        return new UserResponse.register(-1, -1, "No such user!");
+        return new UserResponses.LoginResponse(-1, -1, "No such user!");
     }
 }
