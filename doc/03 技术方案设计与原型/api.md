@@ -340,7 +340,7 @@ response:
 键值|名称|描述
 -|-|-
 state [number]|返回码|0为正常，-1为失败
-url|url|url
+picname|图片名|上传后产生的文件名，附加在记录提交部分即可
 
 ---
 ## 4./search|联合搜索
