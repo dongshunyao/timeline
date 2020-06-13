@@ -20,12 +20,11 @@ public class UserController {
 
     @RequestMapping("/login")
     public UserResponses.LoginResponse login(UserRequires.LoginRequire req) {
-        if (req.getType().equals("phone") || true)
-            return userService.login(req.getUrn(), req.getPw());
-        else
-            return new UserResponses.LoginResponse(-1, -1, "");
+        if ("phone".equals(req.getType())){
+            return userService.loginWithPhone(req.getUrn(), req.getPw());
+        }
+
+        return new UserResponses.LoginResponse(-1, -1, "");
     }
-
-
 
 }
