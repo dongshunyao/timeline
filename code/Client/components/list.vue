@@ -1,6 +1,7 @@
 <template>
     <div>
         <el-card>
+
             <el-tabs v-model="activeName">
                 <el-tab-pane label="任务列表" name="first">
                     <time-line :all-list="taskList"></time-line>
@@ -9,7 +10,6 @@
                     <time-line :all-list="recordList"></time-line>
                 </el-tab-pane>
             </el-tabs>
-
         </el-card>
     </div>
 </template>

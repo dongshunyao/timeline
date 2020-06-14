@@ -21,7 +21,7 @@
                 </div>
             </el-tab-pane>
             <el-tab-pane label="用户注册">
-                <el-form :model="register_module" label-width="80px" label-position="left">
+                <el-form :model="register_module" label-width="100px" label-position="left">
                     <el-form-item label="用户名">
                         <el-input v-model="register_module.user_name" style="width: 200px"></el-input>
                     </el-form-item>
@@ -113,7 +113,7 @@
     }
 
     .card {
-        width: 20rem;
+        width: 25rem;
         min-height: 15rem;
         margin: 10% auto;
         border-radius: 10px;
