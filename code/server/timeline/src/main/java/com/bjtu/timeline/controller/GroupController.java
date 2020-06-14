@@ -54,4 +54,18 @@ public class GroupController {
         return groupService.applyJoinGroup(req.getUid(), req.getId());
     }
 
+    @RequestMapping("/manage")
+    public ManageResponse manage(ManageRequire req) {
+        if (!userService.checkUser(req)) {
+            return new ManageResponse(STATE_COMMON_FAIL);
+        }
+        if("add".equals(req.getOp())){
+            return groupService.agreeJoin(req.getUid(),req.getId(),req.getOpuid());
+        }else if("del".equals(req.getOp())){
+            return groupService.disagreeOrKick(req.getUid(),req.getId(),req.getOpuid());
+        }else{
+            return new ManageResponse(-2);// arg err
+        }
+    }
+
 }

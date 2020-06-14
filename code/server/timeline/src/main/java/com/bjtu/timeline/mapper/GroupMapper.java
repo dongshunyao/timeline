@@ -36,7 +36,7 @@ public interface GroupMapper {
 
     @Insert("insert into group_member " +
             "VALUES (#{gid},#{uid})")
-    void addIntoGroup(int gid, int uid);
+    void addIntoGroup(int uid, int gid);
 
     @Delete("delete from group_info " +
             "where muid = #{uid} and gid = #{gid}")
@@ -58,8 +58,20 @@ public interface GroupMapper {
             "where gid = #{gid} and uid = #{uid}")
     int checkMember(int uid, int gid);
 
+    @Select("select count(*) from group_info " +
+            "where gid = #{gid} and muid = #{uid}")
+    int checkManager(int uid, int gid);
+
     @Insert("insert ignore into group_apply(uid, gid) " +
             "values (#{uid}, #{gid})")
     int doApply(int uid, int gid);
+
+    @Delete("delete from group_apply " +
+            "where gid = #{gid} and uid = #{uid}")
+    int removeApply(int uid, int gid);
+
+    @Delete("delete from group_member " +
+            "where gid = #{gid} and uid = #{uid}")
+    int removeMember(int uid, int gid);
 
 }

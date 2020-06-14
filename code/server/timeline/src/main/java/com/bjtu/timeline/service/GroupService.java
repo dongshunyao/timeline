@@ -24,7 +24,7 @@ public class GroupService {
 
     public MakeResponse makeGroup(int uid, String name) {
         int gid = groupDao.makeGroup(uid, name);
-        groupDao.addIntoGroup(gid, uid);
+        groupDao.addIntoGroup(uid, gid);
         return new MakeResponse(STATE_COMMON_OK);
     }
 
@@ -55,6 +55,45 @@ public class GroupService {
         }
 
         return new JoinResponse(STATE_COMMON_OK);
+    }
+
+    public ManageResponse agreeJoin(int managerUid, int gid, int targetUid) {
+        //manager?
+        if (groupDao.checkManager(managerUid, gid) == 0) {
+            return new ManageResponse(-10);//不是管理员
+        }
+
+        //has apply?
+        if (groupDao.removeApply(targetUid, gid) == 0) {
+            return new ManageResponse(-11);//没有这个申请
+        }
+
+        groupDao.addIntoGroup(targetUid, gid);
+        return new ManageResponse(STATE_COMMON_OK);
+    }
+
+    public ManageResponse disagreeOrKick(int managerUid, int gid, int targetUid) {
+        //manager?
+        if (groupDao.checkManager(managerUid, gid) == 0) {
+            return new ManageResponse(-10);//不是管理员
+        }
+
+        //sb?
+        if (managerUid == targetUid) {
+            return new ManageResponse(-250);//不能踢出自己
+        }
+
+        //has apply?
+        if (groupDao.removeApply(targetUid, gid) == 1) {
+            return new ManageResponse(STATE_COMMON_OK);
+        }
+
+        //has member?
+        if (groupDao.removeMember(targetUid, gid) == 1) {
+            return new ManageResponse(STATE_COMMON_OK);
+        }
+
+        return new ManageResponse(STATE_COMMON_FAIL);
     }
 
 }
