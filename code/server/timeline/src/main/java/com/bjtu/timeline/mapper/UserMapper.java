@@ -1,6 +1,7 @@
 package com.bjtu.timeline.mapper;
 
 import com.bjtu.timeline.bean.middle.User;
+import com.bjtu.timeline.bean.proto.DBuser_info;
 import com.bjtu.timeline.bean.proto.DBuser_reg;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
@@ -33,4 +34,6 @@ public interface UserMapper {
             "VALUES (#{phone},#{pw})")
     void regByPhone(String phone,String pw);
 
+    @Select("select * from user_info where uid=#{uid}")
+    DBuser_info getUserInfoByUid(int uid);
 }

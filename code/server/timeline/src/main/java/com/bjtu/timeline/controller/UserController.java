@@ -1,6 +1,8 @@
 package com.bjtu.timeline.controller;
 
+import com.bjtu.timeline.bean.require.UserRequires;
 import com.bjtu.timeline.bean.require.UserRequires.*;
+import com.bjtu.timeline.bean.response.UserResponses;
 import com.bjtu.timeline.bean.response.UserResponses.*;
 import com.bjtu.timeline.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +21,7 @@ public class UserController {
 
     @RequestMapping("/login")
     public LoginResponse login(LoginRequire req) {
-        if ("phone".equals(req.getType())){
+        if ("phone".equals(req.getType())) {
             return userService.loginWithPhone(req.getUrn(), req.getPw());
         }
 
@@ -28,7 +30,7 @@ public class UserController {
 
     @RequestMapping("/logout")
     public LogoutResponse login(LogoutRequire req) {
-        if (!userService.checkUser(req)){
+        if (!userService.checkUser(req)) {
             return new LogoutResponse(STATE_COMMON_FAIL);
         }
 
@@ -47,13 +49,11 @@ public class UserController {
         return new PhoneResponse(STATE_COMMON_FAIL);
     }
 
-    @RequestMapping("/logout")
-    public UserResponses.LogoutResponse login(UserRequires.LogoutRequire req) {
-        return userService.logout(req.getUid(), req.getToken());
-    }
-
     @RequestMapping("/info")
-    public UserResponses.InfoResponse login(UserRequires.InfoRequire req) {
+    public InfoResponse info(InfoRequire req) {
+        if (!userService.checkUser(req)) {
+            return new InfoResponse(STATE_COMMON_FAIL, "", -1, -1);
+        }
         return userService.getUserInfo(req.getUid(), req.getToken());
     }
 

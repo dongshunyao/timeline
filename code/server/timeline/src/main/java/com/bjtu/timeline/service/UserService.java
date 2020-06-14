@@ -1,8 +1,11 @@
 package com.bjtu.timeline.service;
 
 import com.bjtu.common.StringUtil;
+import com.bjtu.timeline.bean.proto.DBuser_info;
+import com.bjtu.timeline.bean.proto.DBuser_login;
 import com.bjtu.timeline.bean.proto.DBuser_reg;
 import com.bjtu.timeline.bean.require.UserRequires;
+import com.bjtu.timeline.bean.response.UserResponses;
 import com.bjtu.timeline.bean.response.UserResponses.*;
 import com.bjtu.timeline.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,11 +26,11 @@ public class UserService {
 
         //TODO: code check
 
-        if(userDao.getUserByPhone(phone) != null){
+        if (userDao.getUserByPhone(phone) != null) {
             return new RegResponse(STATE_COMMON_FAIL, -1, "");
         }
 
-        userDao.regByPhone(phone,password);
+        userDao.regByPhone(phone, password);
         LoginResponse loginInfo = loginWithPhone(phone, password);
 
         //TODO: modify nickName, record regTime
@@ -43,27 +46,32 @@ public class UserService {
 
     public LoginResponse loginWithPhone(String urn, String password) {
 
-        DBuser_reg selectedUser = userDao.getUserByPhoneAndPassword(urn,password);
+        DBuser_reg selectedUser = userDao.getUserByPhoneAndPassword(urn, password);
 
         //无用户或密码错误
         //理论上这俩必须表现同一返回值（原因可以百度），实际上这样也血妈好写
         if (selectedUser == null) {
-            return new LoginResponse(STATE_COMMON_FAIL,-1,"");
+            return new LoginResponse(STATE_COMMON_FAIL, -1, "");
         } else {
             String token = generateNewToken();
-            userDao.updateToken(selectedUser.getUid(),token);
-            return new LoginResponse(STATE_COMMON_OK,selectedUser.getUid(),token);
+            userDao.updateToken(selectedUser.getUid(), token);
+            return new LoginResponse(STATE_COMMON_OK, selectedUser.getUid(), token);
         }
 
     }
 
-    public boolean checkUser(UserRequires.Authentication userInfo){
-        if("".equals(userInfo.getToken()))return false;
-        return userDao.checkToken(userInfo.getUid(),userInfo.getToken());
+    public boolean checkUser(UserRequires.Authentication userInfo) {
+        if ("".equals(userInfo.getToken())) return false;
+        return userDao.checkToken(userInfo.getUid(), userInfo.getToken());
     }
 
-    public void logoutWithUid(int uid){
-        userDao.updateToken(uid,"");
+    public void logoutWithUid(int uid) {
+        userDao.updateToken(uid, "");
     }
 
+    public InfoResponse getUserInfo(int uid, String token) {
+        DBuser_info targetUser = userDao.getUserInfoByUid(uid);
+        return new UserResponses.InfoResponse(STATE_COMMON_OK, targetUser.getNickname(),
+                targetUser.getIsVIP(), targetUser.getReftime());
+    }
 }
