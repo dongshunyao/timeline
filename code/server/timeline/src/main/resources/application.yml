@@ -4,5 +4,8 @@ spring:
     username: timeline
     password: 123
     driver-class-name: com.mysql.cj.jdbc.Driver
-    # schema:
-      # - classpath: user.sql
+#      schema:
+#          - classpath: user.sql
+
+server:
+  port: 8080
