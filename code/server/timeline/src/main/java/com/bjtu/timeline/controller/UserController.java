@@ -28,4 +28,14 @@ public class UserController {
         return new UserResponses.LoginResponse(-1, -1, "");
     }
 
+    @RequestMapping("/logout")
+    public UserResponses.LogoutResponse login(UserRequires.LogoutRequire req) {
+        return userService.logout(req.getUid(), req.getToken());
+    }
+
+    @RequestMapping("/info")
+    public UserResponses.InfoResponse login(UserRequires.InfoRequire req) {
+        return userService.getUserInfo(req.getUid(), req.getToken());
+    }
+
 }

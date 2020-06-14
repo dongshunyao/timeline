@@ -1,7 +1,10 @@
 package com.bjtu.timeline.mapper;
 
 import com.bjtu.timeline.bean.middle.User;
+import com.bjtu.timeline.bean.proto.DBuser_info;
+import com.bjtu.timeline.bean.proto.DBuser_login;
 import com.bjtu.timeline.bean.proto.DBuser_reg;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
@@ -30,4 +33,11 @@ public interface UserMapper {
             "ON DUPLICATE KEY UPDATE token = #{token}")
     void updateToken(int uid, String token);
 
+    @Select("select * from user_login where uid=#{uid} and token=#{token}")
+    DBuser_login getOnlineUserByUidAndToken(int uid, String token);
+    @Delete("delete from user_login where uid=#{uid} and token=#{token}")
+    void deleteOnlineUserByUidAndToken(int uid, String token);
+
+    @Select("select * from user_info where uid=#{uid}")
+    DBuser_info getUserInfoByUid(int uid);
 }
