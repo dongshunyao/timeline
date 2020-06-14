@@ -77,13 +77,11 @@ public class GroupController {
     }
 
     @RequestMapping("/upd")
-    public UpdResponse upd(UpdRequire req){
+    public UpdResponse upd(UpdRequire req) {
         if (!userService.checkUser(req)) {
             return new UpdResponse(STATE_COMMON_FAIL);
         }
-        return groupService.updateInfo(req.getUid(),req.getId(),req.getName());
+        return groupService.updateInfo(req.getUid(), req.getId(), req.getName());
     }
-
-
 
 }
