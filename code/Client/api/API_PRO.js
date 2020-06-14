@@ -8,6 +8,10 @@ export default {
     // 接口
     userLogin: {url: '/user/login'},
     register: {url: '/user/reg'},
+    userInfo: {url: '/user/info'},
+    updateUserInfo: {url: '/user/infoupd'},
+
+
     allTask: {url: '/task/list'},
     allRecord: {url: '/rcd/list'},
 
