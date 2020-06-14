@@ -49,7 +49,7 @@ public class TaskRequires {
         long begin;
         long end;
         String detail;
-        String repeat;
+        int type;
         int groupid;
     }
 
