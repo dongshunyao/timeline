@@ -1,7 +1,8 @@
 <template>
     <div class="backgroud">
-        <div style="width: 82%">
-            <h2 style="margin-left: 50px">TimeLine时间线应用</h2>
+        <div style="width: 82%;">
+            <img src="../static/weblogo.png" style="width: 60px;float: left;margin-left: 30px">
+            <h2 style="margin-left: 20px;float: left;margin-top: 15px">TimeLine时间线应用</h2>
         </div>
         <el-menu :default-active="activeIndex"
                  class="el-menu-demo"
