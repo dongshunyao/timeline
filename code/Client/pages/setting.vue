@@ -1,0 +1,88 @@
+<template>
+    <div>
+        <my-title />
+        <div style="margin: 20px auto; width: 50%;">
+            <el-card>
+                <div style="text-align: center; margin: 10px;">
+                    <span style="font-size: 2rem;">
+                        个人设置
+                    </span>
+                </div>
+                <el-form label-width="100px" label-position="left">
+                    <el-form-item label="昵称">
+                        <el-input v-model="userName" clearable></el-input>
+                    </el-form-item>
+                    <el-form-item label="注册时间">
+                        <el-input v-model="registerTime" disabled></el-input>
+                    </el-form-item>
+                    <el-form-item label="密码修改">
+                        <el-input v-model="password" type="password" clearable></el-input>
+                    </el-form-item>
+                </el-form>
+                <div style="text-align: center;">
+                    <el-button @click="updateUserInfo" type="primary" size="medium">确认更新</el-button>
+                    <el-button @click="getUserInfo" size="medium">重置</el-button>
+                </div>
+            </el-card>
+        </div>
+        <my-footer />
+    </div>
+</template>
+
+<script>
+    import API from "../api";
+    import MyTitle from "../components/myTitle";
+    import MyFooter from "../components/myFooter";
+    export default {
+        name: "setting",
+        components: {MyFooter, MyTitle},
+        data() {
+            return {
+                userName: 'TEST',
+                registerTime: 'TEST',
+                password: 'TEST'
+            }
+        },
+        mounted() {
+            this.getUserInfo()
+        },
+        methods: {
+            getUserInfo: function () {
+                let data = {
+                    uid: Cookies.get("userid"),
+                    token: Cookies.get("token")
+                }
+                API.userInfo(data)
+                    .then(res => {
+                        // TODO 重新获取user信息
+                        /*
+                        this.userName = ;
+                        this.registerTime = ;
+                        this.password = ;
+                        */
+                    })
+                    .catch(res => {
+
+                    })
+            },
+            updateUserInfo: function () {
+                let data = {
+                    uid: Cookies.get("userid"),
+                    token: Cookies.get("token"),
+                    nickname: this.userName
+                }
+                API.updateUserInfo(data)
+                    .then(res => {
+                        // TODO 显示成功信息
+                    })
+                    .catch(res => {
+
+                    })
+            }
+        }
+    }
+</script>
+
+<style scoped>
+
+</style>
