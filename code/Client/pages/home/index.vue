@@ -2,7 +2,7 @@
     <div>
         <my-title style="width: 100%"/>
         <div class="bodyDiv">
-            
+            <list></list>
         </div>
         <my-footer style="bottom: 0"/>
     </div>
@@ -11,9 +11,10 @@
 <script>
     import MyTitle from "../../components/myTitle";
     import MyFooter from "../../components/myFooter";
+    import List from "./list";
     export default {
         name: "firstPage",
-        components: {MyFooter, MyTitle}
+        components: {List, MyFooter, MyTitle}
     }
 </script>
 

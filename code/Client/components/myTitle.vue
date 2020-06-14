@@ -21,12 +21,16 @@
 </template>
 
 <script>
+    import API from "../api";
+    import Pro from '../api/API_PRO';
+    import Cookies from 'js-cookie';
     export default {
         name: "myTitle",
         data(){
             return{
                 activeIndex:'1',
-                name:'叔和',
+                name:Cookies.get('name'),
+                token:Cookies.get('token'),
             }
         },
 
@@ -34,6 +38,8 @@
             toMyOrg(){
                 this.$router.push({path: `/homePage`});
             }
+
+
         }
     }
 </script>
