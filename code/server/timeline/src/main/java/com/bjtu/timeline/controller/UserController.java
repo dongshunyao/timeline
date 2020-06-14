@@ -7,8 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import static com.bjtu.timeline.bean.response.CommonRespenses.STATE_COMMON_FAIL;
-import static com.bjtu.timeline.bean.response.CommonRespenses.STATE_COMMON_OK;
+import static com.bjtu.timeline.bean.response.CommonResponses.STATE_COMMON_FAIL;
+import static com.bjtu.timeline.bean.response.CommonResponses.STATE_COMMON_OK;
 
 @RestController
 @RequestMapping("/user")

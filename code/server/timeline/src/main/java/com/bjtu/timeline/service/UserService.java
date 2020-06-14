@@ -1,6 +1,5 @@
 package com.bjtu.timeline.service;
 
-import com.bjtu.common.StringUtil;
 import com.bjtu.timeline.bean.proto.DBuser_reg;
 import com.bjtu.timeline.bean.require.UserRequires;
 import com.bjtu.timeline.bean.response.UserResponses.*;
@@ -8,10 +7,9 @@ import com.bjtu.timeline.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import static com.bjtu.common.NumberUtil.getUnixTimestamp;
 import static com.bjtu.common.StringUtil.*;
-import static com.bjtu.timeline.bean.response.CommonRespenses.STATE_COMMON_FAIL;
-import static com.bjtu.timeline.bean.response.CommonRespenses.STATE_COMMON_OK;
+import static com.bjtu.timeline.bean.response.CommonResponses.STATE_COMMON_FAIL;
+import static com.bjtu.timeline.bean.response.CommonResponses.STATE_COMMON_OK;
 
 @Service
 public class UserService {
