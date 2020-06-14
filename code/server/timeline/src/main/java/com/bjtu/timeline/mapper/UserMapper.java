@@ -30,4 +30,7 @@ public interface UserMapper {
             "ON DUPLICATE KEY UPDATE token = #{token}")
     void updateToken(int uid, String token);
 
+    @Select("select count(*) != 0 from user_login where uid = #{uid} and token = #{token}")
+    boolean checkToken(int uid, String token);
+
 }

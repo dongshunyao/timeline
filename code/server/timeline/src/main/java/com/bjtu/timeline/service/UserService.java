@@ -2,6 +2,7 @@ package com.bjtu.timeline.service;
 
 import com.bjtu.common.StringUtil;
 import com.bjtu.timeline.bean.proto.DBuser_reg;
+import com.bjtu.timeline.bean.require.UserRequires;
 import com.bjtu.timeline.bean.response.UserResponses.*;
 import com.bjtu.timeline.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -74,4 +75,14 @@ public class UserService {
         */
 
     }
+
+    public boolean checkUser(UserRequires.Authentication userInfo){
+        if("".equals(userInfo.getToken()))return false;
+        return userDao.checkToken(userInfo.getUid(),userInfo.getToken());
+    }
+
+    public void logoutWithUid(int uid){
+        userDao.updateToken(uid,"");
+    }
+
 }

@@ -14,11 +14,6 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping("/reg")
-    public RegResponse reg(RegRequire req) {
-        return userService.register(req.getNickname(), req.getPhone(), req.getCode(), req.getPassword());
-    }
-
     @RequestMapping("/login")
     public LoginResponse login(LoginRequire req) {
         if ("phone".equals(req.getType())){
@@ -26,6 +21,27 @@ public class UserController {
         }
 
         return new LoginResponse(-1, -1, "");
+    }
+
+    @RequestMapping("/logout")
+    public LogoutResponse login(LogoutRequire req) {
+        if (!userService.checkUser(req)){
+            return new LogoutResponse(-1);
+        }
+
+        userService.logoutWithUid(req.getUid());
+        return new LogoutResponse(0);
+    }
+
+    @RequestMapping("/reg")
+    public RegResponse reg(RegRequire req) {
+        return userService.register(req.getNickname(), req.getPhone(), req.getCode(), req.getPassword());
+    }
+
+    @RequestMapping("/phone")
+    public PhoneResponse phone(PhoneRequire req) {
+        //TODO: fill
+        return new PhoneResponse(-1);
     }
 
 }
