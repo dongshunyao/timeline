@@ -148,7 +148,7 @@
             closeAddEvent: function () {
                 this.isAddEvent = false
             },
-            deleteTask: function () {
+            deleteTask: function (taskID) {
                 //TODO 删除任务
             },
             handleClose(done) {
