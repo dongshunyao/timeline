@@ -24,7 +24,7 @@ public class TaskResponses {
             long begin;
             long end;
             String detail;
-            String repeat;
+            int type;
         }
     }
 
@@ -38,7 +38,7 @@ public class TaskResponses {
         long begin;
         long end;
         String detail;
-        String repeat;
+        int type;
         int group;
     }
 

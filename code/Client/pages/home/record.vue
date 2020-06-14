@@ -5,13 +5,13 @@
             <div style="width: 40%;float: left;margin: 10px 5%;">
                 <el-card>
                     <div>
-                        <span style="margin-right: 10px;">任务</span>
-                        <el-button @click="showAddEvent" size="small" type="primary">添加任务</el-button>
+                        <span style="margin-right: 10px;">记录</span>
+                        <el-button @click="showAddRecord" size="small" type="primary">添加记录</el-button>
                         <el-input size="small" placeholder="搜索" style="width: 40%;float: right"/>
                         <el-dialog
-                                title="添加任务"
+                                title="添加记录"
                                 center
-                                :visible.sync="isAddEvent"
+                                :visible.sync="isAddRecord"
                                 :before-close="handleClose"
                         >
                             <div style="text-align: center">
@@ -39,22 +39,22 @@
                                 </el-form>
                             </div>
                             <div slot="footer">
-                                <el-button @click="addEvent" type="primary" size="medium">确认添加</el-button>
-                                <el-button @click="closeAddEvent" size="medium">取消</el-button>
+                                <el-button @click="addRecord" type="primary" size="medium">确认添加</el-button>
+                                <el-button @click="closeAddRecord" size="medium">取消</el-button>
                             </div>
                         </el-dialog>
                     </div>
-                    <div v-for="item in eventList" :key="item.id">
-                        <div style="margin: 10px;" @click="updateEventContent(item.id)" class="eventItem">
+                    <div v-for="item in recordList" :key="item.id">
+                        <div style="margin: 10px;" @click="updateRecordContent(item.id)" class="">
                             <span>
-                                {{item.eventTitle}}
+                                {{item.recordTitle}}
                             </span>
                             <p style="font-size: 0.8rem; color: #B4BCCC;margin-top: 5px;">
-                                {{item.eventTime}}
+                                {{item.recordTime}}
                             </p>
                             <el-button type="danger" size="mini" @click="deleteTask(item.id)"
                                        style="float: right; height: 20px; padding: 3px; z-index: 10">
-                                删除任务
+                                删除记录
                             </el-button>
                             <el-divider/>
                         </div>
@@ -64,7 +64,7 @@
             <div style="width: 40%;float: left;margin: 10px 5%;">
                 <el-card>
                     <div>
-                        <span>任务</span>
+                        <span>记录</span>
                         <i @click="editContent" class="el-icon-edit" style="float: right;"></i>
                     </div>
                     <div style="margin: 5%; text-align: center">
@@ -86,54 +86,53 @@
                 </el-card>
             </div>
         </div>
-        <my-footer/>
+        <my-footer />
     </div>
 </template>
 
 <script>
     import MyTitle from "../../components/myTitle";
     import MyFooter from "../../components/myFooter";
-
     export default {
-        name: "event",
+        name: "record",
         components: {MyFooter, MyTitle},
         data() {
             return {
-                eventList: [
-                    {id: 1, eventTitle: 'title', eventTime: '13点26分'},
-                    {id: 2, eventTitle: 'title-2', eventTime: '13点16分'},
-                    {id: 3, eventTitle: 'title-3', eventTime: '13点16分'},
-                    {id: 4, eventTitle: 'title-4', eventTime: '13点16分'},
-                    {id: 5, eventTitle: 'title-5', eventTime: '13点16分'},
-                    {id: 6, eventTitle: 'title-6', eventTime: '13点16分'},
-                    {id: 7, eventTitle: 'title-7', eventTime: '13点16分'},
+                recordList: [
+                    {id: 1, recordTitle: 'title', recordTime: '13点26分'},
+                    {id: 2, recordTitle: 'title-2', recordTime: '13点16分'},
+                    {id: 3, recordTitle: 'title-3', recordTime: '13点16分'},
+                    {id: 4, recordTitle: 'title-4', recordTime: '13点16分'},
+                    {id: 5, recordTitle: 'title-5', recordTime: '13点16分'},
+                    {id: 6, recordTitle: 'title-6', recordTime: '13点16分'},
+                    {id: 7, recordTitle: 'title-7', recordTime: '13点16分'},
                 ],
-                isAddEvent: false,
+                isAddRecord: false,
                 timeRange: '',
                 repeat: 'no',
                 content: 'content',
-                editEventContent: '',
+                editRecordContent: '',
                 isEditContent: false
             }
         },
         mounted() {
-            this.getUserEvent()
+            this.getUserRecord()
         },
         methods: {
-            getUserEvent: function () {
-                // TODO 获取用户任务列表
+            getUserRecord: function () {
+                // TODO 获取用户记录列表
             },
-            showAddEvent: function () {
-                // TODO 显示添加任务窗口
-                this.isAddEvent = !this.isAddEvent
+            showAddRecord: function () {
+                // TODO 显示添加记录窗口
+                this.isAddRecord = !this.isAddRecord
             },
-            addEvent: function () {
-                //TODO 添加任务
-                this.isAddEvent = !this.isAddEvent
+            addRecord: function () {
+                //TODO 添加记录
+                this.isAddRecord = !this.isAddRecord
             },
-            updateEventContent: function (eventID) {
-                //TODO 获取点击任务内容
-                this.content = this.eventList[eventID - 1].eventTitle
+            updateRecordContent: function (recordID) {
+                //TODO 获取点击记录内容
+                this.content = this.recordList[recordID - 1].recordTitle
             },
             editContent: function () {
                 this.isEditContent = !this.isEditContent
@@ -145,11 +144,11 @@
             closeEditContent: function () {
                 this.isEditContent = false
             },
-            closeAddEvent: function () {
-                this.isAddEvent = false
+            closeAddRecord: function () {
+                this.isAddRecord = false
             },
             deleteTask: function (taskID) {
-                //TODO 删除任务
+                //TODO 删除记录
             },
             handleClose(done) {
                 this.$confirm('确认取消？')
@@ -169,15 +168,5 @@
         background-color: #efefef;
         width: 100%;
         /*min-height: 100%;*/
-    }
-
-    .eventItem {
-        text-align: center;
-    }
-
-    .eventItem:hover {
-        background-color: #efefef;
-        transition: ease-in-out;
-        transition-duration: 0.4s;
     }
 </style>

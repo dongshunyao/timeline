@@ -17,25 +17,22 @@
                     </el-form-item>
                 </el-form>
                 <div style="text-align: center">
-                    <el-button type="primary" @click="userLogin">登录</el-button>
+                    <el-button type="primary" @click="submitForm">登录</el-button>
                 </div>
             </el-tab-pane>
             <el-tab-pane label="用户注册">
-                <el-form>
+                <el-form :model="register_module" label-width="100px" label-position="left">
                     <el-form-item label="用户名">
-                        <el-input v-model="register_module.user_name"></el-input>
-                    </el-form-item>
-                    <el-form-item label="邮箱">
-                        <el-input v-model="register_module.user_email"></el-input>
+                        <el-input v-model="register_module.user_name" style="width: 200px"></el-input>
                     </el-form-item>
                     <el-form-item label="手机号">
-                        <el-input v-model="register_module.user_phone"></el-input>
+                        <el-input v-model="register_module.user_phone" style="width: 200px"></el-input>
                     </el-form-item>
                     <el-form-item label="密码">
-                        <el-input v-model="register_module.user_pwd"></el-input>
+                        <el-input v-model="register_module.user_pwd" style="width: 200px"></el-input>
                     </el-form-item>
                     <el-form-item label="二次确认密码">
-                        <el-input v-model="register_module.user_confirm_pwd"></el-input>
+                        <el-input v-model="register_module.user_confirm_pwd" style="width: 200px"></el-input>
                     </el-form-item>
                 </el-form>
                 <div style="text-align: center">
@@ -59,14 +56,13 @@
                 },
                 register_module: {
                     user_name: '',
-                    user_email: '',
                     user_phone: '',
                     user_pwd: '',
                     user_confirm_pwd: ''
                 },
                 loginRule: {
                     user_name: [
-                        {required: true, message: '请输入用户名', trigger: 'blur'}
+                        {required: true, message: '请输入手机号', trigger: 'blur'}
                     ],
                     user_pwd: [
                         {required: true, message: '请输入密码', trigger: 'blur'}
@@ -80,9 +76,9 @@
         },
 
         methods: {
-            userLogin() {
+            submitForm() {
                 let data = {
-                    type: '',
+                    type: 'phone',
                     urn: this.login_module.user_name,
                     pw: this.login_module.user_pwd
                 };
@@ -95,6 +91,9 @@
                             Cookies.set("uid",data.uid);
                             localStorage.setItem("uid", data.uid);
                             localStorage.setItem("token", data.token)
+                            this.$router.push({path: '/home'})
+                            Cookies.setItem("uid", data.uid)
+                            Cookies.setItem("token", data.token)
                         } else {
                             this.$alert('密码或用户名错误', '登录失败', {
                                 confirmButtonText: '确认',
@@ -132,7 +131,7 @@
     }
 
     .card {
-        width: 20rem;
+        width: 25rem;
         min-height: 15rem;
         margin: 10% auto;
         border-radius: 10px;

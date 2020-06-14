@@ -6,10 +6,9 @@
         <el-menu :default-active="activeIndex"
                  class="el-menu-demo"
                  mode="horizontal"
-                 @select="handleSelect"
                  style="float: right">
-            <el-menu-item index="1">首页</el-menu-item>
-            <el-menu-item index="2">我的组织</el-menu-item>
+            <el-menu-item index="1" @click="toHomePage">首页</el-menu-item>
+            <el-menu-item index="2" @click="toMyOrg">我的组织</el-menu-item>
             <el-submenu index="3">
                 <template slot="title">{{this.name}}</template>
                 <el-menu-item index="3-1">数据统计</el-menu-item>
@@ -39,11 +38,12 @@
         },
 
         methods:{
+            toHomePage(){
+                this.$router.push({path: `/home`});
+            },
             toMyOrg(){
-                this.$router.push({path: `/homePage`});
-            }
-
-
+                this.$router.push({path: `/home`});
+            },
         }
     }
 </script>

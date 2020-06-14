@@ -15,5 +15,5 @@ public class DBtask {
     long begin;
     long end;
     String detail;
-    int repeat;
+    int type;
 }

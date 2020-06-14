@@ -2,10 +2,10 @@
     <div class="timeLine">
         <div class="block">
             <el-timeline>
-                <el-timeline-item v-for="item in AllList" :color="'#abcdef'" :key="item.time" :timestamp="item.time" placement="top">
+                <el-timeline-item v-for="item in AllList" :color="'#abcdef'" :key="item.begin" :timestamp="item.begin" placement="top">
                     <el-card style="width: 500px">
                         <h4>{{item.title}}</h4>
-                        <p>{{item.content}}</p>
+                        <p>{{item.detail}}</p>
                     </el-card>
                 </el-timeline-item>
             </el-timeline>

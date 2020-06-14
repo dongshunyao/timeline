@@ -23,7 +23,7 @@
     import MyTitle from "../../components/myTitle";
     import MyFooter from "../../components/myFooter";
     import CalendarMonth from "../../components/CalendarMonth";
-    import List from "../home/list";
+    import List from "../../components/list";
     export default {
         name: "index",
         components: {List, CalendarMonth, MyFooter, MyTitle, TimeLine},

@@ -148,7 +148,7 @@ title|标题|任务标题
 begin|起始时间|unix时间戳
 end|终止时间|unix时间戳
 detail|描述|任务描述
-repeat|重复|事件重复形式[daily,weekly,monthly]
+type|重复|事件重复形式[daily,weekly,monthly]
 
 ---
 ## 2.2 /task/view|查看单个任务
@@ -171,7 +171,7 @@ title|标题|任务标题
 begin|起始时间|unix时间戳
 end|终止时间|unix时间戳
 detail|描述|任务描述
-repeat|重复|事件重复形式[daily,weekly,monthly]
+type|重复|事件重复形式[daily,weekly,monthly]
 group [number]|是否组织任务|0否1是
 
 ---
@@ -182,6 +182,7 @@ request:
 uid [number]|用户id|系统内唯一标志符
 token|验证串|和uid一起做身份验证
 tid|任务id|.
+detail|任务描述|
 ...
 
 response:
@@ -203,8 +204,8 @@ title|标题|任务标题
 begin|起始时间|unix时间戳
 end|终止时间|unix时间戳
 detail|描述|任务描述
-repeat|重复|事件重复形式[daily,weekly,monthly]
-groupid|组id|指定一个组，为其添加任务
+type|重复|事件重复形式[daily,weekly,monthly]
+groupid|组id|指定一个组，为其添加任务（-1不属于组）
 
 response:
 键值|名称|描述
@@ -366,7 +367,7 @@ listrcd [array]|记录结果|.
 ---
 ---
 ## 5.1 /group/list|组列表
-    
+
 request:
 键值|名称|描述
 -|-|-
