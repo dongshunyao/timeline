@@ -19,8 +19,24 @@ public class GroupController {
 
     @Autowired
     private GroupService groupService;
+    @Autowired
     private UserService userService;
 
+    @RequestMapping("/list")
+    public ListResponse list(ListRequire req) {
+        if (!userService.checkUser(req)) {
+            return new ListResponse(STATE_COMMON_FAIL, null, null);
+        }
+        return groupService.getGroupList(req.getUid());
+    }
+
+    @RequestMapping("/make")
+    public MakeResponse make(MakeRequire req) {
+        if (!userService.checkUser(req)) {
+            return new MakeResponse(STATE_COMMON_FAIL);
+        }
+        return groupService.makeGroup(req.getUid(), req.getName());
+    }
 
 
 }
