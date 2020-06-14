@@ -46,5 +46,12 @@ public class GroupController {
         return groupService.deleteGroup(req.getUid(), req.getId());
     }
 
+    @RequestMapping("/join")
+    public JoinResponse join(JoinRequire req) {
+        if (!userService.checkUser(req)) {
+            return new JoinResponse(STATE_COMMON_FAIL);
+        }
+        return groupService.applyJoinGroup(req.getUid(), req.getId());
+    }
 
 }

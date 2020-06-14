@@ -31,11 +31,30 @@ public class GroupService {
     public DelResponse deleteGroup(int uid, int gid) {
         int effectCnt = groupDao.deleteGroup(uid, gid);
         if (effectCnt == 0) {
-            return new DelResponse(-10);
+            return new DelResponse(-10);//没有这个属于你的这个组
         }
         groupDao.cleanMember(gid);
         groupDao.cleanApplication(gid);
         return new DelResponse(STATE_COMMON_OK);
+    }
+
+    public JoinResponse applyJoinGroup(int uid, int gid) {
+        //exist?
+        if (groupDao.checkGroup(gid) == 0) {
+            return new JoinResponse(-10);//没有这个组
+        }
+
+        //already member?
+        if (groupDao.checkMember(uid, gid) != 0) {
+            return new JoinResponse(-11);//已经在这个组
+        }
+
+        //already apply? & do apply
+        if (groupDao.doApply(uid, gid) == 0) {
+            return new JoinResponse(-12);//已经申请
+        }
+
+        return new JoinResponse(STATE_COMMON_OK);
     }
 
 }
