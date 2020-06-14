@@ -1,20 +1,15 @@
 package com.bjtu.timeline.service;
 
-import com.bjtu.common.StringUtil;
-import com.bjtu.timeline.bean.proto.DBuser_info;
-import com.bjtu.timeline.bean.proto.DBuser_login;
 import com.bjtu.timeline.bean.proto.DBuser_reg;
 import com.bjtu.timeline.bean.require.UserRequires;
-import com.bjtu.timeline.bean.response.UserResponses;
 import com.bjtu.timeline.bean.response.UserResponses.*;
 import com.bjtu.timeline.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import static com.bjtu.common.NumberUtil.getUnixTimestamp;
 import static com.bjtu.common.StringUtil.*;
-import static com.bjtu.timeline.bean.response.CommonRespenses.STATE_COMMON_FAIL;
-import static com.bjtu.timeline.bean.response.CommonRespenses.STATE_COMMON_OK;
+import static com.bjtu.timeline.bean.response.CommonResponses.STATE_COMMON_FAIL;
+import static com.bjtu.timeline.bean.response.CommonResponses.STATE_COMMON_OK;
 
 @Service
 public class UserService {
@@ -69,14 +64,4 @@ public class UserService {
         userDao.updateToken(uid, "");
     }
 
-    public InfoResponse getUserInfo(int uid) {
-        DBuser_info targetUser = userDao.getUserInfoByUid(uid);
-        return new InfoResponse(STATE_COMMON_OK, targetUser.getNickname(),
-                targetUser.getIsVIP(), targetUser.getReftime());
-    }
-
-    public InfoupdResponse updateUserInfo(int uid, String nickname) {
-        userDao.updateUserInfoByUid(uid, nickname);
-        return new InfoupdResponse(STATE_COMMON_OK);
-    }
 }

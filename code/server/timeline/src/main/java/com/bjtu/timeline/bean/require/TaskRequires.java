@@ -4,31 +4,22 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
+import com.bjtu.timeline.bean.require.UserRequires.Authentication;
 
 public class TaskRequires {
-    public static interface Authentication {
-        int getUid();
-        String getToken();
-    }
 
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class TaskAddRequire implements Authentication{
+    public static class ListRequire implements Authentication {
         @NonNull int uid;
         @NonNull String token;
-        @NonNull String title;
-        @NonNull long begin;
-        @NonNull long end;
-        @NonNull String detail;
-        @NonNull String repeat;
-        @NonNull int groupid;
     }
 
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class TaskDelRequire implements Authentication{
+    public static class ViewRequire implements Authentication {
         @NonNull int uid;
         @NonNull String token;
         @NonNull int tid;
@@ -37,27 +28,38 @@ public class TaskRequires {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class TaskUpdRequire implements Authentication{
+    public static class UpdRequire implements Authentication {
         @NonNull int uid;
         @NonNull String token;
         @NonNull int tid;
-        @NonNull String detail;
+        String title;
+        long begin;
+        long end;
+        String detail;
+        String repeat;
     }
 
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class TaskViewRequire implements Authentication{
+    public static class AddRequire implements Authentication {
         @NonNull int uid;
         @NonNull String token;
-        @NonNull int tid;
+        String title;
+        long begin;
+        long end;
+        String detail;
+        String repeat;
+        int groupid;
     }
 
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class TaskListRequire implements Authentication{
+    public static class DelRequire implements Authentication {
         @NonNull int uid;
         @NonNull String token;
+        @NonNull int tid;
     }
+
 }
