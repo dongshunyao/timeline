@@ -25,7 +25,7 @@ public class TaskController {
     }
 
     @RequestMapping("/del")
-    public DelResponse add(DelRequire req) {
+    public DelResponse del(DelRequire req) {
         if (!taskService.checkUser(req)) {
             return new DelResponse(STATE_COMMON_FAIL);
         }
@@ -33,7 +33,7 @@ public class TaskController {
     }
 
     @RequestMapping("/upd")
-    public UpdResponse add(UpdRequire req) {
+    public UpdResponse upd(UpdRequire req) {
         if (!taskService.checkUser(req)) {
             return new UpdResponse(STATE_COMMON_FAIL);
         }
@@ -41,11 +41,19 @@ public class TaskController {
     }
 
     @RequestMapping("/view")
-    public ViewResponse add(ViewRequire req) {
+    public ViewResponse view(ViewRequire req) {
         if (!taskService.checkUser(req)) {
             return new ViewResponse(STATE_COMMON_FAIL, -1, "", -1, -1, "",
                     -1, -1);
         }
         return taskService.viewTask(req.getTid());
+    }
+
+    @RequestMapping("/list")
+    public ListResponse list(ListRequire req) {
+        if (!taskService.checkUser(req)) {
+            return new ListResponse(STATE_COMMON_FAIL, null);
+        }
+        return taskService.viewTaskList(req.getUid());
     }
 }

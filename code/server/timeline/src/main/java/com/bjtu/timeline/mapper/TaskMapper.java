@@ -2,9 +2,12 @@ package com.bjtu.timeline.mapper;
 
 import com.bjtu.timeline.bean.proto.DBtask;
 import com.bjtu.timeline.bean.require.TaskRequires;
+import com.bjtu.timeline.bean.response.TaskResponses;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 @Mapper
 @Component
@@ -26,4 +29,8 @@ public interface TaskMapper {
 
     @Select("select * from task where tid=#{tid}")
     DBtask getTaskByTid(int tid);
+
+    @Select("select * from task where uid=#{uid}")
+    List<TaskResponses.ListResponse.listElm> getTaskListByUid(int uid);
+    // List<DBtask> getTaskListByUid(int uid);
 }

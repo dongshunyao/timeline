@@ -9,6 +9,8 @@ import com.bjtu.timeline.mapper.TaskMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 import static com.bjtu.timeline.bean.response.CommonResponses.STATE_COMMON_FAIL;
 import static com.bjtu.timeline.bean.response.CommonResponses.STATE_COMMON_OK;
 
@@ -51,5 +53,12 @@ public class TaskService {
         return new ViewResponse(STATE_COMMON_OK, selectedTask.getTid(), selectedTask.getTitle(),
                 selectedTask.getBegin(), selectedTask.getEnd(), selectedTask.getDetail(),
                 selectedTask.getType(), isGroup);
+    }
+
+    // 查看task列表
+    public ListResponse viewTaskList(int uid) {
+        // List<DBtask> taskList = taskDao.getTaskListByUid(uid);
+        List<ListResponse.listElm> taskList = taskDao.getTaskListByUid(uid);
+        return new ListResponse(STATE_COMMON_OK, taskList);
     }
 }
