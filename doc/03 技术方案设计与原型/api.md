@@ -144,6 +144,7 @@ list [array]|列表体|.
 键值|名称|描述
 -|-|-
 tid|任务id|.
+gid|组id|组id
 title|标题|任务标题
 begin|起始时间|unix时间戳
 end|终止时间|unix时间戳
