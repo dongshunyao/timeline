@@ -122,4 +122,14 @@ public class GroupService {
 
     }
 
+    public UpdResponse updateInfo(int uid, int gid, String name){
+        //manager?
+        if (groupDao.checkManager(uid, gid) == 0) {
+            return new UpdResponse(-10);//不是管理员/不存在群
+        }
+
+        groupDao.updateName(gid, name);
+        return new UpdResponse(STATE_COMMON_OK);
+    }
+
 }

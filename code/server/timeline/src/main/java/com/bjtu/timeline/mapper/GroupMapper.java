@@ -96,4 +96,9 @@ public interface GroupMapper {
             ")")
     List<InfoResponse.elmUser> getApplyList(int gid);
 
+    @Update("update group_info " +
+            "set gname = #{name} " +
+            "where gid = #{gid}")
+    void updateName(int gid, String name);
+
 }

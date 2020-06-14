@@ -59,21 +59,31 @@ public class GroupController {
         if (!userService.checkUser(req)) {
             return new ManageResponse(STATE_COMMON_FAIL);
         }
-        if("add".equals(req.getOp())){
-            return groupService.agreeJoin(req.getUid(),req.getId(),req.getOpuid());
-        }else if("del".equals(req.getOp())){
-            return groupService.disagreeOrKick(req.getUid(),req.getId(),req.getOpuid());
-        }else{
+        if ("add".equals(req.getOp())) {
+            return groupService.agreeJoin(req.getUid(), req.getId(), req.getOpuid());
+        } else if ("del".equals(req.getOp())) {
+            return groupService.disagreeOrKick(req.getUid(), req.getId(), req.getOpuid());
+        } else {
             return new ManageResponse(-2);// arg err
         }
     }
 
     @RequestMapping("/info")
-    public InfoResponse info(InfoRequire req){
+    public InfoResponse info(InfoRequire req) {
         if (!userService.checkUser(req)) {
-            return new InfoResponse(STATE_COMMON_FAIL,"",null,null,null);
+            return new InfoResponse(STATE_COMMON_FAIL, "", null, null, null);
         }
-        return groupService.getInfo(req.getUid(),req.getId());
+        return groupService.getInfo(req.getUid(), req.getId());
     }
+
+    @RequestMapping("/upd")
+    public UpdResponse upd(UpdRequire req){
+        if (!userService.checkUser(req)) {
+            return new UpdResponse(STATE_COMMON_FAIL);
+        }
+        return groupService.updateInfo(req.getUid(),req.getId(),req.getName());
+    }
+
+
 
 }
