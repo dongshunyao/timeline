@@ -459,7 +459,7 @@ response:
 -|-|-
 state [number]|返回码|0为正常，-1为失败
 name|组名|.
-member [array:string]|成员列表|["name","name","name"]
+member [array:string]|成员列表|[{id,name},{},{}...]
 task [array]|事件列表|同tasklist
 wantjoin [array]|申请者列表|[{id,name},{},{}...]
 
