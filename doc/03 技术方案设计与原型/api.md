@@ -182,6 +182,7 @@ request:
 uid [number]|用户id|系统内唯一标志符
 token|验证串|和uid一起做身份验证
 tid|任务id|.
+detail|任务描述|
 ...
 
 response:
@@ -204,7 +205,7 @@ begin|起始时间|unix时间戳
 end|终止时间|unix时间戳
 detail|描述|任务描述
 type|重复|事件重复形式[daily,weekly,monthly]
-groupid|组id|指定一个组，为其添加任务
+groupid|组id|指定一个组，为其添加任务（-1不属于组）
 
 response:
 键值|名称|描述
