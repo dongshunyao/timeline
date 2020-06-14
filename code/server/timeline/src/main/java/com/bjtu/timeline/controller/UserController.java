@@ -1,14 +1,16 @@
 package com.bjtu.timeline.controller;
 
+import com.bjtu.timeline.bean.require.UserRequires;
 import com.bjtu.timeline.bean.require.UserRequires.*;
+import com.bjtu.timeline.bean.response.UserResponses;
 import com.bjtu.timeline.bean.response.UserResponses.*;
 import com.bjtu.timeline.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import static com.bjtu.timeline.bean.response.CommonRespenses.STATE_COMMON_FAIL;
-import static com.bjtu.timeline.bean.response.CommonRespenses.STATE_COMMON_OK;
+import static com.bjtu.timeline.bean.response.CommonResponses.STATE_COMMON_FAIL;
+import static com.bjtu.timeline.bean.response.CommonResponses.STATE_COMMON_OK;
 
 @RestController
 @RequestMapping("/user")
@@ -19,7 +21,7 @@ public class UserController {
 
     @RequestMapping("/login")
     public LoginResponse login(LoginRequire req) {
-        if ("phone".equals(req.getType())){
+        if ("phone".equals(req.getType())) {
             return userService.loginWithPhone(req.getUrn(), req.getPw());
         }
 
@@ -28,7 +30,7 @@ public class UserController {
 
     @RequestMapping("/logout")
     public LogoutResponse login(LogoutRequire req) {
-        if (!userService.checkUser(req)){
+        if (!userService.checkUser(req)) {
             return new LogoutResponse(STATE_COMMON_FAIL);
         }
 
@@ -47,4 +49,20 @@ public class UserController {
         return new PhoneResponse(STATE_COMMON_FAIL);
     }
 
+    @RequestMapping("/info")
+    public InfoResponse info(InfoRequire req) {
+        if (!userService.checkUser(req)) {
+            return new InfoResponse(STATE_COMMON_FAIL, "", -1, -1);
+        }
+        return userService.getUserInfo(req.getUid());
+    }
+
+    @RequestMapping("/infoupd")
+    public InfoupdResponse infoupd(InfoupdRequire req) {
+        if (!userService.checkUser(req)) {
+            return new InfoupdResponse(STATE_COMMON_FAIL);
+        }
+        // TODO: 其他信息
+        return userService.updateUserInfo(req.getUid(), req.getNickname());
+    }
 }
