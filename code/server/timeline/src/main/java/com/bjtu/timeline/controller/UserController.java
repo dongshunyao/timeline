@@ -7,6 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import static com.bjtu.timeline.bean.response.CommonRespenses.STATE_COMMON_FAIL;
+import static com.bjtu.timeline.bean.response.CommonRespenses.STATE_COMMON_OK;
+
 @RestController
 @RequestMapping("/user")
 public class UserController {
@@ -20,17 +23,17 @@ public class UserController {
             return userService.loginWithPhone(req.getUrn(), req.getPw());
         }
 
-        return new LoginResponse(-1, -1, "");
+        return new LoginResponse(STATE_COMMON_FAIL, -1, "");
     }
 
     @RequestMapping("/logout")
     public LogoutResponse login(LogoutRequire req) {
         if (!userService.checkUser(req)){
-            return new LogoutResponse(-1);
+            return new LogoutResponse(STATE_COMMON_FAIL);
         }
 
         userService.logoutWithUid(req.getUid());
-        return new LogoutResponse(0);
+        return new LogoutResponse(STATE_COMMON_OK);
     }
 
     @RequestMapping("/reg")
@@ -41,7 +44,7 @@ public class UserController {
     @RequestMapping("/phone")
     public PhoneResponse phone(PhoneRequire req) {
         //TODO: fill
-        return new PhoneResponse(-1);
+        return new PhoneResponse(STATE_COMMON_FAIL);
     }
 
 }

@@ -8,6 +8,7 @@ import com.bjtu.timeline.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import static com.bjtu.common.NumberUtil.getUnixTimestamp;
 import static com.bjtu.common.StringUtil.*;
 import static com.bjtu.timeline.bean.response.CommonRespenses.STATE_COMMON_FAIL;
 import static com.bjtu.timeline.bean.response.CommonRespenses.STATE_COMMON_OK;
@@ -19,26 +20,21 @@ public class UserService {
     private UserMapper userDao;
 
     public RegResponse register(String nickname, String phone, String code, String password) {
-        /*
-        // 暂用手机号当uid
-        User existUser = userDao.findUserByUid(generateUid(phone));
-        if (existUser != null) {
-            // 如果用户已存在
-            return new UserResponse.register(-1, -1, "User already existed!");
 
-        } else {
-            User user = new User();
-            user.setUid(generateUid(phone));
-            user.setPhone(Integer.valueOf(phone));
-            user.setNickname(nickname);
-            user.setPassword(password);
-            user.setVIP(false);
-            user.setRegtime(System.currentTimeMillis());
-            userDao.register(user);
-            return new UserResponse.register(0, user.getUid(), generateNewToken(user.getUid()));
+        //TODO: code check
+
+        if(userDao.getUserByPhone(phone) != null){
+            return new RegResponse(STATE_COMMON_FAIL, -1, "");
         }
-        */
-        return new RegResponse(-1, -1, "");
+
+        userDao.regByPhone(phone,password);
+        LoginResponse loginInfo = loginWithPhone(phone, password);
+
+        //TODO: modify nickName, record regTime
+        //TODO: fill when finish modify server
+        //userDao.modifyInfo(...);
+
+        return new RegResponse(STATE_COMMON_OK, loginInfo.getUid(), loginInfo.getToken());
     }
 
     public String generateNewToken() {
@@ -58,21 +54,6 @@ public class UserService {
             userDao.updateToken(selectedUser.getUid(),token);
             return new LoginResponse(STATE_COMMON_OK,selectedUser.getUid(),token);
         }
-
-        /*
-        User existUser = userDao.findUserByPhone(Integer.valueOf(urn));
-        if (existUser != null) {
-            // 如果用户不存在
-            return new UserResponse.register(-1, -1, "No such user!");
-        } else {
-            if (password.equals(existUser.getPassword()))
-                return new UserResponse.register(0, existUser.getUid(),
-                        generateNewToken(existUser.getUid()));
-            else return new UserResponse.register(-1, -1, "Wrong password!");
-        }
-
-        return new UserResponses.LoginResponse(-1, -1, "No such user!");
-        */
 
     }
 
