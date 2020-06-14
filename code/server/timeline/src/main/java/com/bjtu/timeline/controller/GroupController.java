@@ -68,4 +68,12 @@ public class GroupController {
         }
     }
 
+    @RequestMapping("/info")
+    public InfoResponse info(InfoRequire req){
+        if (!userService.checkUser(req)) {
+            return new InfoResponse(STATE_COMMON_FAIL,"",null,null,null);
+        }
+        return groupService.getInfo(req.getUid(),req.getId());
+    }
+
 }

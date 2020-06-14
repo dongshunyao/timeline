@@ -60,7 +60,7 @@ public class GroupResponses {
     public static class InfoResponse {
         int state;
         String name;
-        List<String> member;
+        List<elmUser> member;
         List<elmTask> task;
         List<elmUser> wantjoin;
 

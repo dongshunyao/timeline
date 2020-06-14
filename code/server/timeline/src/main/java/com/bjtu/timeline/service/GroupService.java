@@ -1,5 +1,6 @@
 package com.bjtu.timeline.service;
 
+import com.bjtu.timeline.bean.proto.DBgroup_info;
 import com.bjtu.timeline.bean.response.GroupResponses.*;
 import com.bjtu.timeline.mapper.GroupMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -94,6 +95,31 @@ public class GroupService {
         }
 
         return new ManageResponse(STATE_COMMON_FAIL);
+    }
+
+    public InfoResponse getInfo(int uid, int gid) {
+        DBgroup_info info = groupDao.getInfo(gid);
+        if (info == null) {
+            return new InfoResponse(-10, "", null, null, null);
+        }
+        boolean isMember = groupDao.checkMember(uid, gid) != 0;
+        boolean isManager = groupDao.checkManager(uid, gid) != 0;
+
+        List<InfoResponse.elmUser> memberList = null;
+        List<InfoResponse.elmTask> taskList = null;
+        List<InfoResponse.elmUser> applyList = null;
+
+        if (isMember) {
+            memberList = groupDao.getMemberOfGroup(gid);
+            taskList = groupDao.getTaskOfGroup(gid);
+        }
+
+        if (isManager) {
+            applyList = groupDao.getApplyList(gid);
+        }
+
+        return new InfoResponse(STATE_COMMON_OK, info.getGname(), memberList, taskList, applyList);
+
     }
 
 }

@@ -74,4 +74,26 @@ public interface GroupMapper {
             "where gid = #{gid} and uid = #{uid}")
     int removeMember(int uid, int gid);
 
+    @Select("select * from group_info " +
+            "where gid = #{gid}")
+    DBgroup_info getInfo(int gid);
+
+    @Select("select uid as id, nickname as name from user_info " +
+            "where uid in (" +
+            "select uid from group_member " +
+            "where gid = #{gid}" +
+            ")")
+    List<InfoResponse.elmUser> getMemberOfGroup(int gid);
+
+    @Select("select tid, title, begin, end, detail, type as `repeat`, gid as `group` from task " +
+            "where gid = #{gid}")
+    List<InfoResponse.elmTask> getTaskOfGroup(int gid);
+
+    @Select("select uid as id, nickname as name from user_info " +
+            "where uid in (" +
+            "select uid from group_apply " +
+            "where gid = #{gid}" +
+            ")")
+    List<InfoResponse.elmUser> getApplyList(int gid);
+
 }
