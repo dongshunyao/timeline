@@ -38,4 +38,16 @@ public interface GroupMapper {
             "VALUES (#{gid},#{uid})")
     void addIntoGroup(int gid, int uid);
 
+    @Delete("delete from group_info " +
+            "where muid = #{uid} and gid = #{gid}")
+    int deleteGroup(int uid,int gid);
+
+    @Delete("delete from group_member " +
+            "where gid = #{gid}")
+    void cleanMember(int gid);
+
+    @Delete("delete from group_apply " +
+            "where gid = #{gid}")
+    void cleanApplication(int gid);
+
 }

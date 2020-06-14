@@ -38,5 +38,13 @@ public class GroupController {
         return groupService.makeGroup(req.getUid(), req.getName());
     }
 
+    @RequestMapping("/del")
+    public DelResponse del(DelRequire req) {
+        if (!userService.checkUser(req)) {
+            return new DelResponse(STATE_COMMON_FAIL);
+        }
+        return groupService.deleteGroup(req.getUid(), req.getId());
+    }
+
 
 }

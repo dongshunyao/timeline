@@ -28,4 +28,14 @@ public class GroupService {
         return new MakeResponse(STATE_COMMON_OK);
     }
 
+    public DelResponse deleteGroup(int uid, int gid) {
+        int effectCnt = groupDao.deleteGroup(uid, gid);
+        if (effectCnt == 0) {
+            return new DelResponse(-10);
+        }
+        groupDao.cleanMember(gid);
+        groupDao.cleanApplication(gid);
+        return new DelResponse(STATE_COMMON_OK);
+    }
+
 }
