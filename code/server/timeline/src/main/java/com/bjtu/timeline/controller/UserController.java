@@ -54,7 +54,15 @@ public class UserController {
         if (!userService.checkUser(req)) {
             return new InfoResponse(STATE_COMMON_FAIL, "", -1, -1);
         }
-        return userService.getUserInfo(req.getUid(), req.getToken());
+        return userService.getUserInfo(req.getUid());
     }
 
+    @RequestMapping("/infoupd")
+    public InfoupdResponse infoupd(InfoupdRequire req) {
+        if (!userService.checkUser(req)) {
+            return new InfoupdResponse(STATE_COMMON_FAIL);
+        }
+        // TODO: 其他信息
+        return userService.updateUserInfo(req.getUid(), req.getNickname());
+    }
 }
