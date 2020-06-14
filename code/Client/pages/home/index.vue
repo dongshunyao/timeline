@@ -2,7 +2,7 @@
     <div>
         <my-title :active-index="activeIndex" style="width: 100%"></my-title>
         <div class="bodyDiv">
-            <list style="width: 45%;margin-left: 3%;margin-top: 20px;margin-bottom: 10px"></list>
+            <list :ismain="true" style="width: 45%;margin-left: 3%;margin-top: 20px;margin-bottom: 10px;min-height: 595px"></list>
         </div>
         <my-footer style="bottom: 0"/>
     </div>
