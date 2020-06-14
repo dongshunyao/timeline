@@ -8,12 +8,12 @@
                 <p class="title">
                     TimeLine 应用
                 </p>
-                <el-form :model="login_module" :rules="loginRule">
+                <el-form :model="login_module" :rules="loginRule" label-width="80px" label-position="left">
                     <el-form-item label="用户名" prop="user_name">
-                        <el-input v-model="login_module.user_name"></el-input>
+                        <el-input v-model="login_module.user_name" style="width: 200px"></el-input>
                     </el-form-item>
                     <el-form-item label="密码" prop="user_pwd">
-                        <el-input v-model="login_module.user_pwd"></el-input>
+                        <el-input v-model="login_module.user_pwd" style="width: 200px"></el-input>
                     </el-form-item>
                 </el-form>
                 <div style="text-align: center">
@@ -73,13 +73,33 @@
             }
         },
 
-        mounted: function () {
+        mounted() {
 
         },
 
         methods: {
             userLogin() {
-                
+                let data = {
+                    type: '',
+                    urn: this.login_module.user_name,
+                    pw: this.login_module.user_pwd
+                }
+                this.$axios.$post('localhost:8080', data)
+                    .then(res => {
+                        let data = res.data
+                        if (data.state === 0) {
+                            this.$router.push({path: '/home'})
+                            localStorage.setItem("uid", data.uid)
+                            localStorage.setItem("token", data.token)
+                        } else {
+                            this.$alert('密码或用户名错误', '登录失败', {
+                                confirmButtonText: '确认',
+                            })
+                        }
+                    })
+                    .catch(res => {
+
+                    })
             }
         },
 
