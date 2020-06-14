@@ -6,12 +6,14 @@ import com.bjtu.timeline.bean.response.UserResponses;
 import com.bjtu.timeline.bean.response.UserResponses.*;
 import com.bjtu.timeline.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import static com.bjtu.timeline.bean.response.CommonResponses.STATE_COMMON_FAIL;
 import static com.bjtu.timeline.bean.response.CommonResponses.STATE_COMMON_OK;
 
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/user")
 public class UserController {
@@ -21,6 +23,12 @@ public class UserController {
 
     @RequestMapping("/login")
     public LoginResponse login(LoginRequire req) {
+
+        System.out.println(req.getType());
+        System.out.println(req.getUrn());
+        System.out.println(req.getPw());
+        System.out.println("====");
+
         if ("phone".equals(req.getType())) {
             return userService.loginWithPhone(req.getUrn(), req.getPw());
         }

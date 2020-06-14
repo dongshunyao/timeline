@@ -46,6 +46,8 @@
 <script>
     import Cookies from 'js-cookie'
     import API from "../api";
+    import qs from "qs";
+
     export default {
 
         data() {
@@ -82,6 +84,7 @@
                     urn: this.login_module.user_name,
                     pw: this.login_module.user_pwd
                 };
+                data = qs.stringify(data);
                 /*this.$axios.$post('http://39.106.160.119:8080/user/login', data)
                     .then(res => {
                         let data = res.data;
