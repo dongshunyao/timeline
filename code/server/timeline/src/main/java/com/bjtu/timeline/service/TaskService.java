@@ -19,12 +19,6 @@ public class TaskService {
     @Autowired
     private TaskMapper taskDao;
 
-    // 判断是否在线
-    public boolean checkUser(UserRequires.Authentication taskRequire) {
-        if ("".equals(taskRequire.getToken())) return false;
-        return taskDao.checkToken(taskRequire.getUid(), taskRequire.getToken());
-    }
-
     // 添加task
     public AddResponse addTask(AddRequire req) {
         taskDao.addTaskInfo(req);
