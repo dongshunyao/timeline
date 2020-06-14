@@ -85,33 +85,24 @@
                     pw: this.login_module.user_pwd
                 };
                 data = qs.stringify(data);
-                /*this.$axios.$post('http://39.106.160.119:8080/user/login', data)
-                    .then(res => {
-                        let data = res.data;
-                        if (data.state === 0) {
-                            this.$router.push({path: '/home'});
-                            Cookies.set("token",data.token);
-                            Cookies.set("uid",data.uid);
-                            localStorage.setItem("uid", data.uid);
-                            localStorage.setItem("token", data.token)
-                            this.$router.push({path: '/home'})
-                            Cookies.setItem("uid", data.uid)
-                            Cookies.setItem("token", data.token)
-                        } else {
-                            this.$alert('密码或用户名错误', '登录失败', {
-                                confirmButtonText: '确认',
-                            })
-                        }
-                    })
-                    .catch(res => {
-
-                    })*/
                 API.userLogin(data).then(res=>{
                     if (res.state === 0) {
                         Cookies.set("token",res.token);
                         Cookies.set("uid",res.uid);
-                        //localStorage.setItem("uid", data.uid);
-                        //localStorage.setItem("token", data.token)
+                        let data1={
+                            token:res.token,
+                            uid:res.uid,
+                        };
+                        data1 = qs.stringify(data1);
+                        API.userInfo(data1).then(res1=>{
+                            if (res1.state === 0) {
+                                Cookies.set("name",res1.nickname);
+                            } else {
+                                alert("获取用户名失败")
+                            }
+                        }).catch(msg=>{
+                            alert(msg);
+                        });
                         this.$router.push({path: '/home'});
                     } else {
                         this.$alert('密码或用户名错误', '登录失败', {
