@@ -11,7 +11,7 @@
 <script>
     import MyTitle from "../../components/myTitle";
     import MyFooter from "../../components/myFooter";
-    import List from "./list";
+    import List from "../../components/list";
     export default {
         name: "firstPage",
         components: {List, MyFooter, MyTitle},
@@ -27,7 +27,6 @@
     .bodyDiv{
         display: inline-block;
         background-color: #efefef;
-        min-height: 630px;
         min-width: 100%;
     }
 </style>

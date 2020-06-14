@@ -5,11 +5,11 @@
             <div style="width: 40%;float: left;margin: 10px 5%;">
                 <el-card>
                     <div>
-                        <span style="margin-right: 10px;">事件</span>
-                        <el-button @click="showAddEvent" size="small" type="primary">添加事件</el-button>
+                        <span style="margin-right: 10px;">任务</span>
+                        <el-button @click="showAddEvent" size="small" type="primary">添加任务</el-button>
                         <el-input size="small" placeholder="搜索" style="width: 40%;float: right"/>
                         <el-dialog
-                                title="添加事件"
+                                title="添加任务"
                                 center
                                 :visible.sync="isAddEvent"
                                 :before-close="handleClose"
@@ -39,7 +39,7 @@
             <div style="width: 40%;float: left;margin: 10px 5%;">
                 <el-card>
                     <div>
-                        <span>事件</span>
+                        <span>任务</span>
                         <i @click="editContent" class="el-icon-edit" style="float: right;"></i>
                     </div>
                     <div style="margin: 5%; text-align: center">
@@ -94,17 +94,17 @@
         },
         methods: {
             getUserEvent: function() {
-                // TODO 获取用户事件列表
+                // TODO 获取用户任务列表
             },
             showAddEvent: function() {
-                // TODO 显示添加事件窗口
+                // TODO 显示添加任务窗口
                 this.isAddEvent = !this.isAddEvent
             },
             addEvent: function() {
-                //TODO 添加事件
+                //TODO 添加任务
             },
             updateEventContent: function (eventID) {
-                //TODO 获取点击事件内容
+                //TODO 获取点击任务内容
                 this.content = this.eventList[eventID - 1].eventTitle
             },
             editContent: function () {

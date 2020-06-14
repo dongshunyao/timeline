@@ -21,21 +21,18 @@
                 </div>
             </el-tab-pane>
             <el-tab-pane label="用户注册">
-                <el-form>
+                <el-form :model="register_module" label-width="80px" label-position="left">
                     <el-form-item label="用户名">
-                        <el-input v-model="register_module.user_name"></el-input>
-                    </el-form-item>
-                    <el-form-item label="邮箱">
-                        <el-input v-model="register_module.user_email"></el-input>
+                        <el-input v-model="register_module.user_name" style="width: 200px"></el-input>
                     </el-form-item>
                     <el-form-item label="手机号">
-                        <el-input v-model="register_module.user_phone"></el-input>
+                        <el-input v-model="register_module.user_phone" style="width: 200px"></el-input>
                     </el-form-item>
                     <el-form-item label="密码">
-                        <el-input v-model="register_module.user_pwd"></el-input>
+                        <el-input v-model="register_module.user_pwd" style="width: 200px"></el-input>
                     </el-form-item>
                     <el-form-item label="二次确认密码">
-                        <el-input v-model="register_module.user_confirm_pwd"></el-input>
+                        <el-input v-model="register_module.user_confirm_pwd" style="width: 200px"></el-input>
                     </el-form-item>
                 </el-form>
                 <div style="text-align: center">
@@ -47,6 +44,8 @@
 </template>
 
 <script>
+    import API from "../api";
+
     export default {
 
         data() {
@@ -57,7 +56,6 @@
                 },
                 register_module: {
                     user_name: '',
-                    user_email: '',
                     user_phone: '',
                     user_pwd: '',
                     user_confirm_pwd: ''
@@ -78,19 +76,19 @@
         },
 
         methods: {
-            userLogin() {
+            submitForm() {
                 let data = {
                     type: '',
                     urn: this.login_module.user_name,
                     pw: this.login_module.user_pwd
                 }
-                this.$axios.$post('localhost:8080', data)
+                API.userLogin(data)
                     .then(res => {
                         let data = res.data
                         if (data.state === 0) {
                             this.$router.push({path: '/home'})
-                            localStorage.setItem("uid", data.uid)
-                            localStorage.setItem("token", data.token)
+                            Cookies.setItem("uid", data.uid)
+                            Cookies.setItem("token", data.token)
                         } else {
                             this.$alert('密码或用户名错误', '登录失败', {
                                 confirmButtonText: '确认',
@@ -98,7 +96,9 @@
                         }
                     })
                     .catch(res => {
-
+                        this.$alert('错误', '未知错误发生', {
+                            confirmButtonText: '确认'
+                        })
                     })
             }
         },

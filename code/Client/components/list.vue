@@ -15,10 +15,10 @@
 </template>
 
 <script>
-    import API from "../../api";
-    import Pro from '../../api/API_PRO';
+    import API from "../api";
+    import Pro from '../api/API_PRO';
     import Cookies from 'js-cookie';
-    import TimeLine from "../../components/TimeLine";
+    import TimeLine from "./TimeLine";
     export default {
         name: "list",
         components: {TimeLine},
