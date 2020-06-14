@@ -8,6 +8,7 @@ export default {
     //登录模块接口
     userLogin: {url: '/user/login'},
     allTask:{url:'/task/list'},
+    allRecord:{url:'/rcd/list'},
 
 
 }

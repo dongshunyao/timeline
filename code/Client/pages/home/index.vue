@@ -1,8 +1,8 @@
 <template>
     <div>
-        <my-title style="width: 100%"/>
+        <my-title :active-index="activeIndex" style="width: 100%"></my-title>
         <div class="bodyDiv">
-            <list></list>
+            <list style="width: 45%;margin-left: 3%;margin-top: 20px;margin-bottom: 10px"></list>
         </div>
         <my-footer style="bottom: 0"/>
     </div>
@@ -14,7 +14,12 @@
     import List from "./list";
     export default {
         name: "firstPage",
-        components: {List, MyFooter, MyTitle}
+        components: {List, MyFooter, MyTitle},
+        data(){
+            return{
+                activeIndex:'1',
+            }
+        }
     }
 </script>
 
@@ -23,5 +28,6 @@
         display: inline-block;
         background-color: #efefef;
         min-height: 630px;
+        min-width: 100%;
     }
 </style>

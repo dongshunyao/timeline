@@ -1,28 +1,31 @@
 <template>
     <div class="timeLine">
-        <el-timeline reverse>
-            <el-timeline-item timestamp="2018/4/12" placement="top">
-                <el-card>
-                    <h4>事件：198191</h4>
-                    <p>时间：王小虎 提交于 2018/4/12 20:46</p>
-                </el-card>
-            </el-timeline-item>
-            <el-timeline-item timestamp="2018/4/13" placement="top">
-                <el-card>
-                    <h4>事件：更新 Github 模板</h4>
-                    <p>时间：王小虎 提交于 2018/4/12 20:46</p>
-                </el-card>
-            </el-timeline-item>
-        </el-timeline>
+        <div class="block">
+            <el-timeline>
+                <el-timeline-item v-for="item in AllList" :color="'#abcdef'" :key="item.time" :timestamp="item.time" placement="top">
+                    <el-card style="width: 500px">
+                        <h4>{{item.title}}</h4>
+                        <p>{{item.content}}</p>
+                    </el-card>
+                </el-timeline-item>
+            </el-timeline>
+        </div>
     </div>
 </template>
 
 <script>
+    import Cookies from 'js-cookie';
     export default {
         name: "TimeLine",
+        props:{
+            AllList: {
+                type: Array,
+            }
+        },
         data() {
             return {
-
+                token:Cookies.get("token"),
+                uid:1,
             }
         },
         mounted() {
