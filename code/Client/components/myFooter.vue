@@ -3,7 +3,6 @@
         <div style="height: 3rem; display: flex; align-items: center; justify-content: center;">
             <i class="el-icon-phone"></i>广告位招租,请联系12345678910
         </div>
-
     </div>
 </template>
 

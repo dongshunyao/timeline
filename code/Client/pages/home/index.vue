@@ -19,6 +19,7 @@
 
 <style scoped>
     .bodyDiv{
+        display: inline-block;
         background-color: #efefef;
         min-height: 630px;
     }
