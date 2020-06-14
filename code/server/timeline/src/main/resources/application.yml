@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/timeline?useUnicode=true&characterEncoding=UTF-8&useSSL=false
+    url: jdbc:mysql://localhost:3306/timeline?useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=Hongkong
     username: timeline
     password: 123
     driver-class-name: com.mysql.cj.jdbc.Driver

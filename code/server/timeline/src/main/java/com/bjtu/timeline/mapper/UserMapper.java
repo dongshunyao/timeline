@@ -21,10 +21,13 @@ public interface UserMapper {
     void register(User user);
     */
 
-    @Select("select * from user_reg where phone=#{phone} and pwd=#{pwd}")
+    @Select("select * from user_reg " +
+            "where phone=#{phone} and pwd=#{pwd}")
     DBuser_reg getUserByPhoneAndPassword(String phone, String pwd);
 
-    @Insert("insert into user_login (uid,token) values (#{uid},#{token}) ON DUPLICATE KEY token = #{token}")
-    String updateToken(int uid, String token);
+    @Insert("insert into user_login (uid,token) " +
+            "values (#{uid},#{token}) " +
+            "ON DUPLICATE KEY UPDATE token = #{token}")
+    void updateToken(int uid, String token);
 
 }

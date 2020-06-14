@@ -11,7 +11,7 @@
  Target Server Version : 80019
  File Encoding         : 65001
 
- Date: 01/06/2020 23:08:45
+ Date: 14/06/2020 23:08:45
 */
 
 SET NAMES utf8mb4;
@@ -167,7 +167,8 @@ INSERT INTO `user_info` VALUES (10, '小10', 1591022112, 0);
 DROP TABLE IF EXISTS `user_login`;
 CREATE TABLE `user_login`  (
   `uid` int(0) NOT NULL,
-  `token` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL
+  `token` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  PRIMARY KEY (`uid`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------

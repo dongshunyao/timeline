@@ -3,7 +3,6 @@ package com.bjtu.timeline.bean.response;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.graalvm.compiler.lir.phases.EconomyAllocationStage;
 
 public class UserResponses {
 
