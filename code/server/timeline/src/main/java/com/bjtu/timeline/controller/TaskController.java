@@ -23,4 +23,29 @@ public class TaskController {
         }
         return taskService.addTask(req);
     }
+
+    @RequestMapping("/del")
+    public DelResponse add(DelRequire req) {
+        if (!taskService.checkUser(req)) {
+            return new DelResponse(STATE_COMMON_FAIL);
+        }
+        return taskService.deleteTask(req.getTid());
+    }
+
+    @RequestMapping("/upd")
+    public UpdResponse add(UpdRequire req) {
+        if (!taskService.checkUser(req)) {
+            return new UpdResponse(STATE_COMMON_FAIL);
+        }
+        return taskService.updateTask(req);
+    }
+
+    @RequestMapping("/view")
+    public ViewResponse add(ViewRequire req) {
+        if (!taskService.checkUser(req)) {
+            return new ViewResponse(STATE_COMMON_FAIL, -1, "", -1, -1, "",
+                    -1, -1);
+        }
+        return taskService.viewTask(req.getTid());
+    }
 }
