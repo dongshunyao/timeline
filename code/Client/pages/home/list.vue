@@ -1,7 +1,9 @@
 <template>
     <div>
         <el-card>
-            <el-tabs v-model="activeName">
+            <el-button type="text" style="float: right;margin-right: 5px;margin-top: -10px" @click="toViewPage">更多>></el-button>
+            <br/>
+            <el-tabs v-model="activeName" style="margin-top: -10px">
                 <el-tab-pane label="任务列表" name="first">
                     <time-line :all-list="taskList"></time-line>
                 </el-tab-pane>
@@ -80,7 +82,7 @@
                     if(res.code){
                         alert(res.message)
                     }
-                    //this.taskList=res.list;
+                    this.taskList=res.list;
                 }).catch(msg=>{
                     alert(msg);
                 });
@@ -89,12 +91,14 @@
                     if(res.code){
                         alert(res.message)
                     }
-                    //this.recordList=res.list;
+                    this.recordList=res.list;
                 }).catch(msg=>{
                     alert(msg);
                 });
+            },
 
-
+            toViewPage(){
+                this.$router.push({path: `/view`});
             }
         }
     }

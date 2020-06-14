@@ -13,11 +13,11 @@
                         <el-input v-model="login_module.user_name" style="width: 200px"></el-input>
                     </el-form-item>
                     <el-form-item label="密码" prop="user_pwd">
-                        <el-input v-model="login_module.user_pwd" style="width: 200px"></el-input>
+                        <el-input v-model="login_module.user_pwd" style="width: 200px" show-password></el-input>
                     </el-form-item>
                 </el-form>
                 <div style="text-align: center">
-                    <el-button type="primary">登录</el-button>
+                    <el-button type="primary" @click="userLogin">登录</el-button>
                 </div>
             </el-tab-pane>
             <el-tab-pane label="用户注册">
@@ -39,7 +39,7 @@
                     </el-form-item>
                 </el-form>
                 <div style="text-align: center">
-                    <el-button type="primary">登录</el-button>
+                    <el-button type="primary">注册</el-button>
                 </div>
             </el-tab-pane>
         </el-tabs>
@@ -47,6 +47,8 @@
 </template>
 
 <script>
+    import Cookies from 'js-cookie'
+    import API from "../api";
     export default {
 
         data() {
@@ -83,13 +85,15 @@
                     type: '',
                     urn: this.login_module.user_name,
                     pw: this.login_module.user_pwd
-                }
-                this.$axios.$post('localhost:8080', data)
+                };
+                /*this.$axios.$post('http://39.106.160.119:8080/user/login', data)
                     .then(res => {
-                        let data = res.data
+                        let data = res.data;
                         if (data.state === 0) {
-                            this.$router.push({path: '/home'})
-                            localStorage.setItem("uid", data.uid)
+                            this.$router.push({path: '/home'});
+                            Cookies.set("token",data.token);
+                            Cookies.set("uid",data.uid);
+                            localStorage.setItem("uid", data.uid);
                             localStorage.setItem("token", data.token)
                         } else {
                             this.$alert('密码或用户名错误', '登录失败', {
@@ -99,7 +103,22 @@
                     })
                     .catch(res => {
 
-                    })
+                    })*/
+                API.userLogin(data).then(res=>{
+                    if (res.state === 0) {
+                        Cookies.set("token",res.token);
+                        Cookies.set("uid",res.uid);
+                        //localStorage.setItem("uid", data.uid);
+                        //localStorage.setItem("token", data.token)
+                        this.$router.push({path: '/home'});
+                    } else {
+                        this.$alert('密码或用户名错误', '登录失败', {
+                            confirmButtonText: '确认',
+                        })
+                    }
+                }).catch(msg=>{
+                    alert(msg);
+                })
             }
         },
 
