@@ -1,5 +1,6 @@
 package com.bjtu.timeline.service;
 
+import com.bjtu.timeline.bean.proto.DBuser_info;
 import com.bjtu.timeline.bean.proto.DBuser_reg;
 import com.bjtu.timeline.bean.require.UserRequires;
 import com.bjtu.timeline.bean.response.UserResponses.*;
@@ -62,6 +63,18 @@ public class UserService {
 
     public void logoutWithUid(int uid) {
         userDao.updateToken(uid, "");
+    }
+
+
+    public InfoResponse getUserInfo(int uid) {
+        DBuser_info targetUser = userDao.getUserInfoByUid(uid);
+        return new InfoResponse(STATE_COMMON_OK, targetUser.getNickname(),
+                targetUser.getIsVIP(), targetUser.getReftime());
+    }
+
+    public InfoupdResponse updateUserInfo(int uid, String nickname) {
+        userDao.updateUserInfoByUid(uid, nickname);
+        return new InfoupdResponse(STATE_COMMON_OK);
     }
 
 }
