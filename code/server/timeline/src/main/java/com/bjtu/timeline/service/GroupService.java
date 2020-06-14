@@ -17,11 +17,15 @@ public class GroupService {
     private GroupMapper groupDao;
 
     public ListResponse getGroupList(int uid) {
-
         List<ListResponse.elm> listManage = groupDao.selectListManage(uid);
         List<ListResponse.elm> listIn = groupDao.selectListIn(uid);
-
         return new ListResponse(STATE_COMMON_OK, listManage, listIn);
+    }
+
+    public MakeResponse makeGroup(int uid, String name) {
+        int gid = groupDao.makeGroup(uid, name);
+        groupDao.addIntoGroup(gid, uid);
+        return new MakeResponse(STATE_COMMON_OK);
     }
 
 }
