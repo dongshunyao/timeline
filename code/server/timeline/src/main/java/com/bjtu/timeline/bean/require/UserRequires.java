@@ -3,10 +3,11 @@ package com.bjtu.timeline.bean.require;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 
 public class UserRequires {
 
-    public interface Authentication {
+    public static interface Authentication {
         int getUid();
         String getToken();
     }
@@ -15,51 +16,51 @@ public class UserRequires {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class LoginRequire {
-        String type;
-        String urn;
-        String pw;
+        @NonNull String type;
+        @NonNull String urn;
+        @NonNull String pw;
     }
 
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
     public static class LogoutRequire implements Authentication {
-        int uid;
-        String token;
+        @NonNull int uid;
+        @NonNull String token;
     }
 
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
     public static class RegRequire {
-        String nickname;
-        String phone;
-        String code;
-        String password;
+        @NonNull String nickname;
+        @NonNull String phone;
+        @NonNull String code;
+        @NonNull String password;
     }
 
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
     public static class PhoneRequire {
-        String phone;
+        @NonNull String phone;
     }
 
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
     public static class InfoRequire implements Authentication {
-        int uid;
-        String token;
+        @NonNull int uid;
+        @NonNull String token;
     }
 
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
     public static class InfoupdRequire implements Authentication {
-        int uid;
-        String token;
-        String nickname;
+        @NonNull int uid;
+        @NonNull String token;
+        @NonNull String nickname;
     }
 
 }
