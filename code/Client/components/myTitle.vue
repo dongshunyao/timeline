@@ -26,9 +26,13 @@
     import Cookies from 'js-cookie';
     export default {
         name: "myTitle",
+        props:{
+            activeIndex: {
+                type: String
+            }
+        },
         data(){
             return{
-                activeIndex:'1',
                 name:Cookies.get('name'),
                 token:Cookies.get('token'),
             }
