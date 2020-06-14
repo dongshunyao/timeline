@@ -20,6 +20,7 @@ public class TaskResponses {
         @AllArgsConstructor
         public static class listElm {
             int tid;
+            int gid;
             String title;
             long begin;
             long end;

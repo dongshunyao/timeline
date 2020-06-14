@@ -26,7 +26,10 @@ public interface TaskMapper {
     @Select("select * from task where tid=#{tid}")
     DBtask getTaskByTid(int tid);
 
-    @Select("select * from task where uid=#{uid}")
+    @Select("select * from task where uid=#{uid} or gid in (" +
+            "select gid from group_member " +
+            "where uid = #{uid}" +
+            ")")
     List<TaskResponses.ListResponse.listElm> getTaskListByUid(int uid);
     // List<DBtask> getTaskListByUid(int uid);
 }
