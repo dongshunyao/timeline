@@ -1,11 +1,9 @@
 package com.bjtu.timeline.mapper;
 
 import com.bjtu.timeline.bean.middle.User;
+import com.bjtu.timeline.bean.proto.DBuser_info;
 import com.bjtu.timeline.bean.proto.DBuser_reg;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Options;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Component;
 
 @Mapper
@@ -33,4 +31,9 @@ public interface UserMapper {
             "VALUES (#{phone},#{pw})")
     void regByPhone(String phone,String pw);
 
+    @Select("select * from user_info where uid=#{uid}")
+    DBuser_info getUserInfoByUid(int uid);
+
+    @Update("update user_info set nickname=#{nickname} where uid=#{uid}")
+    void updateUserInfoByUid(int uid, String nickname);
 }
