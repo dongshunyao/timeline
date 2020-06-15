@@ -1,7 +1,7 @@
 export default {
 
-    //baseURL: 'http://39.106.160.119:8080/',//后端地址
-    baseURL: 'http://127.0.0.1:8080/',//后端地址
+    baseURL: 'http://39.106.160.119:8080/',//后端地址
+    //baseURL: 'http://127.0.0.1:8080/',//后端地址
     
     method: 'post',
     //登录模块接口
