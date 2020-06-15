@@ -13,7 +13,7 @@
                         <el-input v-model="userName" clearable></el-input>
                     </el-form-item>
                     <el-form-item label="是否为会员">
-                        <el-input disabled></el-input>
+                        <el-input v-model="isVIP" disabled></el-input>
                     </el-form-item>
                     <el-form-item label="注册时间">
                         <el-input v-model="registerTime" disabled></el-input>
@@ -77,9 +77,9 @@
                 API.userInfo(data)
                     .then(res => {
                         if (res.state === 0){
-                            this.userName = data.nickname;
-                            this.registerTime = this.formatTimeAsYYMMDD(data.regtime)
-                            this.isVIP = data.isVIP;
+                            this.userName = res.nickname;
+                            this.registerTime = this.formatTimeAsYYMMDD(res.regtime * 1000)
+                            this.isVIP = (res.isVIP ? "是" : "否");
                         }
                     })
                     .catch(res => {
