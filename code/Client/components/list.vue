@@ -152,6 +152,9 @@
                 timeRange: '',
                 isAddRecord: false,
                 newRecordItem: {rid: 1, title: '', time: '', detail: '', picture: []},
+                taskItem: {tid: 0, type: 0, group: 0, state: 0, begin: 0, end: 0, title: '', detail: ''},
+                recordItem: {rid: 1, title: '', time: '', detail: '', picture: []},
+
             }
         },
 
@@ -265,6 +268,7 @@
             closeAddRecord: function () {
                 this.isAddRecord = false
             },
+
         }
     }
 </script>
