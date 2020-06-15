@@ -93,7 +93,7 @@
                             <el-input type="textarea" v-model="taskItem.detail" :autosize="{ minRows: 5}"/>
                         </div>
                         <div slot="footer">
-                            <el-button @click="updateContent" type="primary" size="medium">确认保存</el-button>
+                            <el-button @click="updateContent(taskItem.tid)" type="primary" size="medium">确认保存</el-button>
                             <el-button @click="closeEditContent" size="medium">取消</el-button>
                         </div>
                     </el-dialog>
@@ -224,8 +224,25 @@
             editContent: function () {
                 this.isEditContent = !this.isEditContent
             },
-            updateContent: function () {
-                //TODO 提交更改信息
+            updateContent: function (taskID) {
+                let data = {
+                    uid: Cookies.get('uid'),
+                    token: Cookies.get('token'),
+                    tid: taskID,
+                    detail: this.taskItem.detail
+                }
+                data = qs.stringify(data)
+                API.updateTask(data)
+                    .then(res => {
+                        if (res.state === 0) alert('成功')
+                        else alert('失败')
+
+                        this.getUserEvent()
+                    })
+                    .catch(res => {
+                        alert(res)
+                    })
+
                 this.isEditContent = false
             },
             closeEditContent: function () {
