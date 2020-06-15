@@ -1,6 +1,6 @@
 <template>
     <div>
-        <my-title style="width: 100%;"/>
+        <my-title :active-index="activeIndex" style="width: 100%;"/>
         <div class="bodyDiv">
             <div style="width: 40%;float: left;margin: 10px 5%;">
                 <el-card>
@@ -106,6 +106,7 @@
         components: {MyFooter, MyTitle},
         data() {
             return {
+                activeIndex:'1',
                 recordList: [
                     {rid: 1, title: 'title1', time: '', detail: '', picture: []},
                     {rid: 2, title: 'title2', time: '', detail: '', picture: []},
