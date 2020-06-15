@@ -6,7 +6,7 @@
             </el-button>
             <br/>
             <el-tabs v-model="activeName" style="margin-top: -10px">
-                <el-tab-pane label="任务列表" name="first">
+                <el-tab-pane label="任务时间线" name="first">
                     <el-button @click="showAddEvent" v-if="!this.ismain" type="primary" size="small">
                         添加任务
                     </el-button>
@@ -48,7 +48,7 @@
                         </div>
                     </el-dialog>
                 </el-tab-pane>
-                <el-tab-pane label="记录列表" name="second">
+                <el-tab-pane label="记录时间线" name="second">
                     <el-button @click="showAddRecord" v-if="!this.ismain" type="primary" size="small">
                         添加记录
                     </el-button>
@@ -176,7 +176,10 @@
                     this.taskList = res.list;
                     this.taskList.forEach(item => {
                         item.time = new Date(item.begin * 1000).toLocaleString();
-                    })
+                    });
+                    if(this.ismain){
+                        this.taskList=this.taskList.slice(0,4);
+                    }
                 }).catch(msg => {
                     alert(msg);
                 });
@@ -188,7 +191,10 @@
                     this.recordList = res.list;
                     this.recordList.forEach(item => {
                         item.time = new Date(item.time * 1000).toLocaleString();
-                    })
+                    });
+                    if(this.ismain){
+                        this.recordList=this.recordList.slice(0,4);
+                    }
                 }).catch(msg => {
                     alert(msg);
                 });

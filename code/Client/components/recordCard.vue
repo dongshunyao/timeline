@@ -1,44 +1,25 @@
 <template>
     <el-card>
         <div style="margin-top: 5px;margin-left: 5px">
-            <span style="font-size: 18px">{{task.title}}</span>
+            <span style="font-size: 18px">{{record.title}}</span>
             <i @click="editContent" class="el-icon-edit" style="float: right;"></i>
         </div>
 
         <div style="color: #8c939d;font-size: 12px;margin-top: 5px;margin-left: 5px">
-            <span style="margin-right: 5px">{{task.begin}}</span>
-            -
-            <span style="margin-left: 5px">{{task.end}}</span>
+            <span style="margin-right: 5px">{{record.begin}}</span>
         </div>
         <el-divider></el-divider>
         <div style="margin-left: 5px">
-            {{task.detail}}
+            {{record.detail}}
         </div>
-        <el-dialog
-                title="内容编辑"
-                center
-                :visible.sync="isEditContent"
-                :before-close="handleClose">
-            <div>
-                <el-input type="textarea" v-model="task.detail" :autosize="{ minRows: 5}"/>
-            </div>
-            <div slot="footer">
-                <el-button @click="updateContent(task.tid)" type="primary" size="medium">确认保存</el-button>
-                <el-button @click="closeEditContent" size="medium">取消</el-button>
-            </div>
-        </el-dialog>
     </el-card>
 </template>
 
 <script>
-    import Cookies from "js-cookie";
-    import qs from "qs";
-    import API from "../api";
-
     export default {
-        name: "detailCard",
+        name: "recordCard",
         props:{
-            task:{
+            record:{
                 type:Object,
             }
         },
@@ -95,7 +76,7 @@
                 API.allTask(data)
                     .then(res => {
                         if (res.state === 0) {
-                            
+
                         } else {
                             alert('错误代码' + res.state)
                         }
@@ -105,12 +86,9 @@
                     })
             },
         }
-
     }
 </script>
 
 <style scoped>
-    >>> .el-divider--horizontal{
-        margin-top: 15px;
-    }
+
 </style>
