@@ -46,12 +46,13 @@
         },
 
         mounted(){
-            this.receiveTid('1');
             this.getAllList();
         },
 
         methods:{
             receiveTid(data){
+                console.log("this.clickedTid");
+                console.log(this.clickedTid)
                 this.clickedTid=data;
                 let data1={
                     uid:Cookies.get('uid'),
@@ -81,6 +82,8 @@
                     if(res.code){
                         alert(res.message)
                     }
+                    this.clickedTid=res.list[0].tid;
+                    this.receiveTid(res.list[0].tid);
                     res.list.forEach(item=>{
                         item.time=item.begin;
                         this.allList.push(item);
@@ -98,8 +101,6 @@
                 }).catch(msg=>{
                     alert(msg);
                 });
-                console.log("this.allList");
-                console.log(this.allList);
             },
 
             handleClick(tab, event){
