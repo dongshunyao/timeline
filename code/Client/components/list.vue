@@ -52,7 +52,7 @@
                     <el-button @click="showAddRecord" v-if="!this.ismain" type="primary" size="small">
                         添加记录
                     </el-button>
-                    <time-line :ismain="ismain" :all-list="recordList"></time-line>
+                    <time-line :ismain="ismain" :all-list="recordList" @getTid="sendRid"></time-line>
 
                     <el-dialog
                             title="添加记录"
@@ -205,8 +205,21 @@
             },
 
             sendTid(data) {
-                this.$emit('finalTid', data);
+                let data1={
+                    tid:data,
+                    isTask: true,
+                };
+                this.$emit('finalTid', data1);
             },
+
+            sendRid(data){
+                let data1={
+                    rid:data,
+                    isTask: false,
+                };
+                this.$emit('finalTid', data1);
+            },
+
             addEvent: function () {
                 let data = {
                     uid: Cookies.get('uid'),
