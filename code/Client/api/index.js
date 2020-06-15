@@ -30,7 +30,7 @@ for (var api in APICONFIG) {
           method: method,
           data: data,
           headers: {
-            token: token
+            'token': token
           }
         }
 
@@ -66,4 +66,4 @@ for (var api in APICONFIG) {
 
 API.CONFIG = APICONFIG
 
-export default API
+export default API;
