@@ -224,18 +224,18 @@
                 let data = {
                     uid: Cookies.get('uid'),
                     token: Cookies.get('token'),
-                    begin: new Date(this.timeRange[0]).valueOf(),
-                    end: new Date(this.timeRange[1]).valueOf(),
+                    begin: new Date(this.timeRange[0]).valueOf()/1000,
+                    end: new Date(this.timeRange[1]).valueOf()/1000,
                     title: this.newTaskItem.title,
                     detail: this.newTaskItem.detail,
                     type: this.newTaskItem.type,
                     groupid: this.newTaskItem.group
-                }
-                data = qs.stringify(data)
+                };
+                data = qs.stringify(data);
                 API.addTask(data)
                     .then(res => {
-                        if (res.state === 0) alert('更新成功')
-                        else alert('更新失败')
+                        if (res.state === 0) alert('更新成功');
+                        else alert('更新失败');
 
                         this.getList()
                     })
@@ -267,21 +267,21 @@
                     uid: Cookies.get("uid"),
                     token: Cookies.get("token"),
                     title: this.newRecordItem.title,
-                    time: new Date(this.newRecordItem.time).valueOf(),
+                    time: new Date(this.newRecordItem.time).valueOf()/1000,
                     detail: this.newRecordItem.detail,
                     picture: this.newRecordItem.picture
-                }
-                data = qs.stringify(data)
+                };
+                data = qs.stringify(data);
                 API.addRecord(data)
                     .then(res => {
-                        if (res.state === 0) alert('添加成功')
-                        else alert('添加失败')
+                        if (res.state === 0) alert('添加成功');
+                        else alert('添加失败');
 
                         this.getUserRecord()
                     })
                     .catch(res => {
                         alert(res)
-                    })
+                    });
                 this.isAddRecord = !this.isAddRecord
             },
             closeAddRecord: function () {

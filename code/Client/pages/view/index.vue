@@ -94,25 +94,6 @@
 
             },
 
-            /*receiveRid(data){
-                this.clickedRid=data;
-                let data1={
-                    uid:Cookies.get('uid'),
-                    token:Cookies.get('token'),
-                    rid:data,
-                };
-                data1 = qs.stringify(data1);
-                API.recordDetail(data1).then(res=>{
-                    if(res.code){
-                        alert(res.message)
-                    }
-                    this.recordDetail=res;
-                    this.recordDetail.time=new Date(this.taskDetail.time*1000).toLocaleString();
-                }).catch(msg=>{
-                    alert(msg);
-                });
-            },*/
-
             getAllList(){
                 let data={
                     uid:Cookies.get('uid'),
