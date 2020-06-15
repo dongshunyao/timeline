@@ -344,7 +344,11 @@ response:
 state [number]|返回码|0为正常，-1为失败
 picname|图片名|上传后产生的文件名，附加在记录提交部分即可
 
+picname的格式为 1/0123456789abcdef0123456789abcdef.jpg  (jpg/png/bmp)
+访问位置为 BASE_URL/picture/1/0123456789abcdef0123456789abcdef.jpg
+
 ---
+
 ## 4./search|联合搜索
 
     搜索
