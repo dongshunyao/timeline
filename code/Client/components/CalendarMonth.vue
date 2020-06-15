@@ -26,7 +26,7 @@
             return {
                 temp:"",
                 dailyTask:"",
-                weeklyTask:"",
+                weeklyTask:["","","","","","",""],
                 recordList: [],
                 finalList:[],
             }
@@ -41,12 +41,19 @@
             setTitle(date){
                 let ans="";
                 let data=date.toDateString();
+                let day=date.getDay();
 
                 for(let i=0;i<this.recordList.length;i++){
                     this.recordList[i].temptime=new Date(this.recordList[i].time*1000).toDateString();
                     if(this.recordList[i].type===1){
                         this.dailyTask+=this.recordList[i].title;
                         this.dailyTask+="\n";
+                        this.recordList.splice(i,1);
+                        i--;
+                    }else if(this.recordList[i].type===2){
+                        this.weeklyTask[new Date(this.recordList[i].time*1000).getDay()]+=
+                            this.recordList[i].title;
+                        this.weeklyTask[new Date(this.recordList[i].time*1000).getDay()]+="\n";
                         this.recordList.splice(i,1);
                         i--;
                     }
@@ -56,13 +63,15 @@
                     }
                 }
                 ans+=this.dailyTask;
-                
+                ans+=this.weeklyTask[day];
+
                 return ans;
             },
 
             getAllList(){
                 this.recordList=[];
                 this.dailyTask="";
+                this.weeklyTask=["","","","","","",""];
                 let data={
                     uid:Cookies.get('uid'),
                     token:Cookies.get('token'),
@@ -74,18 +83,6 @@
                     }
                     res.list.forEach(item=>{
                         item.time=item.begin;
-                        if(item.type===2){
-                            for(let i=-4;i<4;i++){
-                                if(i===0){continue;}
-                                let temp1={
-                                    title:item.title,
-                                    type:0,
-                                };
-                                temp1.time = item.begin + 604800*i;
-                                temp1.type=0;
-                                this.recordList.push(temp1);
-                            }
-                        }
                         this.recordList.push(item);
                     });
                 }).catch(msg=>{

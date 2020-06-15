@@ -43,7 +43,7 @@
                                 {{item.title}}
                             </span>
                             <p style="font-size: 0.8rem; color: #B4BCCC;margin-top: 5px;">
-                                {{formatTime(item.time)}}
+                                {{formatTime(item.time*1000)}}
                             </p>
                             <el-button type="danger" size="mini" @click="deleteRecord(item.rid)"
                                        style="float: right; height: 20px; padding: 3px; z-index: 10">

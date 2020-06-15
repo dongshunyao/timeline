@@ -17,6 +17,17 @@
                 <el-menu-item index="3-3" @click="Exit">退出登录</el-menu-item>
             </el-submenu>
         </el-menu>
+
+        <el-dialog
+                title="提示"
+                :visible.sync="dialogVisible"
+                width="30%">
+            <span>该功能暂未开启,请充值会员</span>
+            <span slot="footer" class="dialog-footer">
+                <el-button type="primary" @click="Back">确 定</el-button>
+            </span>
+        </el-dialog>
+
     </div>
 </template>
 
@@ -36,6 +47,7 @@
             return {
                 name: Cookies.get('name'),
                 token: Cookies.get('token'),
+                dialogVisible:false,
             }
         },
 
@@ -44,8 +56,14 @@
                 this.$router.push({path: `/home`});
             },
             toMyOrg() {
-                this.$router.push({path: `/home`});
             },
+
+            Back(){
+                this.dialogVisible=false;
+                this.activeIndex='1';
+                //this.$router.push({path: `/home`});
+            },
+
             toSetting() {
                 this.$router.push({path: '/setting'})
             },
