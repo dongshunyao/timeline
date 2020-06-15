@@ -201,256 +201,359 @@
                     item.hours=new Date(item.time * 1000).getHours();
                     item.xingqi=new Date(item.time * 1000).getDay();
 
-                    console.log(dd - wk);
-
                     if(item.day>dd-wk+7 || item.day< dd - wk){
                         return true;
                     }
-
+                    console.log("item");
+                    console.log(item);
                     if(item.hours>0 && item.hours<6){
-                        switch (item.xingqi) {
-                            case 0:
-                                this.finalList[0].day1+=item.title;
-                                break;
-                            case 1:
-                                this.finalList[0].day2+=item.title;
-                                break;
-                            case 2:
-                                this.finalList[0].day3+=item.title;
-                                break;
-                            case 3:
-                                this.finalList[0].day4+=item.title;
-                                break;
-                            case 4:
-                                this.finalList[0].day5+=item.title;
-                                break;
-                            case 5:
-                                this.finalList[0].day6+=item.title;
-                                break;
-                            case 6:
-                                this.finalList[0].day7+=item.title;
-                                break;
+                        if(item.type!==1){
+                            switch (item.xingqi) {
+                                case 0:
+                                    this.finalList[0].day1+=item.title;
+                                    break;
+                                case 1:
+                                    this.finalList[0].day2+=item.title;
+                                    break;
+                                case 2:
+                                    this.finalList[0].day3+=item.title;
+                                    break;
+                                case 3:
+                                    this.finalList[0].day4+=item.title;
+                                    break;
+                                case 4:
+                                    this.finalList[0].day5+=item.title;
+                                    break;
+                                case 5:
+                                    this.finalList[0].day6+=item.title;
+                                    break;
+                                case 6:
+                                    this.finalList[0].day7+=item.title;
+                                    break;
+                            }
+                        }else{
+                            this.finalList[0].day1+=item.title;
+                            this.finalList[0].day2+=item.title;
+                            this.finalList[0].day3+=item.title;
+                            this.finalList[0].day4+=item.title;
+                            this.finalList[0].day5+=item.title;
+                            this.finalList[0].day6+=item.title;
+                            this.finalList[0].day7+=item.title;
                         }
                     }else if(item.hours<8){
-                        switch (item.xingqi) {
-                            case 0:
-                                this.finalList[1].day1+=item.title;
-                                break;
-                            case 1:
-                                this.finalList[1].day2+=item.title;
-                                break;
-                            case 2:
-                                this.finalList[1].day3+=item.title;
-                                break;
-                            case 3:
-                                this.finalList[1].day4+=item.title;
-                                break;
-                            case 4:
-                                this.finalList[1].day5+=item.title;
-                                break;
-                            case 5:
-                                this.finalList[1].day6+=item.title;
-                                break;
-                            case 6:
-                                this.finalList[1].day7+=item.title;
-                                break;
+                        if(item.type!==1){
+                            switch (item.xingqi) {
+                                case 0:
+                                    this.finalList[1].day1+=item.title;
+                                    break;
+                                case 1:
+                                    this.finalList[1].day2+=item.title;
+                                    break;
+                                case 2:
+                                    this.finalList[1].day3+=item.title;
+                                    break;
+                                case 3:
+                                    this.finalList[1].day4+=item.title;
+                                    break;
+                                case 4:
+                                    this.finalList[1].day5+=item.title;
+                                    break;
+                                case 5:
+                                    this.finalList[1].day6+=item.title;
+                                    break;
+                                case 6:
+                                    this.finalList[1].day7+=item.title;
+                                    break;
+                            }
+                        }else{
+                            this.finalList[1].day1+=item.title;
+                            this.finalList[1].day2+=item.title;
+                            this.finalList[1].day3+=item.title;
+                            this.finalList[1].day4+=item.title;
+                            this.finalList[1].day5+=item.title;
+                            this.finalList[1].day6+=item.title;
+                            this.finalList[1].day7+=item.title;
                         }
-
                     }else if(item.hours<10){
-                        switch (item.xingqi) {
-                            case 0:
-                                this.finalList[2].day1+=item.title;
-                                break;
-                            case 1:
-                                this.finalList[2].day2+=item.title;
-                                break;
-                            case 2:
-                                this.finalList[2].day3+=item.title;
-                                break;
-                            case 3:
-                                this.finalList[2].day4+=item.title;
-                                break;
-                            case 4:
-                                this.finalList[2].day5+=item.title;
-                                break;
-                            case 5:
-                                this.finalList[2].day6+=item.title;
-                                break;
-                            case 6:
-                                this.finalList[2].day7+=item.title;
-                                break;
+                        if(item.type!==1){
+                            switch (item.xingqi) {
+                                case 0:
+                                    this.finalList[2].day1+=item.title;
+                                    break;
+                                case 1:
+                                    this.finalList[2].day2+=item.title;
+                                    break;
+                                case 2:
+                                    this.finalList[2].day3+=item.title;
+                                    break;
+                                case 3:
+                                    this.finalList[2].day4+=item.title;
+                                    break;
+                                case 4:
+                                    this.finalList[2].day5+=item.title;
+                                    break;
+                                case 5:
+                                    this.finalList[2].day6+=item.title;
+                                    break;
+                                case 6:
+                                    this.finalList[2].day7+=item.title;
+                                    break;
+                            }
+                        }else{
+                            this.finalList[2].day1+=item.title;
+                            this.finalList[2].day2+=item.title;
+                            this.finalList[2].day3+=item.title;
+                            this.finalList[2].day4+=item.title;
+                            this.finalList[2].day5+=item.title;
+                            this.finalList[2].day6+=item.title;
+                            this.finalList[2].day7+=item.title;
                         }
 
                     }else if(item.hours<12){
-                        switch (item.xingqi) {
-                            case 0:
-                                this.finalList[3].day1+=item.title;
-                                break;
-                            case 1:
-                                this.finalList[3].day2+=item.title;
-                                break;
-                            case 2:
-                                this.finalList[3].day3+=item.title;
-                                break;
-                            case 3:
-                                this.finalList[3].day4+=item.title;
-                                break;
-                            case 4:
-                                this.finalList[3].day5+=item.title;
-                                break;
-                            case 5:
-                                this.finalList[3].day6+=item.title;
-                                break;
-                            case 6:
-                                this.finalList[3].day7+=item.title;
-                                break;
+                        if(item.type!==1){
+                            switch (item.xingqi) {
+                                case 0:
+                                    this.finalList[3].day1+=item.title;
+                                    break;
+                                case 1:
+                                    this.finalList[3].day2+=item.title;
+                                    break;
+                                case 2:
+                                    this.finalList[3].day3+=item.title;
+                                    break;
+                                case 3:
+                                    this.finalList[3].day4+=item.title;
+                                    break;
+                                case 4:
+                                    this.finalList[3].day5+=item.title;
+                                    break;
+                                case 5:
+                                    this.finalList[3].day6+=item.title;
+                                    break;
+                                case 6:
+                                    this.finalList[3].day7+=item.title;
+                                    break;
+                            }
+                        }else{
+                            this.finalList[3].day1+=item.title;
+                            this.finalList[3].day2+=item.title;
+                            this.finalList[3].day3+=item.title;
+                            this.finalList[3].day4+=item.title;
+                            this.finalList[3].day5+=item.title;
+                            this.finalList[3].day6+=item.title;
+                            this.finalList[3].day7+=item.title;
                         }
 
                     }else if(item.hours<14){
-                        switch (item.xingqi) {
-                            case 0:
-                                this.finalList[4].day1+=item.title;
-                                break;
-                            case 1:
-                                this.finalList[4].day2+=item.title;
-                                break;
-                            case 2:
-                                this.finalList[4].day3+=item.title;
-                                break;
-                            case 3:
-                                this.finalList[4].day4+=item.title;
-                                break;
-                            case 4:
-                                this.finalList[4].day5+=item.title;
-                                break;
-                            case 5:
-                                this.finalList[4].day6+=item.title;
-                                break;
-                            case 6:
-                                this.finalList[4].day7+=item.title;
-                                break;
+                        if(item.type!==1){
+                            switch (item.xingqi) {
+                                case 0:
+                                    this.finalList[4].day1+=item.title;
+                                    break;
+                                case 1:
+                                    this.finalList[4].day2+=item.title;
+                                    break;
+                                case 2:
+                                    this.finalList[4].day3+=item.title;
+                                    break;
+                                case 3:
+                                    this.finalList[4].day4+=item.title;
+                                    break;
+                                case 4:
+                                    this.finalList[4].day5+=item.title;
+                                    break;
+                                case 5:
+                                    this.finalList[4].day6+=item.title;
+                                    break;
+                                case 6:
+                                    this.finalList[4].day7+=item.title;
+                                    break;
+                            }
+                        }else{
+                            this.finalList[4].day1+=item.title;
+                            this.finalList[4].day2+=item.title;
+                            this.finalList[4].day3+=item.title;
+                            this.finalList[4].day4+=item.title;
+                            this.finalList[4].day5+=item.title;
+                            this.finalList[4].day6+=item.title;
+                            this.finalList[4].day7+=item.title;
                         }
+
 
                     }else if(item.hours<16){
-                        switch (item.xingqi) {
-                            case 0:
-                                this.finalList[5].day1+=item.title;
-                                break;
-                            case 1:
-                                this.finalList[5].day2+=item.title;
-                                break;
-                            case 2:
-                                this.finalList[5].day3+=item.title;
-                                break;
-                            case 3:
-                                this.finalList[5].day4+=item.title;
-                                break;
-                            case 4:
-                                this.finalList[5].day5+=item.title;
-                                break;
-                            case 5:
-                                this.finalList[5].day6+=item.title;
-                                break;
-                            case 6:
-                                this.finalList[5].day7+=item.title;
-                                break;
-                        }
-                    }else if(item.hours<18){
-                        switch (item.xingqi) {
-                            case 0:
-                                this.finalList[6].day1+=item.title;
-                                break;
-                            case 1:
-                                this.finalList[6].day2+=item.title;
-                                break;
-                            case 2:
-                                this.finalList[6].day3+=item.title;
-                                break;
-                            case 3:
-                                this.finalList[6].day4+=item.title;
-                                break;
-                            case 4:
-                                this.finalList[6].day5+=item.title;
-                                break;
-                            case 5:
-                                this.finalList[6].day6+=item.title;
-                                break;
-                            case 6:
-                                this.finalList[6].day7+=item.title;
-                                break;
-                        }
-                    }else if(item.hours<20){
-                        switch (item.xingqi) {
-                            case 0:
-                                this.finalList[7].day1+=item.title;
-                                break;
-                            case 1:
-                                this.finalList[7].day2+=item.title;
-                                break;
-                            case 2:
-                                this.finalList[7].day3+=item.title;
-                                break;
-                            case 3:
-                                this.finalList[7].day4+=item.title;
-                                break;
-                            case 4:
-                                this.finalList[7].day5+=item.title;
-                                break;
-                            case 5:
-                                this.finalList[7].day6+=item.title;
-                                break;
-                            case 6:
-                                this.finalList[7].day7+=item.title;
-                                break;
-                        }
-                    }else if(item.hours<22){
-                        switch (item.xingqi) {
-                            case 0:
-                                this.finalList[8].day1+=item.title;
-                                break;
-                            case 1:
-                                this.finalList[8].day2+=item.title;
-                                break;
-                            case 2:
-                                this.finalList[8].day3+=item.title;
-                                break;
-                            case 3:
-                                this.finalList[8].day4+=item.title;
-                                break;
-                            case 4:
-                                this.finalList[8].day5+=item.title;
-                                break;
-                            case 5:
-                                this.finalList[8].day6+=item.title;
-                                break;
-                            case 6:
-                                this.finalList[8].day7+=item.title;
-                                break;
+                        if(item.type!==1){
+                            switch (item.xingqi) {
+                                case 0:
+                                    this.finalList[5].day1+=item.title;
+                                    break;
+                                case 1:
+                                    this.finalList[5].day2+=item.title;
+                                    break;
+                                case 2:
+                                    this.finalList[5].day3+=item.title;
+                                    break;
+                                case 3:
+                                    this.finalList[5].day4+=item.title;
+                                    break;
+                                case 4:
+                                    this.finalList[5].day5+=item.title;
+                                    break;
+                                case 5:
+                                    this.finalList[5].day6+=item.title;
+                                    break;
+                                case 6:
+                                    this.finalList[5].day7+=item.title;
+                                    break;
+                            }
+                        }else{
+                            this.finalList[5].day1+=item.title;
+                            this.finalList[5].day2+=item.title;
+                            this.finalList[5].day3+=item.title;
+                            this.finalList[5].day4+=item.title;
+                            this.finalList[5].day5+=item.title;
+                            this.finalList[5].day6+=item.title;
+                            this.finalList[5].day7+=item.title;
                         }
 
+                    }else if(item.hours<18){
+                        if(item.type!==1){
+                            switch (item.xingqi) {
+                                case 0:
+                                    this.finalList[6].day1+=item.title;
+                                    break;
+                                case 1:
+                                    this.finalList[6].day2+=item.title;
+                                    break;
+                                case 2:
+                                    this.finalList[6].day3+=item.title;
+                                    break;
+                                case 3:
+                                    this.finalList[6].day4+=item.title;
+                                    break;
+                                case 4:
+                                    this.finalList[6].day5+=item.title;
+                                    break;
+                                case 5:
+                                    this.finalList[6].day6+=item.title;
+                                    break;
+                                case 6:
+                                    this.finalList[6].day7+=item.title;
+                                    break;
+                            }
+                        }else{
+                            this.finalList[6].day1+=item.title;
+                            this.finalList[6].day2+=item.title;
+                            this.finalList[6].day3+=item.title;
+                            this.finalList[6].day4+=item.title;
+                            this.finalList[6].day5+=item.title;
+                            this.finalList[6].day6+=item.title;
+                            this.finalList[6].day7+=item.title;
+                        }
+
+                    }else if(item.hours<20){
+                        if(item.type!==1){
+                            switch (item.xingqi) {
+                                case 0:
+                                    this.finalList[7].day1+=item.title;
+                                    break;
+                                case 1:
+                                    this.finalList[7].day2+=item.title;
+                                    break;
+                                case 2:
+                                    this.finalList[7].day3+=item.title;
+                                    break;
+                                case 3:
+                                    this.finalList[7].day4+=item.title;
+                                    break;
+                                case 4:
+                                    this.finalList[7].day5+=item.title;
+                                    break;
+                                case 5:
+                                    this.finalList[7].day6+=item.title;
+                                    break;
+                                case 6:
+                                    this.finalList[7].day7+=item.title;
+                                    break;
+                            }
+                        }else{
+                            this.finalList[7].day1+=item.title;
+                            this.finalList[7].day2+=item.title;
+                            this.finalList[7].day3+=item.title;
+                            this.finalList[7].day4+=item.title;
+                            this.finalList[7].day5+=item.title;
+                            this.finalList[7].day6+=item.title;
+                            this.finalList[7].day7+=item.title;
+                        }
+
+                    }else if(item.hours<22){
+                        if(item.type!==1){
+                            switch (item.xingqi) {
+                                case 0:
+                                    this.finalList[8].day1+=item.title;
+                                    break;
+                                case 1:
+                                    this.finalList[8].day2+=item.title;
+                                    break;
+                                case 2:
+                                    this.finalList[8].day3+=item.title;
+                                    break;
+                                case 3:
+                                    this.finalList[8].day4+=item.title;
+                                    break;
+                                case 4:
+                                    this.finalList[8].day5+=item.title;
+                                    break;
+                                case 5:
+                                    this.finalList[8].day6+=item.title;
+                                    break;
+                                case 6:
+                                    this.finalList[8].day7+=item.title;
+                                    break;
+                            }
+                        }else{
+                            this.finalList[8].day1+=item.title;
+                            this.finalList[8].day2+=item.title;
+                            this.finalList[8].day3+=item.title;
+                            this.finalList[8].day4+=item.title;
+                            this.finalList[8].day5+=item.title;
+                            this.finalList[8].day6+=item.title;
+                            this.finalList[8].day7+=item.title;
+                        }
+
+
                     }else if(item.hours<24){
-                        switch (item.xingqi) {
-                            case 0:
-                                this.finalList[9].day1+=item.title;
-                                break;
-                            case 1:
-                                this.finalList[9].day2+=item.title;
-                                break;
-                            case 2:
-                                this.finalList[9].day3+=item.title;
-                                break;
-                            case 3:
-                                this.finalList[9].day4+=item.title;
-                                break;
-                            case 4:
-                                this.finalList[9].day5+=item.title;
-                                break;
-                            case 5:
-                                this.finalList[9].day6+=item.title;
-                                break;
-                            case 6:
-                                this.finalList[9].day7+=item.title;
-                                break;
+                        if(item.type!==1){
+                            switch (item.xingqi) {
+                                case 0:
+                                    this.finalList[9].day1+=item.title;
+                                    break;
+                                case 1:
+                                    this.finalList[9].day2+=item.title;
+                                    break;
+                                case 2:
+                                    this.finalList[9].day3+=item.title;
+                                    break;
+                                case 3:
+                                    this.finalList[9].day4+=item.title;
+                                    break;
+                                case 4:
+                                    this.finalList[9].day5+=item.title;
+                                    break;
+                                case 5:
+                                    this.finalList[9].day6+=item.title;
+                                    break;
+                                case 6:
+                                    this.finalList[9].day7+=item.title;
+                                    break;
+                            }
+                        }else{
+                            this.finalList[9].day1+=item.title;
+                            this.finalList[9].day2+=item.title;
+                            this.finalList[9].day3+=item.title;
+                            this.finalList[9].day4+=item.title;
+                            this.finalList[9].day5+=item.title;
+                            this.finalList[9].day6+=item.title;
+                            this.finalList[9].day7+=item.title;
                         }
                     }
                 });

@@ -39,10 +39,14 @@
         },
         methods: {
             putTid(item){
-                this.clickedId=item.tid;
+                if(item.tid!==undefined){
+                    this.clickedId=item.tid;
+                }else{
+                    this.clickedId=item.rid;
+                }
                 console.log(this.clickedId);
                 this.$emit('getTid',this.clickedId);
-            }
+            },
         }
     }
 </script>
