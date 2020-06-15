@@ -22,5 +22,8 @@ export default {
     recordDetail: {url: 'rcd/view'},
     updateRecord: {url: 'rcd/upd'},
     addRecord: {url: 'rcd/add'},
-    deleteRecord: {url: 'rcd/del'}
+    deleteRecord: {url: 'rcd/del'},
+
+    // 上传文件
+    uploadFile: {url: 'rcd/picupload'},
 }
