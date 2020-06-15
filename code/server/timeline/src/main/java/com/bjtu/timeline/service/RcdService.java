@@ -53,7 +53,7 @@ public class RcdService {
             outPicture.createNewFile();
             fos = new FileOutputStream(outPicture);
             fos.write(file.getBytes());
-            return new PicUploadResponse(0,"" + uid + "-" + innerName + "." + pictureSuffix);
+            return new PicUploadResponse(0,"" + uid + "/" + innerName + "." + pictureSuffix);
         } catch (Exception ignored) {}
         finally {
             try {

@@ -1,4 +1,4 @@
-package com.bjtu.timeline.security;
+package com.bjtu.timeline.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
