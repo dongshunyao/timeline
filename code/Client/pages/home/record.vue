@@ -164,7 +164,7 @@
                     uid: Cookies.get("uid"),
                     token: Cookies.get("token"),
                     title: this.newRecordItem.title,
-                    time: new Date(this.newRecordItem.time).valueOf() * 1000,
+                    time: new Date(this.newRecordItem.time).valueOf() / 1000,
                     detail: this.newRecordItem.detail,
                     picture: this.newRecordItem.picture
                 }

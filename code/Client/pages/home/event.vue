@@ -128,7 +128,7 @@
                 isAddEvent: false,
                 timeRange: '',
                 repeat: '0',
-                activeIndex:'1',
+                activeIndex: '1',
                 // 右侧对象内容
                 taskItem: {tid: 0, type: 0, group: 0, state: 0, begin: 0, end: 0, title: '', detail: ''},
                 newTaskItem: {tid: 0, type: 0, group: 0, state: 0, begin: 0, end: 0, title: '', detail: ''},
@@ -178,8 +178,8 @@
                 let data = {
                     uid: Cookies.get('uid'),
                     token: Cookies.get('token'),
-                    begin: new Date(this.timeRange[0]).valueOf()/1000,
-                    end: new Date(this.timeRange[1]).valueOf()/1000,
+                    begin: new Date(this.timeRange[0]).valueOf() / 1000,
+                    end: new Date(this.timeRange[1]).valueOf() / 1000,
                     title: this.newTaskItem.title,
                     detail: this.newTaskItem.detail,
                     type: this.newTaskItem.type,
