@@ -139,6 +139,7 @@
                 API.allRecord(data)
                     .then(res => {
                         this.recordList = res.list
+                        /*
                         if (res.state === 0) {
                             if (this.recordList.length > 0) {
                                 this.recordItem.rid = this.recordList[0].rid
@@ -152,6 +153,7 @@
                         } else {
                             alert('获取记录失败')
                         }
+                        */
                     })
                     .catch(res => {
                         alert(res)

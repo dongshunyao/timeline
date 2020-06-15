@@ -10,6 +10,6 @@ import lombok.NoArgsConstructor;
 public class DBuser_info {
     int uid;
     String nickname;
-    long reftime;
+    long regtime;
     int isVIP;
 }

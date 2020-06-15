@@ -13,7 +13,7 @@
                         <el-input v-model="userName" clearable></el-input>
                     </el-form-item>
                     <el-form-item label="是否为会员">
-                        <el-input disabled></el-input>
+                        <el-input v-model="isVIP" disabled></el-input>
                     </el-form-item>
                     <el-form-item label="注册时间">
                         <el-input v-model="registerTime" disabled></el-input>
@@ -35,6 +35,7 @@
 <script>
     import API from "../api";
     import Cookies from 'js-cookie'
+    import qs from 'qs'
     import MyTitle from "../components/myTitle";
     import MyFooter from "../components/myFooter";
 
@@ -43,11 +44,14 @@
         components: {MyFooter, MyTitle},
         data() {
             return {
-                userName: Cookies.get('name'),
+                userName: "test",
                 registerTime: this.formatTimeAsYYMMDD(Cookies.get('regtime')),
                 password: '******',
                 isVIP: ''
             }
+        },
+        created: function () {
+            this.resetUserInfo();
         },
         methods: {
             updateUserInfo: function () {
@@ -65,10 +69,23 @@
                     })
             },
             resetUserInfo: function () {
-                this.userName = Cookies.get('name')
-                this.registerTime = this.formatTimeAsYYMMDD(Cookies.get('regtime'))
-                this.password = '******'
-                this.isVIP = Cookies.get('isVIP')
+                let data = {
+                    uid: Cookies.get("uid"),
+                    token: Cookies.get("token")
+                }
+                data = qs.stringify(data);
+                API.userInfo(data)
+                    .then(res => {
+                        if (res.state === 0){
+                            this.userName = res.nickname;
+                            this.registerTime = this.formatTimeAsYYMMDD(res.regtime * 1000)
+                            this.isVIP = (res.isVIP ? "是" : "否");
+                        }
+                    })
+                    .catch(res => {
+
+                    })
+
             },
             formatTimeAsYYMMDD: function (time) {
                 if (time === null) return null
