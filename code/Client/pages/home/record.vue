@@ -17,17 +17,17 @@
                             <div style="text-align: center">
                                 <el-form label-width="100px">
                                     <el-form-item label="标题">
-                                        <el-input v-model="newRecordItem.title" />
+                                        <el-input v-model="newRecordItem.title"/>
                                     </el-form-item>
 
                                     <el-form-item label="时间选择">
-                                        <el-time-picker is-range range-separator="至" start-placeholder="开始时间"
-                                                        end-placeholder="结束时间" placeholder="选择时间范围"
-                                                        v-model="timeRange"/>
+                                        <el-time-picker placeholder="选择时间"
+                                                        v-model="newRecordItem.time"/>
                                     </el-form-item>
 
                                     <el-form-item label="描述">
-                                        <el-input v-model="newRecordItem.detail" type="textarea" :autosize="{ minRows: 5}"/>
+                                        <el-input v-model="newRecordItem.detail" type="textarea"
+                                                  :autosize="{ minRows: 5}"/>
                                     </el-form-item>
                                 </el-form>
                             </div>
@@ -38,14 +38,14 @@
                         </el-dialog>
                     </div>
                     <div v-for="item in recordList" :key="item.rid">
-                        <div style="margin: 10px;" @click="updateRecordContent(item.rid)" class="">
+                        <div style="margin: 10px;" @click="updateRecordContent(item.rid)" class="recordItem">
                             <span>
-                                {{item.time}}
+                                {{item.title}}
                             </span>
                             <p style="font-size: 0.8rem; color: #B4BCCC;margin-top: 5px;">
                                 {{formatTime(item.time)}}
                             </p>
-                            <el-button type="danger" size="mini" @click="deleteTask(item.rid)"
+                            <el-button type="danger" size="mini" @click="deleteRecord(item.rid)"
                                        style="float: right; height: 20px; padding: 3px; z-index: 10">
                                 删除记录
                             </el-button>
@@ -61,7 +61,18 @@
                         <i @click="editContent" class="el-icon-edit" style="float: right;"></i>
                     </div>
                     <div style="margin: 5%; text-align: center">
-                        {{content}}
+                        <div>
+                            <p style="font-size: 1.2rem">
+                                {{recordItem.title}}
+                            </p>
+                            <div style="font-size: 0.8rem; color: #a6a9ad">
+                                <span>{{formatTime(new Date(recordItem.time))}}</span>
+                            </div>
+                            <el-divider/>
+                        </div>
+                        <div>
+                            {{recordItem.detail}}
+                        </div>
                     </div>
                     <el-dialog
                             title="内容编辑"
@@ -84,6 +95,9 @@
 </template>
 
 <script>
+    import API from "../../api";
+    import qs from 'qs'
+    import Cookies from "js-cookie"
     import MyTitle from "../../components/myTitle";
     import MyFooter from "../../components/myFooter";
 
@@ -93,18 +107,18 @@
         data() {
             return {
                 recordList: [
-                    {rid: 1, title: 'title1', time: '13点26分', detail: '', picture: []},
-                    {rid: 2, title: 'title2', time: '13点26分', detail: '', picture: []},
-                    {rid: 3, title: 'title3', time: '13点26分', detail: '', picture: []},
-                    {rid: 4, title: 'title4', time: '13点26分', detail: '', picture: []}
+                    {rid: 1, title: 'title1', time: '', detail: '', picture: []},
+                    {rid: 2, title: 'title2', time: '', detail: '', picture: []},
+                    {rid: 3, title: 'title3', time: '', detail: '', picture: []},
+                    {rid: 4, title: 'title4', time: '', detail: '', picture: []}
                 ],
                 isAddRecord: false,
                 timeRange: '',
                 repeat: '0',
                 editRecordContent: '',
                 isEditContent: false,
-                recordItem: {rid: 1, title: 'title1', time: '13点26分', detail: '', picture: []},
-                newRecordItem: {rid: 1, title: 'title1', time: '13点26分', detail: '', picture: []}
+                recordItem: {rid: 1, title: '', time: '', detail: '', picture: []},
+                newRecordItem: {rid: 1, title: '', time: '', detail: '', picture: []}
             }
         },
         mounted() {
@@ -112,25 +126,100 @@
         },
         methods: {
             getUserRecord: function () {
-                // TODO 获取用户记录列表
+                let data = {
+                    uid: Cookies.get("uid"),
+                    token: Cookies.get("token")
+                }
+                data = qs.stringify(data)
+                API.allRecord(data)
+                    .then(res => {
+                        this.recordList = res.list
+                        if (res.state === 0) {
+                            if (this.recordList.length > 0) {
+                                this.recordItem.rid = this.recordList[0].rid
+                                this.recordItem.title = this.recordList[0].title
+                                this.recordItem.detail = this.recordList[0].detail
+                                this.recordItem.time = this.recordList[0].time
+                            } else {
+                                this.recordItem.begin = null
+                                this.recordItem.end = null
+                            }
+                        } else {
+                            alert('获取记录失败')
+                        }
+                    })
+                    .catch(res => {
+                        alert(res)
+                    })
             },
             showAddRecord: function () {
-                // TODO 显示添加记录窗口
                 this.isAddRecord = !this.isAddRecord
             },
             addRecord: function () {
-                //TODO 添加记录
+                let data = {
+                    uid: Cookies.get("uid"),
+                    token: Cookies.get("token"),
+                    title: this.newRecordItem.title,
+                    time: new Date(this.newRecordItem.time).valueOf(),
+                    detail: this.newRecordItem.detail,
+                    picture: this.newRecordItem.picture
+                }
+                data = qs.stringify(data)
+                API.addRecord(data)
+                    .then(res => {
+                        if (res.state === 0) alert('添加成功')
+                        else alert('添加失败')
+
+                        this.getUserRecord()
+                    })
+                    .catch(res => {
+                        alert(res)
+                    })
                 this.isAddRecord = !this.isAddRecord
             },
             updateRecordContent: function (recordID) {
-                //TODO 获取点击记录内容
-                this.recordItem = this.recordList[recordID - 1]
+                let data = {
+                    uid: Cookies.get("uid"),
+                    token: Cookies.get("token"),
+                    rid: recordID
+                }
+                data = qs.stringify(data)
+                API.recordDetail(data)
+                    .then(res => {
+                        if (res.state === 0) {
+                            this.recordItem.rid = res.rid
+                            this.recordItem.title = res.title
+                            this.recordItem.detail = res.detail
+                            this.recordItem.time = res.time
+                        } else {
+                            alert('错误代码' + res.state)
+                        }
+                    })
+                    .catch(res => {
+                        alert(res)
+                    })
             },
             editContent: function () {
                 this.isEditContent = !this.isEditContent
             },
             updateContent: function () {
-                //TODO 提交更改信息
+                let data = {
+                    uid: Cookies.get("uid"),
+                    token: Cookies.get("token"),
+                    detail: this.recordItem.detail
+                }
+                data = qs.stringify(data)
+                API.updateRecord(data)
+                    .then(res => {
+                        if (res.state === 0) alert('更新成功')
+                        else alert('更新失败')
+
+                        this.getUserRecord()
+                    })
+                    .catch(res => {
+                        alert(res)
+                    })
+
                 this.isEditContent = false
             },
             closeEditContent: function () {
@@ -139,8 +228,23 @@
             closeAddRecord: function () {
                 this.isAddRecord = false
             },
-            deleteTask: function (taskID) {
-                //TODO 删除记录
+            deleteRecord: function (recordID) {
+                let data = {
+                    uid: Cookies.get("uid"),
+                    token: Cookies.get("token"),
+                    rid: recordID
+                }
+                data = qs.stringify(data)
+                API.deleteRecord(data)
+                    .then(res => {
+                        if (res.state === 0) alert('删除成功')
+                        else alert('删除失败')
+
+                        this.getUserRecord()
+                    })
+                    .catch(res => {
+                        alert(res)
+                    })
             },
             handleClose(done) {
                 this.$confirm('确认取消？')
@@ -156,7 +260,7 @@
                 let date = new Date(time);
 
                 let year = date.getFullYear(),
-                    month = date.getMonth() + 1,//月份是从0开始的
+                    month = date.getMonth() + 1,
                     day = date.getDate(),
                     hour = date.getHours(),
                     min = date.getMinutes(),
@@ -177,5 +281,15 @@
         display: inline-block;
         background-color: #efefef;
         width: 100%;
+    }
+
+    .recordItem {
+        text-align: center;
+    }
+
+    .recordItem:hover {
+        background-color: #efefef;
+        transition: ease-in-out;
+        transition-duration: 0.4s;
     }
 </style>
