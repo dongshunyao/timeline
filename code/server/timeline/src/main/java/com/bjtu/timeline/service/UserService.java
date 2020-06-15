@@ -69,7 +69,7 @@ public class UserService {
     public InfoResponse getUserInfo(int uid) {
         DBuser_info targetUser = userDao.getUserInfoByUid(uid);
         return new InfoResponse(STATE_COMMON_OK, targetUser.getNickname(),
-                targetUser.getIsVIP(), targetUser.getReftime());
+                targetUser.getIsVIP(), targetUser.getRegtime());
     }
 
     public InfoupdResponse updateUserInfo(int uid, String nickname) {
