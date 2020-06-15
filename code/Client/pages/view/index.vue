@@ -8,7 +8,7 @@
                     <detail-card :task="taskDetail" style="width: 49%;margin-left: 2%;float: left;min-height: 520px"></detail-card>
                 </el-tab-pane>
                 <el-tab-pane label="周视图" name="second">
-                    <calendar-week></calendar-week>
+                    <calendar-week :base-list="allList"></calendar-week>
                 </el-tab-pane>
                 <el-tab-pane label="月视图" name="third">
                     <calendar-month></calendar-month>
@@ -39,11 +39,13 @@
                 activeName: 'first',
                 clickedTid:'',
                 taskDetail:{},
+                allList:[],
             }
         },
 
         mounted(){
             this.receiveTid('1');
+            this.getAllList();
         },
 
         methods:{
@@ -65,7 +67,38 @@
                 }).catch(msg=>{
                     alert(msg);
                 });
-            }
+            },
+
+            getAllList(){
+                let data={
+                    uid:Cookies.get('uid'),
+                    token:Cookies.get('token'),
+                };
+                data = qs.stringify(data);
+                API.allTask(data).then(res=>{
+                    if(res.code){
+                        alert(res.message)
+                    }
+                    res.list.forEach(item=>{
+                        item.time=item.begin;
+                        this.allList.push(item);
+                    });
+                }).catch(msg=>{
+                    alert(msg);
+                });
+                API.allRecord(data).then(res=>{
+                    if(res.code){
+                        alert(res.message)
+                    }
+                    res.list.forEach(item=>{
+                        this.allList.push(item);
+                    });
+                }).catch(msg=>{
+                    alert(msg);
+                });
+                console.log("this.allList");
+                console.log(this.allList);
+            },
         }
     }
 </script>

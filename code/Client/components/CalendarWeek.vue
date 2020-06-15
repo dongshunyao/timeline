@@ -63,25 +63,13 @@
 <script>
     export default {
         name: "CalendarWeek",
+        props:{
+            baseList:{
+                type:Array,
+            }
+        },
         data(){
             return{
-                baseList:[{
-                    begin:"2020/4/12",
-                    title:"任务1",
-                    detail:"This is task 1",
-                },{
-                    begin:"2018/4/16",
-                    title:"任务2",
-                    detail:"This is task 2",
-                },{
-                    begin:"2018/6/12",
-                    title:"任务3",
-                    detail:"This is task 3",
-                },{
-                    begin:"2018/8/10",
-                    title:"任务4",
-                    detail:"This is task 4",
-                }],
                 finalList:[{
                     time:"0:00-6:00",
                     day1:"",
@@ -176,9 +164,18 @@
             }
         },
 
+        mounted(){
+            this.setList();
+        },
+
         methods:{
             setList(){
 
+                this.baseList.forEach(item=>{
+                    item.day=new Date(item.time * 1000).toDateString();
+                    item.hours=new Date(item.time * 1000).getHours();
+                    console.log(item);
+                })
             }
         },
     }
