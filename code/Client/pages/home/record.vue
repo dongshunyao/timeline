@@ -99,6 +99,7 @@
 
 <script>
     import API from "../../api";
+    import {MFAPI} from "../../api";
     import qs from 'qs'
     import Cookies from "js-cookie"
     import MyTitle from "../../components/myTitle";
@@ -283,8 +284,15 @@
                         token: Cookies.get('token'),
                         picture: event.target.files[0]
                     }
-                    data = qs.stringify(data)
-                    API.uploadFile(data)
+                    data = qs.stringify(data);
+                    var formData = new FormData();
+                    formData.append('uid', Cookies.get('uid'));
+                    formData.append('token', Cookies.get('token'));
+                    formData.append('pic', event.target.files[0]);
+                    console.log(formData);
+                    console.log(event.target.files[0]);
+                    //API.uploadFile(data)
+                    API.uploadFile(formData)
                         .then(res => {
                             if (res.state === 0) {
                                 
