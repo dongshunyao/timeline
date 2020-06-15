@@ -17,19 +17,24 @@
         <el-dialog
                 title="内容编辑"
                 center
-                :visible.sync="isEditContent">
+                :visible.sync="isEditContent"
+                :before-close="handleClose">
             <div>
-                <el-input type="textarea" v-model="content" :autosize="{ minRows: 5}"/>
+                <el-input type="textarea" v-model="task.detail" :autosize="{ minRows: 5}"/>
             </div>
             <div slot="footer">
-                <el-button type="primary" size="medium">确认保存</el-button>
-                <el-button @click="this.isEditContent=false" size="medium">取消</el-button>
+                <el-button @click="updateContent(task.tid)" type="primary" size="medium">确认保存</el-button>
+                <el-button @click="closeEditContent" size="medium">取消</el-button>
             </div>
         </el-dialog>
     </el-card>
 </template>
 
 <script>
+    import Cookies from "js-cookie";
+    import qs from "qs";
+    import API from "../api";
+
     export default {
         name: "detailCard",
         props:{
@@ -41,12 +46,63 @@
             return{
                 isEditContent:false,
                 content:'',
+                // taskItem: {tid: 0, type: 0, group: 0, state: 0, begin: 0, end: 0, title: '', detail: ''},
             }
         },
 
         methods:{
-            editContent(){
+            editContent: function () {
+                this.isEditContent = !this.isEditContent
+            },
+            updateContent: function (taskID) {
+                let data = {
+                    uid: Cookies.get('uid'),
+                    token: Cookies.get('token'),
+                    tid: taskID,
+                    detail: this.task.detail
+                }
+                data = qs.stringify(data)
+                API.updateTask(data)
+                    .then(res => {
+                        if (res.state === 0) alert('成功')
+                        else alert('失败')
 
+                        this.getUserEvent()
+                    })
+                    .catch(res => {
+                        alert(res)
+                    })
+
+                this.isEditContent = false
+            },
+            handleClose(done) {
+                this.$confirm('确认取消？')
+                    .then(_ => {
+                        done();
+                    })
+                    .catch(_ => {
+                    });
+            },
+            closeEditContent: function () {
+                this.isEditContent = false
+            },
+            getUserEvent: function () {
+                let data = {
+                    uid: Cookies.get("uid"),
+                    token: Cookies.get("token")
+                }
+                data = qs.stringify(data)
+                API.allTask(data)
+                    .then(res => {
+                        if (res.state === 0) {
+                            
+                        } else {
+                            alert('错误代码' + res.state)
+                        }
+                    })
+                    .catch(res => {
+                        alert(res)
+                    })
             },
         }
 
