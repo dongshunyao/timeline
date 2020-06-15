@@ -11,4 +11,4 @@ server:
   port: 8080
 
 config-string:
-  picture-path: c:/pic/
+  picture-path: c:\pic\

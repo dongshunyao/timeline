@@ -64,6 +64,7 @@ public class RcdResponses {
     @AllArgsConstructor
     public static class PicUploadResponse {
         int state;
+        String picname;
     }
 
 }
