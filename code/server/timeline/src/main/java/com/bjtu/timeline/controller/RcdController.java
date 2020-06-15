@@ -67,6 +67,14 @@ public class RcdController {
         );
     }
 
+    @RequestMapping("/del")
+    public DelResponse del(DelRequire req) {
+        if (!userService.checkUser(req)) {
+            return new DelResponse(STATE_COMMON_FAIL);
+        }
+        return rcdService.delRecord(req.getUid(), req.getRid());
+    }
+
     @RequestMapping("/picupload")
     public PicUploadResponse picUpload(PicUploadRequire req) {
 
