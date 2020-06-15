@@ -1,5 +1,5 @@
 <template>
-    <el-card>
+    <el-card style="height: 240px">
         <div style="display: inline-block;width: 100%">
             <p style="font-size: 18px;float: left">记录列表</p>
             <el-button type="text" style="float: right;margin-right: 5px;margin-top: -10px"

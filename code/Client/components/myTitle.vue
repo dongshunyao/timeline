@@ -12,7 +12,7 @@
             <el-menu-item index="2" @click="toMyOrg">我的组织</el-menu-item>
             <el-submenu index="3">
                 <template slot="title">{{this.name}}</template>
-                <el-menu-item index="3-1">数据统计</el-menu-item>
+                <el-menu-item index="3-1" disabled>数据统计</el-menu-item>
                 <el-menu-item index="3-2" @click="toSetting">个人设置</el-menu-item>
                 <el-menu-item index="3-3" @click="Exit">退出登录</el-menu-item>
             </el-submenu>

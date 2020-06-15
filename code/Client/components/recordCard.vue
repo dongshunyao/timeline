@@ -6,7 +6,7 @@
         </div>
 
         <div style="color: #8c939d;font-size: 12px;margin-top: 5px;margin-left: 5px">
-            <span style="margin-right: 5px">{{record.begin}}</span>
+            <span style="margin-right: 5px">{{record.time}}</span>
         </div>
         <el-divider></el-divider>
         <div style="margin-left: 5px">
@@ -35,12 +35,12 @@
             editContent: function () {
                 this.isEditContent = !this.isEditContent
             },
-            updateContent: function (taskID) {
+            updateContent: function (recordID) {
                 let data = {
                     uid: Cookies.get('uid'),
                     token: Cookies.get('token'),
-                    tid: taskID,
-                    detail: this.task.detail
+                    rid: recordID,
+                    detail: this.record.detail
                 };
                 data = qs.stringify(data);
                 API.updateTask(data)

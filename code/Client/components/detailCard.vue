@@ -1,5 +1,5 @@
 <template>
-    <el-card>
+    <el-card style="height: 630px;overflow: auto">
         <div style="margin-top: 5px;margin-left: 5px">
             <span style="font-size: 18px">{{task.title}}</span>
             <i @click="editContent" class="el-icon-edit" style="float: right;"></i>

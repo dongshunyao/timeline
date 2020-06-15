@@ -312,6 +312,7 @@
         display: inline-block;
         background-color: #efefef;
         width: 100%;
+        min-height: 620px;
     }
 
     .recordItem {
