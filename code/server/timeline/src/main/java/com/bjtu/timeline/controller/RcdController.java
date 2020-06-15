@@ -30,6 +30,14 @@ public class RcdController {
         return rcdService.getList(req.getUid());
     }
 
+    @RequestMapping("/view")
+    public ViewResponse list(ViewRequire req) {
+        if (!userService.checkUser(req)) {
+            return new ViewResponse(STATE_COMMON_FAIL, -1, null, -1, null, null);
+        }
+        return rcdService.getSingel(req.getUid(), req.getRid());
+    }
+
     @RequestMapping("/picupload")
     public PicUploadResponse picUpload(PicUploadRequire req) {
 

@@ -1,6 +1,7 @@
 package com.bjtu.timeline.service;
 
 import com.bjtu.common.StringUtil;
+import com.bjtu.timeline.bean.proto.DBrecord_body;
 import com.bjtu.timeline.bean.response.RcdResponses.*;
 import com.bjtu.timeline.mapper.RcdMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +36,18 @@ public class RcdService {
     public ListResponse getList(int uid) {
         List<ListResponse.listElm> list = rcdDao.getListByUid(uid);
         return new ListResponse(STATE_COMMON_OK, list);
+    }
+
+    public ViewResponse getSingel(int uid, int rid) {
+        DBrecord_body body = rcdDao.getRcdByRid(rid);
+        if (body == null) {
+            return new ViewResponse(-10, -1, null, -1, null, null);//不是你的
+        }
+        if (body.getUid() != uid) {
+            return new ViewResponse(-11, -1, null, -1, null, null);//不是你的
+        }
+        List<String> picList = rcdDao.rcdDaoPicListByRid(rid);
+        return new ViewResponse(0, rid, body.getTitle(), body.getTime(), body.getDetail(), picList);
     }
 
     public PicUploadResponse picUpload(int uid, MultipartFile file) {
