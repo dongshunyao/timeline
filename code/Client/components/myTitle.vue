@@ -56,6 +56,7 @@
                 this.$router.push({path: `/home`});
             },
             toMyOrg() {
+                this.$router.push({path: `/group`});
             },
 
             Back(){

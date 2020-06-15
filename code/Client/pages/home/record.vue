@@ -66,7 +66,7 @@
                                 {{recordItem.title}}
                             </p>
                             <div style="font-size: 0.8rem; color: #a6a9ad">
-                                <span>{{formatTime(new Date(recordItem.time))}}</span>
+                                <span>{{formatTime(new Date(recordItem.time*1000))}}</span>
                             </div>
                             <el-divider/>
                         </div>
@@ -134,12 +134,11 @@
                 let data = {
                     uid: Cookies.get("uid"),
                     token: Cookies.get("token")
-                }
-                data = qs.stringify(data)
+                };
+                data = qs.stringify(data);
                 API.allRecord(data)
                     .then(res => {
                         this.recordList = res.list
-                        /*
                         if (res.state === 0) {
                             if (this.recordList.length > 0) {
                                 this.recordItem.rid = this.recordList[0].rid
@@ -153,7 +152,6 @@
                         } else {
                             alert('获取记录失败')
                         }
-                        */
                     })
                     .catch(res => {
                         alert(res)
