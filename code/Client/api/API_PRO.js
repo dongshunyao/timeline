@@ -28,4 +28,7 @@ export default {
 
     // 上传文件
     uploadFile: {url: 'rcd/picupload'},
+
+
+    groupList: {url: 'group/list'},
 }
