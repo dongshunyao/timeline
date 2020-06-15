@@ -11,7 +11,11 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+
+import static com.bjtu.timeline.bean.response.CommonResponses.STATE_COMMON_FAIL;
+import static com.bjtu.timeline.bean.response.CommonResponses.STATE_COMMON_OK;
 
 @Service
 public class RcdService {
@@ -25,6 +29,11 @@ public class RcdService {
     private static final Set<String> okSuffix = new HashSet<String>() {{
         add("jpg");add("png");add("bmp");
     }};
+
+    public ListResponse getList(int uid){
+        List<ListResponse.listElm> list = rcdDao.getListByUid(uid);
+        return new ListResponse(STATE_COMMON_OK,list);
+    }
 
     public PicUploadResponse picUpload(int uid, MultipartFile file){
         String picPath = picturePrefix + uid + "\\" ;

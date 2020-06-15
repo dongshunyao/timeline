@@ -22,12 +22,16 @@ public class RcdController {
     @Autowired
     private UserService userService;
 
+    @RequestMapping("/list")
+    public ListResponse list(ListRequire req){
+        if (!userService.checkUser(req)) {
+            return new ListResponse(STATE_COMMON_FAIL,null);
+        }
+        return rcdService.getList(req.getUid());
+    }
+
     @RequestMapping("/picupload")
     public PicUploadResponse picUpload(PicUploadRequire req){
-
-        System.out.println(req.getUid());
-        System.out.println(req.getToken());
-        System.out.println(req.getPic());
 
         if (!userService.checkUser(req)) {
             return new PicUploadResponse(STATE_COMMON_FAIL,"");
