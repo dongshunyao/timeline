@@ -51,5 +51,7 @@
     .timeLine {
         width: 800px;
         margin: 20px auto;
+        overflow: auto;
+        height: 450px;
     }
 </style>

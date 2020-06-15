@@ -59,7 +59,7 @@ public interface RcdMapper {
     void addRecord(@Param("body") DBrecord_body i);
 
     @Delete("delete from record_body " +
-            "where rid = {rid}")
+            "where rid = #{rid}")
     void deleteRecord(int rid);
 
 }

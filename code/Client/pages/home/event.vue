@@ -1,6 +1,6 @@
 <template>
     <div>
-        <my-title style="width: 100%;"/>
+        <my-title :active-index="activeIndex" style="width: 100%;"/>
         <div class="bodyDiv">
             <div style="width: 40%;float: left;margin: 10px 5%;">
                 <el-card>
@@ -51,9 +51,9 @@
                                 {{item.title}}
                             </span>
                             <div style="font-size: 0.8rem; color: #a6a9ad">
-                                <span>{{formatTime(new Date(item.begin))}}</span>
+                                <span>{{formatTime(new Date(item.begin*1000))}}</span>
                                 -
-                                <span>{{formatTime(new Date(item.end))}}</span>
+                                <span>{{formatTime(new Date(item.end*1000))}}</span>
                             </div>
                             <el-button type="danger" size="mini" @click="deleteTask(item.tid)"
                                        style="float: right; height: 20px; padding: 3px; z-index: 10">
@@ -76,11 +76,11 @@
                                 {{taskItem.title}}
                             </p>
                             <div style="font-size: 0.8rem; color: #a6a9ad">
-                                <span>{{formatTime(new Date(taskItem.begin))}}</span>
+                                <span>{{formatTime(new Date(taskItem.begin*1000))}}</span>
                                 -
-                                <span>{{formatTime(new Date(taskItem.end))}}</span>
+                                <span>{{formatTime(new Date(taskItem.end*1000))}}</span>
                             </div>
-                            <el-divider />
+                            <el-divider/>
                         </div>
                         <div>
                             {{taskItem.detail}}
@@ -95,7 +95,8 @@
                             <el-input type="textarea" v-model="taskItem.detail" :autosize="{ minRows: 5}"/>
                         </div>
                         <div slot="footer">
-                            <el-button @click="updateContent(taskItem.tid)" type="primary" size="medium">确认保存</el-button>
+                            <el-button @click="updateContent(taskItem.tid)" type="primary" size="medium">确认保存
+                            </el-button>
                             <el-button @click="closeEditContent" size="medium">取消</el-button>
                         </div>
                     </el-dialog>
@@ -127,6 +128,7 @@
                 isAddEvent: false,
                 timeRange: '',
                 repeat: '0',
+                activeIndex: '1',
                 // 右侧对象内容
                 taskItem: {tid: 0, type: 0, group: 0, state: 0, begin: 0, end: 0, title: '', detail: ''},
                 newTaskItem: {tid: 0, type: 0, group: 0, state: 0, begin: 0, end: 0, title: '', detail: ''},
@@ -142,21 +144,21 @@
                 let data = {
                     uid: Cookies.get("uid"),
                     token: Cookies.get("token")
-                }
-                data = qs.stringify(data)
+                };
+                data = qs.stringify(data);
                 API.allTask(data)
                     .then(res => {
                         if (res.state === 0) {
-                            this.eventList = res.list
+                            this.eventList = res.list;
                             if (this.eventList.length > 0) {
-                                this.taskItem.tid = this.eventList[0].tid
-                                this.taskItem.type = this.eventList[0].type
-                                this.taskItem.group = this.eventList[0].group
-                                this.taskItem.state = this.eventList[0].state
-                                this.taskItem.begin = this.eventList[0].begin
-                                this.taskItem.end = this.eventList[0].end
-                                this.taskItem.title = this.eventList[0].title
-                                this.taskItem.detail = this.eventList[0].detail
+                                this.taskItem.tid = this.eventList[0].tid;
+                                this.taskItem.type = this.eventList[0].type;
+                                this.taskItem.group = this.eventList[0].group;
+                                this.taskItem.state = this.eventList[0].state;
+                                this.taskItem.begin = this.eventList[0].begin;
+                                this.taskItem.end = this.eventList[0].end;
+                                this.taskItem.title = this.eventList[0].title;
+                                this.taskItem.detail = this.eventList[0].detail;
                             } else {
                                 this.taskItem.begin = null
                                 this.taskItem.end = null
@@ -176,13 +178,14 @@
                 let data = {
                     uid: Cookies.get('uid'),
                     token: Cookies.get('token'),
-                    begin: new Date(this.timeRange[0]).valueOf(),
-                    end: new Date(this.timeRange[1]).valueOf(),
+                    begin: new Date(this.timeRange[0]).valueOf() / 1000,
+                    end: new Date(this.timeRange[1]).valueOf() / 1000,
                     title: this.newTaskItem.title,
                     detail: this.newTaskItem.detail,
                     type: this.newTaskItem.type,
                     groupid: this.newTaskItem.group
-                }
+                };
+
                 data = qs.stringify(data)
                 API.addTask(data)
                     .then(res => {

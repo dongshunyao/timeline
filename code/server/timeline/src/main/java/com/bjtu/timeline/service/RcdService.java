@@ -83,7 +83,7 @@ public class RcdService {
 
     public AddResponse addRecord(int uid, String title, long time, String detail, List<String> pictures) {
         int rid = rcdDao.addRecord(uid, title, time, detail);
-        for (int pos = 0; pos < pictures.size(); pos++) {
+        if (pictures != null) for (int pos = 0; pos < pictures.size(); pos++) {
             rcdDao.addPicture(rid, pictures.get(pos), pos);
         }
         return new AddResponse(STATE_COMMON_OK);
