@@ -47,8 +47,8 @@ public interface RcdMapper {
             "values (#{rid},#{path},#{pos})")
     void addPicture(int rid, String path, int pos);
 
-    default int addRecord(int uid,String title,long time,String detail) {
-        DBrecord_body rtv = new DBrecord_body(-1, uid, title,time,detail);
+    default int addRecord(int uid, String title, long time, String detail) {
+        DBrecord_body rtv = new DBrecord_body(-1, uid, title, time, detail);
         addRecord(rtv);
         return rtv.getRid();
     }
