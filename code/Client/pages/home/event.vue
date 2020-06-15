@@ -44,14 +44,15 @@
                             </div>
                         </el-dialog>
                     </div>
-                    <div v-for="item in eventList" :key="item.id">
-                        <div style="margin: 10px;" @click="updateEventContent(item.id)" class="eventItem">
+                    <div v-for="item in eventList" :key="item.tid">
+                        <div style="margin: 10px;" @click="updateEventContent(item.tid)" class="eventItem">
                             <span>
-                                {{item.eventTitle}}
+                                {{item.title}}
                             </span>
-                            <p style="font-size: 0.8rem; color: #B4BCCC;margin-top: 5px;">
-                                {{item.eventTime}}
-                            </p>
+                            <div style="font-size: 0.6rem; color: #a6a9ad">
+                                <p>开始时间：{{formatTime(new Date(item.begin))}}</p>
+                                <p>结束时间：{{formatTime(new Date(item.end))}}</p>
+                            </div>
                             <el-button type="danger" size="mini" @click="deleteTask(item.id)"
                                        style="float: right; height: 20px; padding: 3px; z-index: 10">
                                 删除任务
@@ -68,7 +69,19 @@
                         <i @click="editContent" class="el-icon-edit" style="float: right;"></i>
                     </div>
                     <div style="margin: 5%; text-align: center">
-                        {{content}}
+                        <div>
+                            <p style="font-size: 1.2rem">
+                                {{taskItem.title}}
+                            </p>
+                            <div style="font-size: 0.6rem; color: #a6a9ad">
+                                <p>开始时间：{{formatTime(new Date(taskItem.begin))}}</p>
+                                <p>结束时间：{{formatTime(new Date(taskItem.end))}}</p>
+                            </div>
+
+                        </div>
+                        <div>
+                            {{taskItem.detail}}
+                        </div>
                     </div>
                     <el-dialog
                             title="内容编辑"
@@ -76,7 +89,7 @@
                             :visible.sync="isEditContent"
                             :before-close="handleClose">
                         <div>
-                            <el-input type="textarea" v-model="content" :autosize="{ minRows: 5}"/>
+                            <el-input type="textarea" v-model="taskItem.detail" :autosize="{ minRows: 5}"/>
                         </div>
                         <div slot="footer">
                             <el-button @click="updateContent" type="primary" size="medium">确认保存</el-button>
@@ -91,6 +104,9 @@
 </template>
 
 <script>
+    import API from "../../api";
+    import qs from 'qs'
+    import Cookies from 'js-cookie'
     import MyTitle from "../../components/myTitle";
     import MyFooter from "../../components/myFooter";
 
@@ -100,18 +116,16 @@
         data() {
             return {
                 eventList: [
-                    {id: 1, eventTitle: 'title', eventTime: '13点26分'},
-                    {id: 2, eventTitle: 'title-2', eventTime: '13点16分'},
-                    {id: 3, eventTitle: 'title-3', eventTime: '13点16分'},
-                    {id: 4, eventTitle: 'title-4', eventTime: '13点16分'},
-                    {id: 5, eventTitle: 'title-5', eventTime: '13点16分'},
-                    {id: 6, eventTitle: 'title-6', eventTime: '13点16分'},
-                    {id: 7, eventTitle: 'title-7', eventTime: '13点16分'},
+                    {tid: 1, type: 0, begin: 123, end: 123, title: 'title1', detail: 'detail1'},
+                    {tid: 2, type: 0, begin: 123, end: 123, title: 'title2', detail: 'detail2'},
+                    {tid: 3, type: 0, begin: 123, end: 123, title: 'title3', detail: 'detail3'},
+                    {tid: 4, type: 0, begin: 123, end: 123, title: 'title4', detail: 'detail4'},
                 ],
                 isAddEvent: false,
                 timeRange: '',
                 repeat: 'no',
-                content: 'content',
+                // 右侧对象内容
+                taskItem: {tid: 0, type: 0, group: 0, state: 0, begin: 0, end: 0, title: '', detail: ''},
                 editEventContent: '',
                 isEditContent: false
             }
@@ -121,7 +135,35 @@
         },
         methods: {
             getUserEvent: function () {
-                // TODO 获取用户任务列表
+                let data = {
+                    uid: Cookies.get("uid"),
+                    token: Cookies.get("token")
+                }
+                data = qs.stringify(data)
+                API.allTask(data)
+                    .then(res => {
+                        if (res.state === 0) {
+                            this.eventList = res.list
+                            if (this.eventList.length > 0) {
+                                this.taskItem.tid = this.eventList[0].tid
+                                this.taskItem.type = this.eventList[0].type
+                                this.taskItem.group = this.eventList[0].group
+                                this.taskItem.state = this.eventList[0].state
+                                this.taskItem.begin = this.eventList[0].begin
+                                this.taskItem.end = this.eventList[0].end
+                                this.taskItem.title = this.eventList[0].title
+                                this.taskItem.detail = this.eventList[0].detail
+                            } else {
+                                this.taskItem.begin = null
+                                this.taskItem.end = null
+                            }
+                        } else {
+                            alert('错误代码' + res.state)
+                        }
+                    })
+                    .catch(res => {
+                        alert(res)
+                    })
             },
             showAddEvent: function () {
                 // TODO 显示添加任务窗口
@@ -131,9 +173,31 @@
                 //TODO 添加任务
                 this.isAddEvent = !this.isAddEvent
             },
-            updateEventContent: function (eventID) {
-                //TODO 获取点击任务内容
-                this.content = this.eventList[eventID - 1].eventTitle
+            updateEventContent: function (taskID) {
+                let data = {
+                    uid: Cookies.get("uid"),
+                    token: Cookies.get("token"),
+                    tid: taskID
+                }
+                data = qs.stringify(data)
+                API.taskDetail(data)
+                    .then(res => {
+                        if (res.state === 0) {
+                            this.taskItem.tid = res.tid
+                            this.taskItem.type = res.type
+                            this.taskItem.group = res.group
+                            this.taskItem.state = res.state
+                            this.taskItem.begin = res.begin
+                            this.taskItem.end = res.end
+                            this.taskItem.title = res.title
+                            this.taskItem.detail = res.detail
+                        } else {
+                            alert('错误代码' + res.state)
+                        }
+                    })
+                    .catch(res => {
+                        alert(res)
+                    })
             },
             editContent: function () {
                 this.isEditContent = !this.isEditContent
@@ -158,6 +222,24 @@
                     })
                     .catch(_ => {
                     });
+            },
+            formatTime: function (time) {
+                if (time === null) return null
+
+                let date = new Date(time);
+
+                let year = date.getFullYear(),
+                    month = date.getMonth() + 1,//月份是从0开始的
+                    day = date.getDate(),
+                    hour = date.getHours(),
+                    min = date.getMinutes(),
+                    sec = date.getSeconds();
+                return year + '-' +
+                    month + '-' +
+                    day + ' ' +
+                    hour + ':' +
+                    min + ':' +
+                    sec;
             }
         }
     }
