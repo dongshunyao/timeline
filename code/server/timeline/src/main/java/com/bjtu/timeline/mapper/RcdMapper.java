@@ -47,4 +47,15 @@ public interface RcdMapper {
             "values (#{rid},#{path},#{pos})")
     void addPicture(int rid, String path, int pos);
 
+    default int addRecord(int uid,String title,long time,String detail) {
+        DBrecord_body rtv = new DBrecord_body(-1, uid, title,time,detail);
+        addRecord(rtv);
+        return rtv.getRid();
+    }
+
+    @Insert("insert into record_body(uid, title, time, detail) " +
+            "values (#{body.uid},#{body.title},#{body.time},#{body.detail})")
+    @Options(useGeneratedKeys = true, keyProperty = "body.rid")
+    void addRecord(@Param("body") DBrecord_body i);
+
 }

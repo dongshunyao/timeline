@@ -53,6 +53,20 @@ public class RcdController {
         );
     }
 
+    @RequestMapping("/add")
+    public AddResponse add(AddRequire req) {
+        if (!userService.checkUser(req)) {
+            return new AddResponse(STATE_COMMON_FAIL);
+        }
+        return rcdService.addRecord(
+                req.getUid(),
+                req.getTitle(),
+                req.getTime(),
+                req.getDetail(),
+                req.getPicture()
+        );
+    }
+
     @RequestMapping("/picupload")
     public PicUploadResponse picUpload(PicUploadRequire req) {
 

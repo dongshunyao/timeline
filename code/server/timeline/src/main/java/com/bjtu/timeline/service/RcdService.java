@@ -81,6 +81,15 @@ public class RcdService {
         return new UpdResponse(STATE_COMMON_OK);
     }
 
+    public AddResponse addRecord(int uid, String title,long time,String detail,List<String> pictures) {
+        int rid = rcdDao.addRecord(uid,title,time,detail);
+        for (int pos = 0; pos < pictures.size(); pos++) {
+            rcdDao.addPicture(rid, pictures.get(pos), pos);
+        }
+        return new AddResponse(STATE_COMMON_OK);
+    }
+
+    @SuppressWarnings("all")
     public PicUploadResponse picUpload(int uid, MultipartFile file) {
         String picPath = picturePrefix + uid + "\\";
         File father = new File(picPath);
