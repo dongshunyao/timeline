@@ -51,9 +51,9 @@
                                 {{item.title}}
                             </span>
                             <div style="font-size: 0.8rem; color: #a6a9ad">
-                                <span>{{formatTime(new Date(item.begin))}}</span>
+                                <span>{{formatTime(new Date(item.begin*1000))}}</span>
                                 -
-                                <span>{{formatTime(new Date(item.end))}}</span>
+                                <span>{{formatTime(new Date(item.end*1000))}}</span>
                             </div>
                             <el-button type="danger" size="mini" @click="deleteTask(item.tid)"
                                        style="float: right; height: 20px; padding: 3px; z-index: 10">
@@ -76,9 +76,9 @@
                                 {{taskItem.title}}
                             </p>
                             <div style="font-size: 0.8rem; color: #a6a9ad">
-                                <span>{{formatTime(new Date(taskItem.begin))}}</span>
+                                <span>{{formatTime(new Date(taskItem.begin*1000))}}</span>
                                 -
-                                <span>{{formatTime(new Date(taskItem.end))}}</span>
+                                <span>{{formatTime(new Date(taskItem.end*1000))}}</span>
                             </div>
                             <el-divider />
                         </div>
@@ -142,21 +142,21 @@
                 let data = {
                     uid: Cookies.get("uid"),
                     token: Cookies.get("token")
-                }
-                data = qs.stringify(data)
+                };
+                data = qs.stringify(data);
                 API.allTask(data)
                     .then(res => {
                         if (res.state === 0) {
-                            this.eventList = res.list
+                            this.eventList = res.list;
                             if (this.eventList.length > 0) {
-                                this.taskItem.tid = this.eventList[0].tid
-                                this.taskItem.type = this.eventList[0].type
-                                this.taskItem.group = this.eventList[0].group
-                                this.taskItem.state = this.eventList[0].state
-                                this.taskItem.begin = this.eventList[0].begin
-                                this.taskItem.end = this.eventList[0].end
-                                this.taskItem.title = this.eventList[0].title
-                                this.taskItem.detail = this.eventList[0].detail
+                                this.taskItem.tid = this.eventList[0].tid;
+                                this.taskItem.type = this.eventList[0].type;
+                                this.taskItem.group = this.eventList[0].group;
+                                this.taskItem.state = this.eventList[0].state;
+                                this.taskItem.begin = this.eventList[0].begin;
+                                this.taskItem.end = this.eventList[0].end;
+                                this.taskItem.title = this.eventList[0].title;
+                                this.taskItem.detail = this.eventList[0].detail;
                             } else {
                                 this.taskItem.begin = null
                                 this.taskItem.end = null
@@ -176,13 +176,14 @@
                 let data = {
                     uid: Cookies.get('uid'),
                     token: Cookies.get('token'),
-                    begin: new Date(this.timeRange[0]).valueOf(),
-                    end: new Date(this.timeRange[1]).valueOf(),
+                    begin: new Date(this.timeRange[0]).valueOf()/1000,
+                    end: new Date(this.timeRange[1]).valueOf()/1000,
                     title: this.newTaskItem.title,
                     detail: this.newTaskItem.detail,
                     type: this.newTaskItem.type,
                     groupid: this.newTaskItem.group
-                }
+                };
+
                 data = qs.stringify(data)
                 API.addTask(data)
                     .then(res => {

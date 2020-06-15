@@ -2,13 +2,13 @@
     <div class="bodyDiv">
         <my-title :active-index="activeIndex"></my-title>
         <div style="width: 80%;margin-left: 10%">
-            <el-tabs v-model="activeName">
+            <el-tabs v-model="activeName" @tab-click="handleClick">
                 <el-tab-pane label="时间线视图" name="first">
                     <list :ismain="false" style="width: 49%;float: left;min-height: 550px" @finalTid="receiveTid"></list>
                     <detail-card :task="taskDetail" style="width: 49%;margin-left: 2%;float: left;min-height: 520px"></detail-card>
                 </el-tab-pane>
                 <el-tab-pane label="周视图" name="second">
-                    <calendar-week :base-list="allList"></calendar-week>
+                    <calendar-week :base-list="allList" ref="weekSight"></calendar-week>
                 </el-tab-pane>
                 <el-tab-pane label="月视图" name="third">
                     <calendar-month></calendar-month>
@@ -99,6 +99,12 @@
                 console.log("this.allList");
                 console.log(this.allList);
             },
+
+            handleClick(tab, event){
+                if(this.activeName==="second"){
+                    this.$refs.weekSight.setList();
+                }
+            }
         }
     }
 </script>
