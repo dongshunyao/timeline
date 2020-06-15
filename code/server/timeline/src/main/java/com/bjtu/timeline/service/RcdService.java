@@ -89,6 +89,19 @@ public class RcdService {
         return new AddResponse(STATE_COMMON_OK);
     }
 
+    public DelResponse delRecord(int uid, int rid) {
+        DBrecord_body body = rcdDao.getRcdByRid(rid);
+        if (body == null) {
+            return new DelResponse(-10);//没有
+        }
+        if (body.getUid() != uid) {
+            return new DelResponse(-11);//不是你的
+        }
+        rcdDao.deleteRecord(rid);
+        rcdDao.cleanPictures(rid);
+        return new DelResponse(STATE_COMMON_OK);
+    }
+
     @SuppressWarnings("all")
     public PicUploadResponse picUpload(int uid, MultipartFile file) {
         String picPath = picturePrefix + uid + "\\";
