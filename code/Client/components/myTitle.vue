@@ -13,7 +13,7 @@
             <el-submenu index="3">
                 <template slot="title">{{this.name}}</template>
                 <el-menu-item index="3-1">数据统计</el-menu-item>
-                <el-menu-item index="3-2">个人设置</el-menu-item>
+                <el-menu-item index="3-2" @click="toSetting">个人设置</el-menu-item>
                 <el-menu-item index="3-3">退出登录</el-menu-item>
             </el-submenu>
         </el-menu>
@@ -24,46 +24,50 @@
     import API from "../api";
     import Pro from '../api/API_PRO';
     import Cookies from 'js-cookie';
+
     export default {
         name: "myTitle",
-        props:{
+        props: {
             activeIndex: {
                 type: String
             }
         },
-        data(){
-            return{
-                name:Cookies.get('name'),
-                token:Cookies.get('token'),
+        data() {
+            return {
+                name: Cookies.get('name'),
+                token: Cookies.get('token'),
             }
         },
 
-        methods:{
-            toHomePage(){
+        methods: {
+            toHomePage() {
                 this.$router.push({path: `/home`});
             },
-            toMyOrg(){
+            toMyOrg() {
                 this.$router.push({path: `/home`});
             },
+            toSetting() {
+                this.$router.push({path: '/setting'})
+            }
         }
     }
 </script>
 
 <style scoped>
-    .backgroud{
+    .backgroud {
         width: 100%;
         min-width: 1000px;
-        height:80px;
+        height: 80px;
         display: flex;
         align-items: center;
         background-color: #e6f4ff;
     }
 
-    >>>.el-menu{
+    >>> .el-menu {
         background-color: transparent;
     }
 
-    >>>.el-menu--horizontal > .el-menu-item:not(.is-disabled):hover, .el-menu--horizontal > .el-menu-item:not(.is-disabled):focus {
+    >>> .el-menu--horizontal > .el-menu-item:not(.is-disabled):hover, .el-menu--horizontal > .el-menu-item:not(.is-disabled):focus {
         background-color: transparent;
     }
 

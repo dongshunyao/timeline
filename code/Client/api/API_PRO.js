@@ -4,15 +4,19 @@ export default {
     method: 'post',
     //登录模块接口
     userLogin: {url: 'user/login'},
-    allTask:{url:'task/list'},
-    allRecord:{url:'rcd/list'},
+
+    allRecord: {url: 'rcd/list'},
 
     // 接口
     register: {url: 'user/reg'},
     userInfo: {url: 'user/info'},
     updateUserInfo: {url: 'user/infoupd'},
 
-    taskDetail:{url:'task/view'},
-
+    // 任务接口
+    allTask: {url: 'task/list'},
+    taskDetail: {url: 'task/view'},
+    addTask: {url: 'task/add'},
+    updateTask: {url: 'task/upd'},
+    deleteTask: {url: 'task/del'},
 
 }
