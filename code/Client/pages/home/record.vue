@@ -81,6 +81,9 @@
                             :before-close="handleClose">
                         <div>
                             <el-input type="textarea" v-model="recordItem.detail" :autosize="{ minRows: 5}"/>
+                            <div style="margin: 10px;">
+                                <input type="file" @change="uploadFile" />
+                            </div>
                         </div>
                         <div slot="footer">
                             <el-button @click="updateContent" type="primary" size="medium">确认保存</el-button>
@@ -160,7 +163,7 @@
                     uid: Cookies.get("uid"),
                     token: Cookies.get("token"),
                     title: this.newRecordItem.title,
-                    time: new Date(this.newRecordItem.time).valueOf(),
+                    time: new Date(this.newRecordItem.time).valueOf() * 1000,
                     detail: this.newRecordItem.detail,
                     picture: this.newRecordItem.picture
                 }
@@ -272,6 +275,25 @@
                     min + ':' +
                     sec;
             },
+            uploadFile: function (event) {
+                if (event.target.files.length > 0) {
+                    let data = {
+                        uid: Cookies.get('uid'),
+                        token: Cookies.get('token'),
+                        picture: event.target.files[0]
+                    }
+                    data = qs.stringify(data)
+                    API.uploadFile(data)
+                        .then(res => {
+                            if (res.state === 0) {
+                                
+                            }
+                        })
+                        .catch(res => {
+                            alert(res)
+                        })
+                }
+            }
         }
     }
 </script>

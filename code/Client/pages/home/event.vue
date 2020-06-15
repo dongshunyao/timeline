@@ -80,7 +80,7 @@
                                 -
                                 <span>{{formatTime(new Date(taskItem.end))}}</span>
                             </div>
-                            <el-divider />
+                            <el-divider/>
                         </div>
                         <div>
                             {{taskItem.detail}}
@@ -95,7 +95,8 @@
                             <el-input type="textarea" v-model="taskItem.detail" :autosize="{ minRows: 5}"/>
                         </div>
                         <div slot="footer">
-                            <el-button @click="updateContent(taskItem.tid)" type="primary" size="medium">确认保存</el-button>
+                            <el-button @click="updateContent(taskItem.tid)" type="primary" size="medium">确认保存
+                            </el-button>
                             <el-button @click="closeEditContent" size="medium">取消</el-button>
                         </div>
                     </el-dialog>
@@ -176,8 +177,8 @@
                 let data = {
                     uid: Cookies.get('uid'),
                     token: Cookies.get('token'),
-                    begin: new Date(this.timeRange[0]).valueOf(),
-                    end: new Date(this.timeRange[1]).valueOf(),
+                    begin: new Date(this.timeRange[0]).valueOf() * 1000,
+                    end: new Date(this.timeRange[1]).valueOf() * 1000,
                     title: this.newTaskItem.title,
                     detail: this.newTaskItem.detail,
                     type: this.newTaskItem.type,
