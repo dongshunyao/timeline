@@ -17,7 +17,7 @@
                             <div style="text-align: center">
                                 <el-form label-width="100px">
                                     <el-form-item label="标题">
-                                        <el-input/>
+                                        <el-input v-model="newTaskItem.title"/>
                                     </el-form-item>
 
                                     <el-form-item label="时间选择">
@@ -27,14 +27,15 @@
                                     </el-form-item>
 
                                     <el-form-item label="描述">
-                                        <el-input type="textarea" :autosize="{ minRows: 5}"/>
+                                        <el-input v-model="newTaskItem.detail" type="textarea"
+                                                  :autosize="{ minRows: 5}"/>
                                     </el-form-item>
 
                                     <el-form-item label="重复">
-                                        <el-radio v-model="repeat" label="no">不重复</el-radio>
-                                        <el-radio v-model="repeat" label="daily">每天</el-radio>
-                                        <el-radio v-model="repeat" label="weekly">每周</el-radio>
-                                        <el-radio v-model="repeat" label="monthly">每月</el-radio>
+                                        <el-radio v-model="newTaskItem.type" label="0">不重复</el-radio>
+                                        <el-radio v-model="newTaskItem.type" label="1">每天</el-radio>
+                                        <el-radio v-model="newTaskItem.type" label="2">每周</el-radio>
+                                        <el-radio v-model="newTaskItem.type" label="3">每月</el-radio>
                                     </el-form-item>
                                 </el-form>
                             </div>
@@ -53,7 +54,7 @@
                                 <p>开始时间：{{formatTime(new Date(item.begin))}}</p>
                                 <p>结束时间：{{formatTime(new Date(item.end))}}</p>
                             </div>
-                            <el-button type="danger" size="mini" @click="deleteTask(item.id)"
+                            <el-button type="danger" size="mini" @click="deleteTask(item.tid)"
                                        style="float: right; height: 20px; padding: 3px; z-index: 10">
                                 删除任务
                             </el-button>
@@ -92,7 +93,7 @@
                             <el-input type="textarea" v-model="taskItem.detail" :autosize="{ minRows: 5}"/>
                         </div>
                         <div slot="footer">
-                            <el-button @click="updateContent" type="primary" size="medium">确认保存</el-button>
+                            <el-button @click="updateContent(taskItem.tid)" type="primary" size="medium">确认保存</el-button>
                             <el-button @click="closeEditContent" size="medium">取消</el-button>
                         </div>
                     </el-dialog>
@@ -126,6 +127,7 @@
                 repeat: 'no',
                 // 右侧对象内容
                 taskItem: {tid: 0, type: 0, group: 0, state: 0, begin: 0, end: 0, title: '', detail: ''},
+                newTaskItem: {tid: 0, type: 0, group: 0, state: 0, begin: 0, end: 0, title: '', detail: ''},
                 editEventContent: '',
                 isEditContent: false
             }
@@ -166,11 +168,31 @@
                     })
             },
             showAddEvent: function () {
-                // TODO 显示添加任务窗口
                 this.isAddEvent = !this.isAddEvent
             },
             addEvent: function () {
-                //TODO 添加任务
+                let data = {
+                    uid: Cookies.get('uid'),
+                    token: Cookies.get('token'),
+                    begin: new Date(this.timeRange[0]).valueOf(),
+                    end: new Date(this.timeRange[1]).valueOf(),
+                    title: this.newTaskItem.title,
+                    detail: this.newTaskItem.detail,
+                    type: this.newTaskItem.type,
+                    groupid: this.newTaskItem.group
+                }
+                data = qs.stringify(data)
+                API.addTask(data)
+                    .then(res => {
+                        if (res.state === 0) alert('更新成功')
+                        else alert('更新失败')
+
+                        this.getUserEvent()
+                    })
+                    .catch(res => {
+                        alert(res.state)
+                    })
+
                 this.isAddEvent = !this.isAddEvent
             },
             updateEventContent: function (taskID) {
@@ -202,8 +224,25 @@
             editContent: function () {
                 this.isEditContent = !this.isEditContent
             },
-            updateContent: function () {
-                //TODO 提交更改信息
+            updateContent: function (taskID) {
+                let data = {
+                    uid: Cookies.get('uid'),
+                    token: Cookies.get('token'),
+                    tid: taskID,
+                    detail: this.taskItem.detail
+                }
+                data = qs.stringify(data)
+                API.updateTask(data)
+                    .then(res => {
+                        if (res.state === 0) alert('成功')
+                        else alert('失败')
+
+                        this.getUserEvent()
+                    })
+                    .catch(res => {
+                        alert(res)
+                    })
+
                 this.isEditContent = false
             },
             closeEditContent: function () {
@@ -213,7 +252,22 @@
                 this.isAddEvent = false
             },
             deleteTask: function (taskID) {
-                //TODO 删除任务
+                let data = {
+                    uid: Cookies.get('uid'),
+                    token: Cookies.get('token'),
+                    tid: taskID
+                }
+                data = qs.stringify(data)
+                API.deleteTask(data)
+                    .then(res => {
+                        if (res.state === 0) alert('成功')
+                        else alert('失败')
+
+                        this.getUserEvent()
+                    })
+                    .catch(res => {
+                        alert(res)
+                    })
             },
             handleClose(done) {
                 this.$confirm('确认取消？')

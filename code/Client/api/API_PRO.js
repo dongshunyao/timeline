@@ -16,6 +16,7 @@ export default {
     allTask: {url: 'task/list'},
     taskDetail: {url: 'task/view'},
     addTask: {url: 'task/add'},
+    updateTask: {url: 'task/upd'},
     deleteTask: {url: 'task/del'},
 
 }
