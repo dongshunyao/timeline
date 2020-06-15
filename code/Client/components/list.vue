@@ -7,16 +7,10 @@
             <br/>
             <el-tabs v-model="activeName" style="margin-top: -10px">
                 <el-tab-pane label="任务列表" name="first">
-                    <el-button v-if="!this.ismain" type="primary" size="small" style="float: right;">
-                        添加任务
-                    </el-button>
-                    <time-line :all-list="taskList" @getTid="sendTid"></time-line>
+                    <time-line :ismain="ismain" :all-list="taskList" @getTid="sendTid"></time-line>
                 </el-tab-pane>
                 <el-tab-pane label="记录列表" name="second">
-                    <el-button v-if="!this.ismain" type="primary" size="small" style="float: right;">
-                        添加记录
-                    </el-button>
-                    <time-line :all-list="recordList"></time-line>
+                    <time-line :ismain="ismain" :all-list="recordList"></time-line>
                 </el-tab-pane>
             </el-tabs>
         </el-card>
@@ -113,6 +107,9 @@
                         alert(res.message)
                     }
                     this.recordList = res.list;
+                    this.recordList.forEach(item => {
+                        item.time = new Date(item.time * 1000).toLocaleString();
+                    })
                 }).catch(msg => {
                     alert(msg);
                 });
