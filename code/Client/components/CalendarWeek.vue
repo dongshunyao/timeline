@@ -182,6 +182,15 @@
         methods:{
             setList(){
                 this.loading=true;
+                this.finalList.forEach(item=>{
+                    item.day1="";
+                    item.day2="";
+                    item.day3="";
+                    item.day4="";
+                    item.day5="";
+                    item.day6="";
+                    item.day7="";
+                });
                 let wk = new Date().getDay();
                 let dd = new Date().getDate();
 
@@ -189,6 +198,8 @@
                     item.day=new Date(item.time * 1000).getDate();
                     item.hours=new Date(item.time * 1000).getHours();
                     item.xingqi=new Date(item.time * 1000).getDay();
+
+                    console.log(dd - wk);
 
                     if(item.day>dd-wk+7 || item.day< dd - wk){
                         return true;
@@ -362,9 +373,6 @@
                             case 6:
                                 this.finalList[6].day6+=item.title;
                                 break;
-                            case 7:
-                                this.finalList[6].day7+=item.title;
-                                break;
                         }
                     }else if(item.hours<20){
                         switch (item.xingqi) {
@@ -385,9 +393,6 @@
                                 break;
                             case 6:
                                 this.finalList[7].day6+=item.title;
-                                break;
-                            case 7:
-                                this.finalList[7].day7+=item.title;
                                 break;
                         }
                     }else if(item.hours<22){
@@ -410,9 +415,6 @@
                             case 6:
                                 this.finalList[8].day6+=item.title;
                                 break;
-                            case 7:
-                                this.finalList[8].day7+=item.title;
-                                break;
                         }
 
                     }else if(item.hours<24){
@@ -434,9 +436,6 @@
                                 break;
                             case 6:
                                 this.finalList[9].day6+=item.title;
-                                break;
-                            case 7:
-                                this.finalList[9].day7+=item.title;
                                 break;
                         }
                     }

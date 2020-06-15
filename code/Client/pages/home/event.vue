@@ -1,6 +1,6 @@
 <template>
     <div>
-        <my-title style="width: 100%;"/>
+        <my-title :active-index="activeIndex" style="width: 100%;"/>
         <div class="bodyDiv">
             <div style="width: 40%;float: left;margin: 10px 5%;">
                 <el-card>
@@ -127,6 +127,7 @@
                 isAddEvent: false,
                 timeRange: '',
                 repeat: '0',
+                activeIndex:'1',
                 // 右侧对象内容
                 taskItem: {tid: 0, type: 0, group: 0, state: 0, begin: 0, end: 0, title: '', detail: ''},
                 newTaskItem: {tid: 0, type: 0, group: 0, state: 0, begin: 0, end: 0, title: '', detail: ''},
