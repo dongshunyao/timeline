@@ -34,7 +34,7 @@ public class RcdRequires {
     public static class UpdRequire implements Authentication {
         @NonNull int uid;
         @NonNull String token;
-        @NonNull int tid;
+        @NonNull int rid;
         String title;
         long time;
         String detail;
