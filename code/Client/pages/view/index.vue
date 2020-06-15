@@ -104,16 +104,19 @@
                     if(res.code){
                         alert(res.message)
                     }
-                    this.clickedTid=res.list[0].tid;
-                    let temp={
-                        tid:res.list[0].tid,
-                        isTask:true,
-                    };
-                    this.receiveTid(temp);
-                    res.list.forEach(item=>{
-                        item.time=item.begin;
-                        this.allList.push(item);
-                    });
+                    if(res.list.length > 0) {
+                        this.clickedTid=res.list[0].tid;
+                        let temp={
+                            tid:res.list[0].tid,
+                            isTask:true,
+                        };
+                        this.receiveTid(temp);
+                        res.list.forEach(item=>{
+                            item.time=item.begin;
+                            this.allList.push(item);
+                        });
+                    }
+
                 }).catch(msg=>{
                     alert(msg);
                 });

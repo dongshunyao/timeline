@@ -44,7 +44,7 @@
                 this.$router.push({path: `/home`});
             },
             toMyOrg() {
-                this.$router.push({path: `/home`});
+                this.$router.push({path: `/group`});
             },
             toSetting() {
                 this.$router.push({path: '/setting'})
