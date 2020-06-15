@@ -29,11 +29,15 @@ public interface UserMapper {
 
     @Insert("insert into user_reg(phone,pwd) " +
             "VALUES (#{phone},#{pw})")
-    void regByPhone(String phone,String pw);
+    void regByPhone(String phone, String pw);
 
     @Select("select * from user_info where uid=#{uid}")
     DBuser_info getUserInfoByUid(int uid);
 
     @Update("update user_info set nickname=#{nickname} where uid=#{uid}")
     void updateUserInfoByUid(int uid, String nickname);
+
+    @Insert("insert into user_info " +
+            "values (#{uid},#{nickname},#{regtime},#{isVIP})")
+    void insertInfo(int uid, String nickname, long regtime, int isVIP);
 }

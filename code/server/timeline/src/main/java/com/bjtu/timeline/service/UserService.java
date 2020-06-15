@@ -1,5 +1,6 @@
 package com.bjtu.timeline.service;
 
+import com.bjtu.common.NumberUtil;
 import com.bjtu.timeline.bean.proto.DBuser_info;
 import com.bjtu.timeline.bean.proto.DBuser_reg;
 import com.bjtu.timeline.bean.require.UserRequires;
@@ -31,7 +32,7 @@ public class UserService {
 
         //TODO: modify nickName, record regTime
         //TODO: fill when finish modify server
-        //userDao.modifyInfo(...);
+        userDao.insertInfo(loginInfo.getUid(), nickname, NumberUtil.getUnixTimestamp(), 0);
 
         return new RegResponse(STATE_COMMON_OK, loginInfo.getUid(), loginInfo.getToken());
     }
@@ -56,6 +57,7 @@ public class UserService {
 
     }
 
+    @SuppressWarnings("all")
     public boolean checkUser(UserRequires.Authentication userInfo) {
         if ("".equals(userInfo.getToken())) return false;
         return userDao.checkToken(userInfo.getUid(), userInfo.getToken());
