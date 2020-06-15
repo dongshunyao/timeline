@@ -2,8 +2,7 @@ package com.bjtu.timeline.mapper;
 
 import com.bjtu.timeline.bean.proto.DBrecord_body;
 import com.bjtu.timeline.bean.response.RcdResponses.*;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -24,5 +23,28 @@ public interface RcdMapper {
             "where rid = #{rid} " +
             "order by pos")
     List<String> rcdDaoPicListByRid(int rid);
+
+    @Update("update record_body " +
+            "set title = #{title} " +
+            "where rid = #{rid}")
+    void updateTitle(int rid, String title);
+
+    @Update("update record_body " +
+            "set time = #{time} " +
+            "where rid = #{rid}")
+    void updateTime(int rid, long time);
+
+    @Update("update record_body " +
+            "set detail = #{detail} " +
+            "where rid = #{rid}")
+    void updateDetail(int rid, String detail);
+
+    @Delete("delete from record_pic " +
+            "where rid = #{rid}")
+    void cleanPictures(int rid);
+
+    @Insert("insert into record_pic " +
+            "values (#{rid},#{path},#{pos})")
+    void addPicture(int rid, String path, int pos);
 
 }

@@ -41,13 +41,44 @@ public class RcdService {
     public ViewResponse getSingel(int uid, int rid) {
         DBrecord_body body = rcdDao.getRcdByRid(rid);
         if (body == null) {
-            return new ViewResponse(-10, -1, null, -1, null, null);//不是你的
+            return new ViewResponse(-10, -1, null, -1, null, null);//没有
         }
         if (body.getUid() != uid) {
             return new ViewResponse(-11, -1, null, -1, null, null);//不是你的
         }
         List<String> picList = rcdDao.rcdDaoPicListByRid(rid);
         return new ViewResponse(0, rid, body.getTitle(), body.getTime(), body.getDetail(), picList);
+    }
+
+    public UpdResponse updateRecord(int uid, int rid, String title, long time, String detail, List<String> pictures) {
+        DBrecord_body body = rcdDao.getRcdByRid(rid);
+        if (body == null) {
+            return new UpdResponse(-10);//没有
+        }
+        if (body.getUid() != uid) {
+            return new UpdResponse(-11);//不是你的
+        }
+
+        if (title != null) {
+            rcdDao.updateTitle(rid, title);
+        }
+
+        if (time != 0) {
+            rcdDao.updateTime(rid, time);
+        }
+
+        if (detail != null) {
+            rcdDao.updateDetail(rid, detail);
+        }
+
+        if (pictures != null) {
+            rcdDao.cleanPictures(rid);
+            for (int pos = 0; pos < pictures.size(); pos++) {
+                rcdDao.addPicture(rid, pictures.get(pos), pos);
+            }
+        }
+
+        return new UpdResponse(STATE_COMMON_OK);
     }
 
     public PicUploadResponse picUpload(int uid, MultipartFile file) {

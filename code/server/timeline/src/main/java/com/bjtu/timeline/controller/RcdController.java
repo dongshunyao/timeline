@@ -38,6 +38,21 @@ public class RcdController {
         return rcdService.getSingel(req.getUid(), req.getRid());
     }
 
+    @RequestMapping("/upd")
+    public UpdResponse list(UpdRequire req) {
+        if (!userService.checkUser(req)) {
+            return new UpdResponse(STATE_COMMON_FAIL);
+        }
+        return rcdService.updateRecord(
+                req.getUid(),
+                req.getRid(),
+                req.getTitle(),
+                req.getTime(),
+                req.getDetail(),
+                req.getPicture()
+        );
+    }
+
     @RequestMapping("/picupload")
     public PicUploadResponse picUpload(PicUploadRequire req) {
 
