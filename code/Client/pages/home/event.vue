@@ -50,9 +50,10 @@
                             <span>
                                 {{item.title}}
                             </span>
-                            <div style="font-size: 0.6rem; color: #a6a9ad">
-                                <p>开始时间：{{formatTime(new Date(item.begin))}}</p>
-                                <p>结束时间：{{formatTime(new Date(item.end))}}</p>
+                            <div style="font-size: 0.8rem; color: #a6a9ad">
+                                <span>{{formatTime(new Date(item.begin))}}</span>
+                                -
+                                <span>{{formatTime(new Date(item.end))}}</span>
                             </div>
                             <el-button type="danger" size="mini" @click="deleteTask(item.tid)"
                                        style="float: right; height: 20px; padding: 3px; z-index: 10">
@@ -69,16 +70,17 @@
                         <span>任务</span>
                         <i @click="editContent" class="el-icon-edit" style="float: right;"></i>
                     </div>
-                    <div style="margin: 5%; text-align: center">
+                    <div style="margin: 5%;">
                         <div>
                             <p style="font-size: 1.2rem">
                                 {{taskItem.title}}
                             </p>
-                            <div style="font-size: 0.6rem; color: #a6a9ad">
-                                <p>开始时间：{{formatTime(new Date(taskItem.begin))}}</p>
-                                <p>结束时间：{{formatTime(new Date(taskItem.end))}}</p>
+                            <div style="font-size: 0.8rem; color: #a6a9ad">
+                                <span>{{formatTime(new Date(taskItem.begin))}}</span>
+                                -
+                                <span>{{formatTime(new Date(taskItem.end))}}</span>
                             </div>
-
+                            <el-divider />
                         </div>
                         <div>
                             {{taskItem.detail}}
@@ -124,7 +126,7 @@
                 ],
                 isAddEvent: false,
                 timeRange: '',
-                repeat: 'no',
+                repeat: '0',
                 // 右侧对象内容
                 taskItem: {tid: 0, type: 0, group: 0, state: 0, begin: 0, end: 0, title: '', detail: ''},
                 newTaskItem: {tid: 0, type: 0, group: 0, state: 0, begin: 0, end: 0, title: '', detail: ''},
@@ -304,7 +306,6 @@
         display: inline-block;
         background-color: #efefef;
         width: 100%;
-        /*min-height: 100%;*/
     }
 
     .eventItem {

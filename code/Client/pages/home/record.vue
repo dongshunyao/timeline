@@ -17,7 +17,7 @@
                             <div style="text-align: center">
                                 <el-form label-width="100px">
                                     <el-form-item label="标题">
-                                        <el-input/>
+                                        <el-input v-model="newRecordItem.title" />
                                     </el-form-item>
 
                                     <el-form-item label="时间选择">
@@ -27,14 +27,7 @@
                                     </el-form-item>
 
                                     <el-form-item label="描述">
-                                        <el-input type="textarea" :autosize="{ minRows: 5}"/>
-                                    </el-form-item>
-
-                                    <el-form-item label="重复">
-                                        <el-radio v-model="repeat" label="no">不重复</el-radio>
-                                        <el-radio v-model="repeat" label="daily">每天</el-radio>
-                                        <el-radio v-model="repeat" label="weekly">每周</el-radio>
-                                        <el-radio v-model="repeat" label="monthly">每月</el-radio>
+                                        <el-input v-model="newRecordItem.detail" type="textarea" :autosize="{ minRows: 5}"/>
                                     </el-form-item>
                                 </el-form>
                             </div>
@@ -44,15 +37,15 @@
                             </div>
                         </el-dialog>
                     </div>
-                    <div v-for="item in recordList" :key="item.id">
-                        <div style="margin: 10px;" @click="updateRecordContent(item.id)" class="">
+                    <div v-for="item in recordList" :key="item.rid">
+                        <div style="margin: 10px;" @click="updateRecordContent(item.rid)" class="">
                             <span>
-                                {{item.recordTitle}}
+                                {{item.time}}
                             </span>
                             <p style="font-size: 0.8rem; color: #B4BCCC;margin-top: 5px;">
-                                {{item.recordTime}}
+                                {{formatTime(item.time)}}
                             </p>
-                            <el-button type="danger" size="mini" @click="deleteTask(item.id)"
+                            <el-button type="danger" size="mini" @click="deleteTask(item.rid)"
                                        style="float: right; height: 20px; padding: 3px; z-index: 10">
                                 删除记录
                             </el-button>
@@ -76,7 +69,7 @@
                             :visible.sync="isEditContent"
                             :before-close="handleClose">
                         <div>
-                            <el-input type="textarea" v-model="content" :autosize="{ minRows: 5}"/>
+                            <el-input type="textarea" v-model="recordItem.detail" :autosize="{ minRows: 5}"/>
                         </div>
                         <div slot="footer">
                             <el-button @click="updateContent" type="primary" size="medium">确认保存</el-button>
@@ -86,33 +79,32 @@
                 </el-card>
             </div>
         </div>
-        <my-footer />
+        <my-footer/>
     </div>
 </template>
 
 <script>
     import MyTitle from "../../components/myTitle";
     import MyFooter from "../../components/myFooter";
+
     export default {
         name: "record",
         components: {MyFooter, MyTitle},
         data() {
             return {
                 recordList: [
-                    {id: 1, recordTitle: 'title', recordTime: '13点26分'},
-                    {id: 2, recordTitle: 'title-2', recordTime: '13点16分'},
-                    {id: 3, recordTitle: 'title-3', recordTime: '13点16分'},
-                    {id: 4, recordTitle: 'title-4', recordTime: '13点16分'},
-                    {id: 5, recordTitle: 'title-5', recordTime: '13点16分'},
-                    {id: 6, recordTitle: 'title-6', recordTime: '13点16分'},
-                    {id: 7, recordTitle: 'title-7', recordTime: '13点16分'},
+                    {rid: 1, title: 'title1', time: '13点26分', detail: '', picture: []},
+                    {rid: 2, title: 'title2', time: '13点26分', detail: '', picture: []},
+                    {rid: 3, title: 'title3', time: '13点26分', detail: '', picture: []},
+                    {rid: 4, title: 'title4', time: '13点26分', detail: '', picture: []}
                 ],
                 isAddRecord: false,
                 timeRange: '',
-                repeat: 'no',
-                content: 'content',
+                repeat: '0',
                 editRecordContent: '',
-                isEditContent: false
+                isEditContent: false,
+                recordItem: {rid: 1, title: 'title1', time: '13点26分', detail: '', picture: []},
+                newRecordItem: {rid: 1, title: 'title1', time: '13点26分', detail: '', picture: []}
             }
         },
         mounted() {
@@ -132,7 +124,7 @@
             },
             updateRecordContent: function (recordID) {
                 //TODO 获取点击记录内容
-                this.content = this.recordList[recordID - 1].recordTitle
+                this.recordItem = this.recordList[recordID - 1]
             },
             editContent: function () {
                 this.isEditContent = !this.isEditContent
@@ -157,6 +149,24 @@
                     })
                     .catch(_ => {
                     });
+            },
+            formatTime: function (time) {
+                if (time === null) return null
+
+                let date = new Date(time);
+
+                let year = date.getFullYear(),
+                    month = date.getMonth() + 1,//月份是从0开始的
+                    day = date.getDate(),
+                    hour = date.getHours(),
+                    min = date.getMinutes(),
+                    sec = date.getSeconds();
+                return year + '-' +
+                    month + '-' +
+                    day + ' ' +
+                    hour + ':' +
+                    min + ':' +
+                    sec;
             }
         }
     }
@@ -167,6 +177,5 @@
         display: inline-block;
         background-color: #efefef;
         width: 100%;
-        /*min-height: 100%;*/
     }
 </style>
