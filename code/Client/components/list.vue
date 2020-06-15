@@ -276,8 +276,7 @@
                     .then(res => {
                         if (res.state === 0) alert('添加成功');
                         else alert('添加失败');
-
-                        this.getUserRecord()
+                        this.getList();
                     })
                     .catch(res => {
                         alert(res)

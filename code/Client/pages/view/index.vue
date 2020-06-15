@@ -12,7 +12,7 @@
                     <calendar-week :base-list="allList" ref="weekSight"></calendar-week>
                 </el-tab-pane>
                 <el-tab-pane label="月视图" name="third">
-                    <calendar-month></calendar-month>
+                    <calendar-month :base-list="allList" ref="monthSight"></calendar-month>
                 </el-tab-pane>
             </el-tabs>
         </div>
@@ -122,16 +122,21 @@
                         alert(res.message)
                     }
                     res.list.forEach(item=>{
+                        //item.time=item.time;
                         this.allList.push(item);
                     });
                 }).catch(msg=>{
                     alert(msg);
                 });
+                //console.log("this.allList");
+                //console.log(this.allList);
             },
 
             handleClick(tab, event){
                 if(this.activeName==="second"){
                     this.$refs.weekSight.setList();
+                }else if(this.activeName==="third"){
+                    this.$refs.monthSight.getAllList();
                 }
             }
         }

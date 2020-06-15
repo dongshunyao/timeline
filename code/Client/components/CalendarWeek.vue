@@ -71,6 +71,7 @@
         data(){
             return{
                 loading:false,
+                tempList:[],
                 finalList:[{
                     time:"0:00-6:00",
                     day:[],
@@ -182,6 +183,7 @@
         methods:{
             setList(){
                 this.loading=true;
+                this.tempList=this.baseList;
                 this.finalList.forEach(item=>{
                     item.day1="";
                     item.day2="";
@@ -194,9 +196,7 @@
                 let wk = new Date().getDay();
                 let dd = new Date().getDate();
 
-                console.log(this.baseList);
-
-                this.baseList.forEach(item=>{
+                this.tempList.forEach(item=>{
                     item.day=new Date(item.time * 1000).getDate();
                     item.hours=new Date(item.time * 1000).getHours();
                     item.xingqi=new Date(item.time * 1000).getDay();
@@ -204,31 +204,30 @@
                     if(item.day>dd-wk+7 || item.day< dd - wk){
                         return true;
                     }
-                    console.log("item");
-                    console.log(item);
+
                     if(item.hours>0 && item.hours<6){
                         if(item.type!==1){
                             switch (item.xingqi) {
                                 case 0:
-                                    this.finalList[0].day1+=item.title;
+                                    this.finalList[0].day1+= " "+item.title;
                                     break;
                                 case 1:
-                                    this.finalList[0].day2+=item.title;
+                                    this.finalList[0].day2+= " "+item.title;
                                     break;
                                 case 2:
-                                    this.finalList[0].day3+=item.title;
+                                    this.finalList[0].day3+= " "+item.title;
                                     break;
                                 case 3:
-                                    this.finalList[0].day4+=item.title;
+                                    this.finalList[0].day4+= " "+item.title;
                                     break;
                                 case 4:
-                                    this.finalList[0].day5+=item.title;
+                                    this.finalList[0].day5+= " "+item.title;
                                     break;
                                 case 5:
-                                    this.finalList[0].day6+=item.title;
+                                    this.finalList[0].day6+= " "+item.title;
                                     break;
                                 case 6:
-                                    this.finalList[0].day7+=item.title;
+                                    this.finalList[0].day7+= " "+item.title;
                                     break;
                             }
                         }else{
