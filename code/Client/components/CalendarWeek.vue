@@ -194,6 +194,8 @@
                 let wk = new Date().getDay();
                 let dd = new Date().getDate();
 
+                console.log(this.baseList);
+
                 this.baseList.forEach(item=>{
                     item.day=new Date(item.time * 1000).getDate();
                     item.hours=new Date(item.time * 1000).getHours();
@@ -213,19 +215,19 @@
                             case 1:
                                 this.finalList[0].day2+=item.title;
                                 break;
-                            case 3:
+                            case 2:
                                 this.finalList[0].day3+=item.title;
                                 break;
-                            case 4:
+                            case 3:
                                 this.finalList[0].day4+=item.title;
                                 break;
-                            case 5:
+                            case 4:
                                 this.finalList[0].day5+=item.title;
                                 break;
-                            case 6:
+                            case 5:
                                 this.finalList[0].day6+=item.title;
                                 break;
-                            case 7:
+                            case 6:
                                 this.finalList[0].day7+=item.title;
                                 break;
                         }
@@ -237,19 +239,19 @@
                             case 1:
                                 this.finalList[1].day2+=item.title;
                                 break;
-                            case 3:
+                            case 2:
                                 this.finalList[1].day3+=item.title;
                                 break;
-                            case 4:
+                            case 3:
                                 this.finalList[1].day4+=item.title;
                                 break;
-                            case 5:
+                            case 4:
                                 this.finalList[1].day5+=item.title;
                                 break;
-                            case 6:
+                            case 5:
                                 this.finalList[1].day6+=item.title;
                                 break;
-                            case 7:
+                            case 6:
                                 this.finalList[1].day7+=item.title;
                                 break;
                         }
@@ -262,19 +264,19 @@
                             case 1:
                                 this.finalList[2].day2+=item.title;
                                 break;
-                            case 3:
+                            case 2:
                                 this.finalList[2].day3+=item.title;
                                 break;
-                            case 4:
+                            case 3:
                                 this.finalList[2].day4+=item.title;
                                 break;
-                            case 5:
+                            case 4:
                                 this.finalList[2].day5+=item.title;
                                 break;
-                            case 6:
+                            case 5:
                                 this.finalList[2].day6+=item.title;
                                 break;
-                            case 7:
+                            case 6:
                                 this.finalList[2].day7+=item.title;
                                 break;
                         }
@@ -287,19 +289,19 @@
                             case 1:
                                 this.finalList[3].day2+=item.title;
                                 break;
-                            case 3:
+                            case 2:
                                 this.finalList[3].day3+=item.title;
                                 break;
-                            case 4:
+                            case 3:
                                 this.finalList[3].day4+=item.title;
                                 break;
-                            case 5:
+                            case 4:
                                 this.finalList[3].day5+=item.title;
                                 break;
-                            case 6:
+                            case 5:
                                 this.finalList[3].day6+=item.title;
                                 break;
-                            case 7:
+                            case 6:
                                 this.finalList[3].day7+=item.title;
                                 break;
                         }
@@ -312,19 +314,19 @@
                             case 1:
                                 this.finalList[4].day2+=item.title;
                                 break;
-                            case 3:
+                            case 2:
                                 this.finalList[4].day3+=item.title;
                                 break;
-                            case 4:
+                            case 3:
                                 this.finalList[4].day4+=item.title;
                                 break;
-                            case 5:
+                            case 4:
                                 this.finalList[4].day5+=item.title;
                                 break;
-                            case 6:
+                            case 5:
                                 this.finalList[4].day6+=item.title;
                                 break;
-                            case 7:
+                            case 6:
                                 this.finalList[4].day7+=item.title;
                                 break;
                         }
@@ -337,19 +339,19 @@
                             case 1:
                                 this.finalList[5].day2+=item.title;
                                 break;
-                            case 3:
+                            case 2:
                                 this.finalList[5].day3+=item.title;
                                 break;
-                            case 4:
+                            case 3:
                                 this.finalList[5].day4+=item.title;
                                 break;
-                            case 5:
+                            case 4:
                                 this.finalList[5].day5+=item.title;
                                 break;
-                            case 6:
+                            case 5:
                                 this.finalList[5].day6+=item.title;
                                 break;
-                            case 7:
+                            case 6:
                                 this.finalList[5].day7+=item.title;
                                 break;
                         }
@@ -361,17 +363,20 @@
                             case 1:
                                 this.finalList[6].day2+=item.title;
                                 break;
-                            case 3:
+                            case 2:
                                 this.finalList[6].day3+=item.title;
                                 break;
-                            case 4:
+                            case 3:
                                 this.finalList[6].day4+=item.title;
                                 break;
-                            case 5:
+                            case 4:
                                 this.finalList[6].day5+=item.title;
                                 break;
-                            case 6:
+                            case 5:
                                 this.finalList[6].day6+=item.title;
+                                break;
+                            case 6:
+                                this.finalList[6].day7+=item.title;
                                 break;
                         }
                     }else if(item.hours<20){
@@ -382,17 +387,20 @@
                             case 1:
                                 this.finalList[7].day2+=item.title;
                                 break;
-                            case 3:
+                            case 2:
                                 this.finalList[7].day3+=item.title;
                                 break;
-                            case 4:
+                            case 3:
                                 this.finalList[7].day4+=item.title;
                                 break;
-                            case 5:
+                            case 4:
                                 this.finalList[7].day5+=item.title;
                                 break;
-                            case 6:
+                            case 5:
                                 this.finalList[7].day6+=item.title;
+                                break;
+                            case 6:
+                                this.finalList[7].day7+=item.title;
                                 break;
                         }
                     }else if(item.hours<22){
@@ -403,17 +411,20 @@
                             case 1:
                                 this.finalList[8].day2+=item.title;
                                 break;
-                            case 3:
+                            case 2:
                                 this.finalList[8].day3+=item.title;
                                 break;
-                            case 4:
+                            case 3:
                                 this.finalList[8].day4+=item.title;
                                 break;
-                            case 5:
+                            case 4:
                                 this.finalList[8].day5+=item.title;
                                 break;
-                            case 6:
+                            case 5:
                                 this.finalList[8].day6+=item.title;
+                                break;
+                            case 6:
+                                this.finalList[8].day7+=item.title;
                                 break;
                         }
 
@@ -425,17 +436,20 @@
                             case 1:
                                 this.finalList[9].day2+=item.title;
                                 break;
-                            case 3:
+                            case 2:
                                 this.finalList[9].day3+=item.title;
                                 break;
-                            case 4:
+                            case 3:
                                 this.finalList[9].day4+=item.title;
                                 break;
-                            case 5:
+                            case 4:
                                 this.finalList[9].day5+=item.title;
                                 break;
-                            case 6:
+                            case 5:
                                 this.finalList[9].day6+=item.title;
+                                break;
+                            case 6:
+                                this.finalList[9].day7+=item.title;
                                 break;
                         }
                     }
