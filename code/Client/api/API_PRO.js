@@ -29,6 +29,9 @@ export default {
     // 上传文件
     uploadFile: {url: 'rcd/picupload'},
 
-
+    //群组相关
     groupList: {url: 'group/list'},
+    groupDel: {url: 'group/del'},
+    groupInfo: {url: 'group/info'},
+    groupManage: {url: 'group/manage'},
 }

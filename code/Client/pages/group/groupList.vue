@@ -5,6 +5,7 @@
 
             <el-table
                 :data="listData"
+                @click = ";"
                 style="width: 100%">
                 <el-table-column
                     label="组名"
@@ -24,11 +25,11 @@
                     <template slot-scope="scope">
                         <el-button
                             size="mini"
-                            @click=";">编辑</el-button>
+                            @click="viewGroupInfo(scope.row.id)">编辑</el-button>
                         <el-button
                             size="mini"
                             type="danger"
-                            @click=";">删除</el-button>
+                            @click="deleteGroup(scope.row.id)">删除</el-button>
                     </template>
                 </el-table-column>
             </el-table>
@@ -51,7 +52,23 @@
             console.log(this.listData);
         },
         methods: {
-            
+            deleteGroup: function(gid){
+                this.$confirm('确认删除？').then(_ => {
+                    let data = {
+                        uid: Cookies.get("uid"),
+                        token: Cookies.get("token"),
+                        id: gid,
+                    }
+                    data = qs.stringify(data)
+                    API.groupDel(data)
+                        .then(res => {})
+                        .catch(res => {})
+                    ;
+                }).catch( _ => {});
+            },
+            viewGroupInfo: function(gid){
+                this.$emit('showInfo',gid);
+            }
         }
     }
 </script>
