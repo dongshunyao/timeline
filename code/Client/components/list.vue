@@ -1,7 +1,9 @@
 <template>
     <div>
         <el-card>
-            <el-button v-if="this.ismain" type="text" style="float: right;margin-right: 5px;margin-top: -10px" @click="toViewPage">更多>></el-button>
+            <el-button v-if="this.ismain" type="text" style="float: right;margin-right: 5px;margin-top: -10px"
+                       @click="toViewPage">更多>>
+            </el-button>
             <br/>
             <el-tabs v-model="activeName" style="margin-top: -10px">
                 <el-tab-pane label="任务列表" name="first">
@@ -21,100 +23,101 @@
     import Cookies from 'js-cookie';
     import TimeLine from "./TimeLine";
     import qs from "qs";
+
     export default {
         name: "list",
         components: {TimeLine},
-        props:{
-            ismain:{
+        props: {
+            ismain: {
                 type: Boolean,
             }
         },
-        data(){
-            return{
-                token:Cookies.get("token"),
-                uid:Cookies.get("uid"),
-                activeName:'first',
-                taskList:[{
-                    begin:"2018/4/12",
-                    title:"任务1",
-                    detail:"This is task 1",
-                },{
-                    begin:"2018/4/16",
-                    title:"任务2",
-                    detail:"This is task 2",
-                },{
-                    begin:"2018/6/12",
-                    title:"任务3",
-                    detail:"This is task 3",
-                },{
-                    begin:"2018/8/10",
-                    title:"任务4",
-                    detail:"This is task 4",
+        data() {
+            return {
+                token: Cookies.get("token"),
+                uid: Cookies.get("uid"),
+                activeName: 'first',
+                taskList: [{
+                    begin: "2018/4/12",
+                    title: "任务1",
+                    detail: "This is task 1",
+                }, {
+                    begin: "2018/4/16",
+                    title: "任务2",
+                    detail: "This is task 2",
+                }, {
+                    begin: "2018/6/12",
+                    title: "任务3",
+                    detail: "This is task 3",
+                }, {
+                    begin: "2018/8/10",
+                    title: "任务4",
+                    detail: "This is task 4",
                 }],
 
-                recordList:[{
-                    tid:'1',
-                    time:"2020/11/10",
-                    title:"记录1",
-                    detail:"This is task 1",
-                },{
-                    tid:'2',
-                    time:"2020/1/20",
-                    title:"记录2",
-                    detail:"This is task 2",
-                },{
-                    tid:'3',
-                    time:"2019/11/18",
-                    title:"记录3",
-                    detail:"This is task 3",
-                },{
-                    tid:'4',
-                    time:"2018/11/18",
-                    title:"记录4",
-                    detail:"This is task 4",
+                recordList: [{
+                    tid: '1',
+                    time: "2020/11/10",
+                    title: "记录1",
+                    detail: "This is task 1",
+                }, {
+                    tid: '2',
+                    time: "2020/1/20",
+                    title: "记录2",
+                    detail: "This is task 2",
+                }, {
+                    tid: '3',
+                    time: "2019/11/18",
+                    title: "记录3",
+                    detail: "This is task 3",
+                }, {
+                    tid: '4',
+                    time: "2018/11/18",
+                    title: "记录4",
+                    detail: "This is task 4",
                 }]
             }
         },
 
-        mounted(){
+        mounted() {
             this.getList();
         },
 
-        methods:{
-            getList(){
-                let data={
+        methods: {
+            getList() {
+                let data = {
                     token: this.token,
-                    uid:this.uid
+                    uid: this.uid
                 };
                 data = qs.stringify(data);
-                API.allTask(data).then(res=>{
-                    if(res.code){
+                API.allTask(data).then(res => {
+                    if (res.code) {
                         alert(res.message)
                     }
-                    this.taskList=res.list;
-                    this.taskList.forEach(item=>{
-                        item.time=new Date(item.begin*1000).toLocaleString();
+                    this.taskList = res.list;
+                    this.taskList.forEach(item => {
+                        item.time = new Date(item.begin * 1000).toLocaleString();
                     })
-                }).catch(msg=>{
+                }).catch(msg => {
                     alert(msg);
                 });
 
-                /*API.allRecord(data).then(res=>{
-                    if(res.code){
+                API.allRecord(data).then(res => {
+                    if (res.code) {
                         alert(res.message)
                     }
-                    this.recordList=res.list;
-                }).catch(msg=>{
+                    this.recordList = res.list;
+                }).catch(msg => {
                     alert(msg);
-                });*/
+                });
             },
 
-            toViewPage(){
+            toViewPage() {
                 this.$router.push({path: `/view`});
             },
 
-            sendTid(data){
-                this.$emit('finalTid',data);
+            sendTid(data) {
+                this.$emit('finalTid', data);
             }
         }
     }

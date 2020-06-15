@@ -5,8 +5,6 @@ export default {
     //登录模块接口
     userLogin: {url: 'user/login'},
 
-    allRecord: {url: 'rcd/list'},
-
     // 接口
     register: {url: 'user/reg'},
     userInfo: {url: 'user/info'},
@@ -19,4 +17,10 @@ export default {
     updateTask: {url: 'task/upd'},
     deleteTask: {url: 'task/del'},
 
+    // 记录接口
+    allRecord: {url: 'rcd/list'},
+    recordDetail: {url: 'rcd/view'},
+    updateRecord: {url: 'rcd/upd'},
+    addRecord: {url: 'rcd/add'},
+    deleteRecord: {url: 'rcd/del'}
 }
