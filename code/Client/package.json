@@ -30,9 +30,9 @@
     "babel-plugin-component": "^1.0.0",
     "css-loader": "^7.1.2",
     "element-theme-chalk": "2.4.9",
-    "eslint": "^9.17.0",
+    "eslint": "^10.0.1",
     "eslint-friendly-formatter": "^3.0.0",
-    "eslint-loader": "^1.7.1",
+    "eslint-loader": "^4.0.2",
     "eslint-plugin-vue": "^4.0.0",
     "qs": "^6.9.4",
     "script-loader": "^0.7.2"
