@@ -19,7 +19,7 @@
     "js-cookie": "^2.2.0",
     "lodash": "^4.17.23",
     "moment": "^2.29.4",
-    "nuxt": "^3.19.0",
+    "nuxt": "^3.21.1",
     "vue-quill-editor": "^3.0.6"
   },
   "devDependencies": {
