@@ -23,7 +23,7 @@
     "vue-quill-editor": "^3.0.6"
   },
   "devDependencies": {
-    "@nuxtjs/axios": "^5.8.0",
+    "@nuxtjs/axios": "^5.13.6",
     "@nuxtjs/proxy": "^2.1.0",
     "axios": "^1.15.0",
     "babel-eslint": "^10.1.0",
